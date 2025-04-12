@@ -1,0 +1,23 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import History from './pages/History';
+import Payment from './pages/Payment';
+
+function App() {
+  return (
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/make-payment" element={<Payment />} />
+          {/* Add other routes as they are implemented */}
+        </Routes>
+      </Layout>
+    </Router>
+  );
+}
+
+export default App;
