@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import History from './pages/History';
 import Payment from './pages/Payment';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard/>} />
+
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
           {/* Add other routes as they are implemented */}
