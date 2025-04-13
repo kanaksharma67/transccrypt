@@ -1,8 +1,68 @@
 import React from 'react';
-import { Send, ReceiptIcon as ReceiveIcon, RefreshCw, Users } from 'lucide-react';
+import { Send, ReceiptIcon, RefreshCw, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend
+);
 
 const Home = () => {
+  const chartData = {
+    labels: ['Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [
+      {
+        fill: true,
+        label: 'Spending',
+        data: [300, 250, 400, 350, 500, 450],
+        borderColor: '#a855f7',
+        backgroundColor: 'rgba(168, 85, 247, 0.2)',
+        tension: 0.4,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          color: '#9ca3af',
+        },
+      },
+      y: {
+        display: false,
+      },
+    },
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-start mb-8">
@@ -53,7 +113,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-4 mt-6">
+      <div className="grid grid-cols-4 gap-4">
         <Link to="/send" className="bg-[#1a2235] p-6 rounded-lg text-center hover:bg-[#232b3d] transition">
           <div className="bg-purple-600/20 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
             <Send className="text-purple-500" size={24} />
@@ -62,7 +122,7 @@ const Home = () => {
         </Link>
         <Link to="/receive" className="bg-[#1a2235] p-6 rounded-lg text-center hover:bg-[#232b3d] transition">
           <div className="bg-teal-600/20 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
-            <ReceiveIcon className="text-teal-500" size={24} />
+            <ReceiptIcon className="text-teal-500" size={24} />
           </div>
           <div>Receive</div>
         </Link>
@@ -78,6 +138,19 @@ const Home = () => {
           </div>
           <div>Split</div>
         </Link>
+      </div>
+
+      <div className="bg-[#1a2235] rounded-lg p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="font-semibold">Spending Trend</h3>
+          <div className="flex gap-2">
+            <button className="px-4 py-1 bg-purple-500 rounded-full text-sm">Weekly</button>
+            <button className="px-4 py-1 text-gray-400 hover:text-white">Monthly</button>
+          </div>
+        </div>
+        <div className="h-[200px]">
+          <Line data={chartData} options={chartOptions} />
+        </div>
       </div>
     </div>
   );
