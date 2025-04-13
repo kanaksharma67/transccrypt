@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="bg-purple-600 rounded-full p-2">
           <span className="text-xl">Σ</span>
         </div>
-        <span className="text-xl font-semibold">CryptoFlow</span>
+        <span className="text-xl font-semibold">TransCrypt</span>
       </Link>
       
       <div className="flex items-center gap-8">

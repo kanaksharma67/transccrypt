@@ -12,11 +12,15 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+<<<<<<< HEAD
           <Route path="/dashboard" element={<Dashboard/>} />
 
+=======
+          <Route path="/dashbaord" element={<Dashboard />} />
+>>>>>>> 79724eb4476248a1fdeb2c331c271e06deda13d8
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
-          {/* Add other routes as they are implemented */}
+          
         </Routes>
       </Layout>
     </Router>
