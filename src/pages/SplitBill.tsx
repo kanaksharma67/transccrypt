@@ -430,7 +430,7 @@ const SplitBill: React.FC = () => {
   };
 
   return (
-    <div className="font-sans min-h-screen flex items-center justify-center   p-20">
+    <div className="font-sans  flex items-center justify-center   ">
       <div className=" w-full space-y-6">
         <div className="flex items-center justify-center gap-3 mb-4 animate-float">
           <div className="h-12 w-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/20">

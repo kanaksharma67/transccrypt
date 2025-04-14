@@ -6,18 +6,19 @@ import History from './pages/History';
 import Payment from './pages/Payment';
 import Dashboard from './pages/Dashboard';
 import SplitBill from './pages/SplitBill';
-import Convert from './pages/convert';
+import Convert from './pages/Convert';
 
 function App() {
   return (
     <Router>
       <Layout>
         <Routes>
-        <Route path="/" element={<Dashboard />} />
-          <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
           <Route path="/split-bill" element={<SplitBill/>} />
+          <Route path="/convert" element={<Convert/>} />
         </Routes>
       </Layout>
     </Router>

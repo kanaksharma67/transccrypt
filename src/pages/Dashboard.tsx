@@ -60,6 +60,24 @@ export default function Dashboard() {
     <div className="min-h-screen w-full ">
 
       <div className="relative pt-16">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  {facilities.map((facility, i) => (
+                    <Card
+                      key={i}
+                      ref={(el) => (facilityCardsRef.current[i] = el)}
+                      className="overflow-hidden border-slate-800 bg-gradient-to-br from-slate-800 to-slate-900 p-0 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-sky-900/20"
+                    >
+                      <div className="p-6">
+                        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-slate-950/50 backdrop-blur-sm">
+                          {facility.icon}
+                        </div>
+                        <h3 className="mb-2 text-xl font-semibold text-white">{facility.title}</h3>
+                        <p className="text-slate-400">{facility.description}</p>
+                      </div>
+                      <div className="h-1 w-full bg-gradient-to-r from-transparent via-sky-400 to-transparent opacity-50"></div>
+                    </Card>
+                  ))}
+                </div>
         {/* Background effects */}
         <div className="fixed inset-0 z-0">
           <div className="absolute inset-0 bg-[radial-gradient(#ffffff10_1px,transparent_1px)] bg-[size:20px_20px]" />
@@ -69,17 +87,17 @@ export default function Dashboard() {
 
         <div className="relative z-10">
           {/* Hero Section */}
-          <section className="container mx-auto px-4 py-20">
+          <section className="container mx-auto px-1 ">
             <ContainerScroll
               titleComponent={
                 <>
                   <h1 className="mb-6 bg-gradient-to-r from-sky-400 via-blue-500 to-purple-600 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-6xl lg:text-7xl">
-                    Your Offline Payment Solution
-                    <span className="mt-2 block text-white">
-                      <span className="text-sky-400">Trans</span>
-                      <span className="text-emerald-400">Crypt</span>
-                    </span>
-                  </h1>
+              Your Offline Payment Solution
+              <span className="mt-2 block text-white">
+                <span className="text-sky-400">Trans</span>
+                <span className="text-emerald-400">Crypt</span>
+              </span>
+            </h1>
                   <p className="mx-auto mb-10 max-w-2xl text-lg text-slate-300">
                     TransCrypt is a next-generation blockchain-powered payment solution designed to empower users with secure,
                     fast, and reliable transactions—even without an internet connection.
@@ -102,7 +120,7 @@ export default function Dashboard() {
               }
             >
               {/* Dashboard Preview */}
-              <div className="mx-auto max-w-5xl overflow-hidden rounded-xl bg-slate-900/50 backdrop-blur-sm">
+              <div className="mx-auto max-w-5xl overflow-hidden rounded-xl bg-slate-900 backdrop-blur-sm">
                 <div className="relative p-6">
                   <div className="mb-6 flex items-center justify-between">
                     <div className="flex items-center space-x-2">
@@ -160,13 +178,7 @@ export default function Dashboard() {
           </section>
 
           {/* Facilities Section */}
-          <section className="bg-slate-950/50 py-20">
-            <div className="container mx-auto px-4">
-              <div ref={facilitiesRef} className="mx-auto max-w-6xl">
-                <div className="mb-16 text-center">
-                  <h2 className="mb-2 text-3xl font-bold text-white">Facilities We Provide</h2>
-                  <p className="text-slate-400">Powerful features to revolutionize your payment experience</p>
-                </div>
+         
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   {facilities.map((facility, i) => (
@@ -186,9 +198,7 @@ export default function Dashboard() {
                     </Card>
                   ))}
                 </div>
-              </div>
-            </div>
-          </section>
+              
         </div>
       </div>
     </div>
