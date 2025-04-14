@@ -10,16 +10,15 @@ import { Card } from "@/components/ui/card"
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import Navbar from "@/components/Navbar"
 
-// Register GSAP plugins
+// Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Dashboard() {
   const navigate = useNavigate()
   const facilitiesRef = useRef(null)
-  const facilityCardsRef = useRef<(HTMLDivElement | null)[]>([])
+  const facilityCardsRef = useRef<Array<HTMLDivElement | null>>([])
 
   useEffect(() => {
-    // ScrollTrigger animation for facilities
     gsap.from(facilityCardsRef.current, {
       scrollTrigger: {
         trigger: facilitiesRef.current,
@@ -58,19 +57,16 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-      <Navbar />
-      
-      {/* Main content wrapper */}
+    <div className="min-h-screen w-full ">
+
       <div className="relative pt-16">
-        {/* Background elements */}
+        {/* Background effects */}
         <div className="fixed inset-0 z-0">
           <div className="absolute inset-0 bg-[radial-gradient(#ffffff10_1px,transparent_1px)] bg-[size:20px_20px]" />
           <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-blue-500 opacity-20 blur-3xl" />
           <div className="absolute top-1/3 -left-40 h-80 w-80 rounded-full bg-purple-500 opacity-20 blur-3xl" />
         </div>
 
-        {/* Content sections */}
         <div className="relative z-10">
           {/* Hero Section */}
           <section className="container mx-auto px-4 py-20">
@@ -120,7 +116,7 @@ export default function Dashboard() {
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                     <div className="md:col-span-2 rounded-lg bg-slate-800/50 p-4 backdrop-blur-sm">
                       <div className="mb-2 text-sm text-slate-400">Total Balance</div>
-                      <div className="text-3xl font-bold text-white">₹12,458.32</div>
+                      <div className="text-3xl font-bold text-white">$12,458.32</div>
                       <div className="mt-2 flex items-center text-sm text-emerald-400">
                         <ArrowRight className="mr-1 h-3 w-3 rotate-45" />
                         +2.4% from last week
@@ -151,8 +147,8 @@ export default function Dashboard() {
                               </div>
                             </div>
                           </div>
-                          <div className={`text-sm font-medium ₹{i === 3 ? "text-emerald-400" : "text-red-400"}`}>
-                            {i === 3 ? "+₹2,750.00" : `-₹₹{(i * 12.5).toFixed(2)}`}
+                          <div className={`text-sm font-medium ${i === 3 ? "text-emerald-400" : "text-red-400"}`}>
+                            {i === 3 ? "+$2,750.00" : `-$${(i * 12.5).toFixed(2)}`}
                           </div>
                         </div>
                       ))}

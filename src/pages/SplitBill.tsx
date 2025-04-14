@@ -430,16 +430,16 @@ const SplitBill: React.FC = () => {
   };
 
   return (
-    <div className="font-sans min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black p-4">
-      <div className="max-w-lg w-full space-y-6">
+    <div className="font-sans min-h-screen flex items-center justify-center   p-20">
+      <div className=" w-full space-y-6">
         <div className="flex items-center justify-center gap-3 mb-4 animate-float">
           <div className="h-12 w-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/20">
             <DollarSign className="text-white" size={24} />
           </div>
-          <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">Split a Bill</h1>
+          <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">Split a Bill</h1>
         </div>
         
-        <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6 shadow-xl border border-gray-700/30 animate-slide-up">
+        <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6  shadow-xl border border-gray-700/30 animate-slide-up">
           <div className="mb-6">
             <label className="block text-gray-300 text-sm font-medium mb-2">
               Total Amount

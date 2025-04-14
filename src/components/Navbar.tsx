@@ -19,11 +19,11 @@ const Navbar = () => {
       </Link>
       
       <div className="flex items-center gap-8">
-        <Link to="/dashboard" className={`flex items-center gap-2 ${isActive('/dashboard') ? 'text-purple-500' : 'text-gray-400'}`}>
+        <Link to="/" className={`flex items-center gap-2 ${isActive('/dashboard') ? 'text-purple-500' : 'text-gray-400'}`}>
           <LayoutGrid size={20} />
           <span>Dashboard</span>
         </Link>
-        <Link to="/" className={`flex items-center gap-2 ${isActive('/') ? 'text-purple-500' : 'text-gray-400'}`}>
+        <Link to="/home" className={`flex items-center gap-2 ${isActive('/') ? 'text-purple-500' : 'text-gray-400'}`}>
           <Home size={20} />
           <span>Home</span>
         </Link>
