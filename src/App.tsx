@@ -9,18 +9,18 @@ import SplitBill from './pages/SplitBill';
 
 function App() {
   return (
-    // <Router>
-    //   <Layout>
-    //     <Routes>
-    //       <Route path="/" element={<Home />} />
-    //       <Route path="/dashbaord" element={<Dashboard />} />
-    //       <Route path="/history" element={<History />} />
-    //       <Route path="/make-payment" element={<Payment />} />
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashbaord" element={<Dashboard />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/make-payment" element={<Payment />} />
           
-    //     </Routes>
-    //   </Layout>
-    // </Router>
-       <SplitBill/>
+        </Routes>
+      </Layout>
+    </Router>
+      //  <SplitBill/>
 
   );
 }
