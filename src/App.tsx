@@ -6,6 +6,7 @@ import History from './pages/History';
 import Payment from './pages/Payment';
 import Dashboard from './pages/Dashboard';
 import SplitBill from './pages/SplitBill';
+import Convert from './pages/convert';
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         </Routes>
       </Layout>
     </Router>
+
+    
 
   );
 }
