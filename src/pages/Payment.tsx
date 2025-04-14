@@ -29,7 +29,7 @@ const Payment = () => {
           <div>
             <label className="block text-gray-400 mb-2">Amount</label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
               <input
                 type="text"
                 value={amount}
@@ -42,7 +42,7 @@ const Payment = () => {
           <div>
             <label className="block text-gray-400 mb-2">Currency</label>
             <select className="w-full bg-[#0f1629] border border-gray-700 rounded-lg p-3 text-white">
-              <option>USD - $</option>
+              <option>USD - ₹</option>
             </select>
           </div>
         </div>
@@ -62,7 +62,7 @@ const Payment = () => {
 
         <div className="flex justify-between items-center text-gray-400 border-t border-gray-700 pt-4">
           <span>Network Fee</span>
-          <span>$0.25</span>
+          <span>₹0.25</span>
         </div>
 
         <button className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">

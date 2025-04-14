@@ -53,7 +53,7 @@ const History = () => {
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 rounded-full ${
+              className={`px-4 py-2 rounded-full ₹{
                 activeFilter === filter
                   ? 'bg-[#0f1629] text-white'
                   : 'text-gray-400 hover:text-white'
@@ -68,7 +68,7 @@ const History = () => {
           {filteredTransactions.map((tx) => (
             <div key={tx.id} className="flex items-center justify-between py-4 border-b border-gray-700 last:border-0">
               <div className="flex items-center gap-4">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center ₹{
                   tx.type === 'sent' ? 'bg-red-500/20 text-red-500' :
                   tx.type === 'received' ? 'bg-green-500/20 text-green-500' :
                   tx.type === 'converted' ? 'bg-blue-500/20 text-blue-500' :
@@ -83,9 +83,9 @@ const History = () => {
               </div>
               <div className="text-right">
                 <div className={tx.amount < 0 ? 'text-red-400' : 'text-green-400'}>
-                  {tx.amount < 0 ? '-' : '+'}${Math.abs(tx.amount)}
+                  {tx.amount < 0 ? '-' : '+'}₹{Math.abs(tx.amount)}
                 </div>
-                <div className={`text-sm ${tx.status === 'completed' ? 'text-green-400' : 'text-yellow-400'}`}>
+                <div className={`text-sm ₹{tx.status === 'completed' ? 'text-green-400' : 'text-yellow-400'}`}>
                   {tx.status}
                 </div>
               </div>

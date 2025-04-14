@@ -181,7 +181,7 @@ const PersonSlider = ({
             {percentage.toFixed(1)}%
           </span>
           <span className="text-gray-200 text-sm font-bold">
-            ${amount.toFixed(2)}
+            ₹{amount.toFixed(2)}
           </span>
           {canRemove && (
             <button
@@ -206,7 +206,7 @@ const PersonSlider = ({
       />
       <div className="text-right mt-1">
         <span className="text-gray-400 text-xs">Amount: </span>
-        <span className="text-white text-sm font-medium">${amount.toFixed(2)}</span>
+        <span className="text-white text-sm font-medium">₹{amount.toFixed(2)}</span>
       </div>
     </div>
   );
@@ -236,7 +236,7 @@ const SplitSummary = ({
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="col-span-1">
           <div className="text-gray-400 text-sm">Total Amount</div>
-          <div className="text-white text-lg font-bold">${totalAmount.toFixed(2)}</div>
+          <div className="text-white text-lg font-bold">₹{totalAmount.toFixed(2)}</div>
         </div>
         
         <div className="col-span-1 text-right">
@@ -259,7 +259,7 @@ const SplitSummary = ({
                 <span className="text-white">{person.name}</span>
               </div>
               <div className="flex flex-col items-end">
-                <span className="text-white font-semibold">${person.amount.toFixed(2)}</span>
+                <span className="text-white font-semibold">₹{person.amount.toFixed(2)}</span>
                 <span className="text-gray-400 text-xs">{person.percentage.toFixed(1)}%</span>
               </div>
             </div>
@@ -425,7 +425,7 @@ const SplitBill: React.FC = () => {
     
     toast({
       title: "Split request sent!",
-      description: `Successfully split $${totalAmount.toFixed(2)} for ${description || 'expense'}`,
+      description: `Successfully split ₹${totalAmount.toFixed(2)} for ${description || 'expense'}`,
     });
   };
 
@@ -445,7 +445,7 @@ const SplitBill: React.FC = () => {
               Total Amount
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">$</span>
+              <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">₹</span>
               <input
                 type="number"
                 value={totalAmount === 0 ? '' : totalAmount}
