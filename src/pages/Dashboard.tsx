@@ -111,7 +111,7 @@ export default function Dashboard() {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   <div className="md:col-span-2 rounded-lg bg-slate-800/50 p-4 backdrop-blur-sm">
                     <div className="mb-2 text-sm text-slate-400">Total Balance</div>
-                    <div className="text-3xl font-bold text-white">$12,458.32</div>
+                    <div className="text-3xl font-bold text-white">₹12,458.32</div>
                     <div className="mt-2 flex items-center text-sm text-emerald-400">
                       <ArrowRight className="mr-1 h-3 w-3 rotate-45" />
                       +2.4% from last week
@@ -142,8 +142,8 @@ export default function Dashboard() {
                             </div>
                           </div>
                         </div>
-                        <div className={`text-sm font-medium ${i === 3 ? "text-emerald-400" : "text-red-400"}`}>
-                          {i === 3 ? "+$2,750.00" : `-$${(i * 12.5).toFixed(2)}`}
+                        <div className={`text-sm font-medium ₹{i === 3 ? "text-emerald-400" : "text-red-400"}`}>
+                          {i === 3 ? "+₹2,750.00" : `-₹₹{(i * 12.5).toFixed(2)}`}
                         </div>
                       </div>
                     ))}

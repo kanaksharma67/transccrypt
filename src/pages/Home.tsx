@@ -40,7 +40,7 @@ const Home = () => {
       type: 'sent',
       title: 'To Alex Williams',
       amount: 250.00,
-      currency: '$',
+      currency: '₹',
       date: new Date('2025-04-08'),
       status: 'completed',
     },
@@ -49,7 +49,7 @@ const Home = () => {
       type: 'received',
       title: 'From John Smith',
       amount: 125.50,
-      currency: '$',
+      currency: '₹',
       date: new Date('2025-04-07'),
       status: 'completed',
     },
@@ -58,7 +58,7 @@ const Home = () => {
       type: 'converted',
       title: 'BTC to ETH',
       amount: 540.75,
-      currency: '$',
+      currency: '₹',
       date: new Date('2025-04-05'),
       status: 'completed',
     },
@@ -67,7 +67,7 @@ const Home = () => {
       type: 'split',
       title: 'Dinner with friends',
       amount: 42.30,
-      currency: '$',
+      currency: '₹',
       date: new Date('2025-04-03'),
       status: 'pending',
     },
@@ -114,7 +114,7 @@ const Home = () => {
       <div className="bg-gray-800/50 backdrop-blur-lg   shadow-xl border border-gray-700/30 animate-slide-up rounded-lg p-6 space-y-6">
         <div>
           <h2 className="text-gray-400 mb-2">Total Balance</h2>
-          <div className="text-4xl font-bold">$8,452.97</div>
+          <div className="text-4xl font-bold">₹8,452.97</div>
           <div className="text-green-400 text-sm mt-1">+4.50% this week</div>
         </div>
 
@@ -126,13 +126,13 @@ const Home = () => {
 
           <div className="space-y-4">
             {[
-              { name: 'Bitcoin', amount: '0.58 BTC', value: '$5,280.42', change: '+3.2%', color: 'bg-purple-600' },
-              { name: 'Ethereum', amount: '4.6 ETH', value: '$2,458.15', change: '-1.8%', color: 'bg-teal-600' },
-              { name: 'Solana', amount: '32.4 SOL', value: '$714.4', change: '+8.5%', color: 'bg-green-600' }
+              { name: 'Bitcoin', amount: '0.58 BTC', value: '₹5,280.42', change: '+3.2%', color: 'bg-purple-600' },
+              { name: 'Ethereum', amount: '4.6 ETH', value: '₹2,458.15', change: '-1.8%', color: 'bg-teal-600' },
+              { name: 'Solana', amount: '32.4 SOL', value: '₹714.4', change: '+8.5%', color: 'bg-green-600' }
             ].map((asset) => (
               <div key={asset.name} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`${asset.color} w-8 h-8 rounded-full flex items-center justify-center`}>
+                  <div className={`₹{asset.color} w-8 h-8 rounded-full flex items-center justify-center`}>
                     {asset.name[0]}
                   </div>
                   <div>

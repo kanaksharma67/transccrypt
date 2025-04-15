@@ -159,7 +159,7 @@ const Convert = () => {
       const from = CRYPTO_CURRENCIES.find(c => c.id === fromCurrency);
       const to = FIAT_CURRENCIES.find(c => c.id === toCurrency);
       
-      toast.success(`Successfully converted ${fromAmount} ${from?.symbol} to ${toAmount} ${to?.symbol}`);
+      toast.success(`Successfully converted ₹{fromAmount} ₹{from?.symbol} to ₹{toAmount} ₹{to?.symbol}`);
       setIsConverting(false);
     }, 1200);
   };
