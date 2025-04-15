@@ -13,18 +13,16 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-        <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
-          <Route path="/split-bill" element={<SplitBill/>} />
-          <Route path="/convert" element={<Convert/>} />
+          <Route path="/split-bill" element={<SplitBill />} />
+          <Route path="/convert" element={<Convert />} />
+          
         </Routes>
       </Layout>
     </Router>
-
-    
-
   );
 }
 
