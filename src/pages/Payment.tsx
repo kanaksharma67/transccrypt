@@ -7,7 +7,7 @@ const Payment = () => {
   const [memo, setMemo] = useState('');
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-5xl mx-auto mt-14">
       <div className="flex items-center gap-4 mb-8">
         <Link to="/" className="text-gray-400 hover:text-white">
           <ArrowLeft size={24} />
@@ -15,7 +15,7 @@ const Payment = () => {
         <h1 className="text-2xl font-bold">Make Payment</h1>
       </div>
 
-      <div className="bg-[#1a2235] rounded-lg p-6 space-y-6">
+      <div className="bg-gray-800/50 backdrop-blur-lg   shadow-xl border border-gray-700/30 animate-slide-up rounded-lg p-6 space-y-6">
         <div>
           <label className="block text-gray-400 mb-2">Recipient Wallet Address</label>
           <input

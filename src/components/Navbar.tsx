@@ -24,7 +24,10 @@ const Navbar = () => {
           <div className="bg-purple-600 rounded-full p-2">
             <span className="text-xl">Σ</span>
           </div>
-          <span className="text-xl font-semibold">TransCrypt</span>
+          <span className="mt-2 text-4xl font-bold  block text-white">
+                    <span className="text-sky-400">Trans</span>
+                    <span className="text-emerald-400">Crypt</span>
+                  </span>
         </Link>
         
         <div className="flex items-center gap-6">

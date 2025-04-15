@@ -18,6 +18,7 @@ import {
 import Payment from './Payment';
 import PaymentButton from '@/components/ui/PaymentButton';
 import TransactionList, { Transaction } from '@/components/ui/TransactionList';
+import QuickActions from '@/components/ui/QuickActions';
 
 ChartJS.register(
   CategoryScale,
@@ -102,7 +103,7 @@ const Home = () => {
 
  
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-14">
       <div className="flex justify-between items-start mb-8">
         <div>
           <h1 className="text-3xl font-bold mb-2">Welcome back</h1>
@@ -110,7 +111,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="bg-[#1a2235] rounded-lg p-6 space-y-6">
+      <div className="bg-gray-800/50 backdrop-blur-lg   shadow-xl border border-gray-700/30 animate-slide-up rounded-lg p-6 space-y-6">
         <div>
           <h2 className="text-gray-400 mb-2">Total Balance</h2>
           <div className="text-4xl font-bold">$8,452.97</div>
@@ -170,16 +171,18 @@ const Home = () => {
           </div>
           <div>Convert</div>
         </Link>
-        <Link to="/split" className="bg-[#1a2235] p-6 rounded-lg text-center hover:bg-[#232b3d] transition">
+        <Link to="/split-bill" className="bg-[#1a2235] p-6 rounded-lg text-center hover:bg-[#232b3d] transition">
           <div className="bg-purple-600/20 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
             <Users className="text-purple-500" size={24} />
           </div>
           <div>Split</div>
         </Link>
       </div>
-      <TransactionList transactions={recentTransactions} />
-
+     {/* <QuickActions/> */}
       <PaymentButton/>
+
+      <TransactionList  transactions={recentTransactions} />
+
 
       {/* <div className="bg-[#1a2235] rounded-lg p-6">
         <div className="flex justify-between items-center mb-6">

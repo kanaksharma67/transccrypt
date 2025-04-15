@@ -7,7 +7,10 @@ const History = () => {
     { id: 2, type: 'received', name: 'John Smith', date: '4/7/2025', amount: 125.5, status: 'completed' },
     { id: 3, type: 'converted', name: 'BTC to ETH', date: '4/5/2025', amount: 540.75, status: 'completed' },
     { id: 4, type: 'split', name: 'Dinner with friends', date: '4/3/2025', amount: 42.3, status: 'pending' },
-    { id: 5, type: 'sent', name: 'Sarah Johnson', date: '4/1/2025', amount: -75, status: 'completed' }
+    { id: 5, type: 'sent', name: 'Sarah Johnson', date: '4/1/2025', amount: -75, status: 'completed' },
+    { id: 6, type: 'converted', name: 'BTC to ETH', date: '4/5/2025', amount: 540.75, status: 'completed' },
+    { id: 7, type: 'converted', name: 'BTC to ETH', date: '4/5/2025', amount: 540.75, status: 'completed' },
+
   ];
 
   const [activeFilter, setActiveFilter] = useState('all');
@@ -23,7 +26,7 @@ const History = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Transaction History</h1>
+      <h1 className="text-2xl font-bold mb-6 mt-14">Transaction History</h1>
 
       <div className="flex gap-4 mb-6">
         <div className="flex-1 relative">
@@ -47,7 +50,7 @@ const History = () => {
         </button>
       </div>
 
-      <div className="bg-[#1a2235] rounded-lg overflow-hidden">
+      <div className="bg-gray-800/50 backdrop-blur-lg  p-6  shadow-xl border border-gray-700/30 animate-slide-up rounded-lg overflow-hidden">
         <div className="flex gap-4 p-4 border-b border-gray-700">
           {['all', 'sent', 'received', 'converted', 'split'].map((filter) => (
             <button

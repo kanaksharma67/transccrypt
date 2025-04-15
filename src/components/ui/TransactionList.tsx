@@ -27,34 +27,36 @@ const TransactionList: React.FC<TransactionListProps> = ({
   const getIcon = (type: Transaction['type']) => {
     switch (type) {
       case 'sent':
-        return <ArrowUpRight className="text-crypto-error" />;
+        return <ArrowUpRight className="text-red-500" />;
       case 'received':
-        return <ArrowDownLeft className="text-crypto-success" />;
+        return <ArrowDownLeft className="text-green-700" />;
       case 'converted':
-        return <RefreshCw className="text-crypto-secondary" />;
+        return <RefreshCw className="text-green-700" />;
       case 'split':
-        return <Users className="text-crypto-primary" />;
+        return <Users className="text-purple-600" />;
     }
   };
 
   const getStatusColor = (status: Transaction['status']) => {
     switch (status) {
       case 'completed':
-        return 'bg-crypto-success/20 text-crypto-success';
+        return 'bg-green-900 text-green-500 border-0';
       case 'pending':
-        return 'bg-crypto-warning/20 text-crypto-warning';
+        return 'bg-yellow-600/20 text-yellow-500 border-0';
       case 'failed':
         return 'bg-crypto-error/20 text-crypto-error';
     }
   };
 
   return (
+    
+    <div className='bg-[#1a2235] rounded-lg p-6 space-y-6'>
     <div className="glass-card p-5 w-full">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-base font-semibold">Recent Transactions</h3>
         {showViewAll && (
           <motion.button 
-            className="text-sm text-crypto-text-secondary flex items-center space-x-1"
+            className="text-sm text-white flex items-center space-x-1"
             whileHover={{ x: 3 }}
           >
             <span>View All</span>
@@ -79,20 +81,20 @@ const TransactionList: React.FC<TransactionListProps> = ({
               whileHover={{ x: 3 }}
             >
               <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-full bg-muted">
+                <div className="p-2 rounded-full bg-slate-900">
                   {getIcon(transaction.type)}
                 </div>
                 <div>
                   <div className="text-sm font-medium">{transaction.title}</div>
-                  <div className="text-xs text-crypto-text-secondary">
+                  <div className="text-xs text-gray-500">
                     {transaction.date.toLocaleDateString()}
                   </div>
                 </div>
               </div>
               <div className="text-right">
                 <div className={`text-sm ${
-                  transaction.type === 'sent' ? 'text-crypto-error' : 
-                  transaction.type === 'received' ? 'text-crypto-success' : ''
+                  transaction.type === 'sent' ? 'text-orange-600' : 
+                  transaction.type === 'received' ? 'text-green-800' : ''
                 }`}>
                   {transaction.type === 'sent' ? '-' : 
                    transaction.type === 'received' ? '+' : ''}
@@ -110,6 +112,8 @@ const TransactionList: React.FC<TransactionListProps> = ({
         )}
       </div>
     </div>
+    </div>
+
   );
 };
 

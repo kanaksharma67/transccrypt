@@ -168,12 +168,16 @@ const Convert = () => {
   // Removed the handleSwitch function and related UI elements
 
   return (
-    <div className="min-h-screen bg-[#1A1F2C] text-white">
-      <div className="container mx-auto max-w-3xl py-12 px-4">
+    <div className="min-h-screen  text-white mt-14">
+      <div className="container mx-auto max-w-4xl py-12 px-4">
         <h2 className="text-3xl font-bold mb-8 animate-fade-in">Crypto to Fiat Converter</h2>
 
         {/* Main converter card */}
-        <div className="bg-[#1A1F2C] border border-gray-800 rounded-xl p-6 mb-8 shadow-lg animate-scale-in">
+        
+        {/* <div className="bg-[#1A1F2C] border border-gray-800 rounded-xl p-6 mb-8 shadow-lg animate-scale-in">
+         */}
+        <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6  shadow-xl border border-gray-700/30 animate-slide-up mb-6">
+
           {/* From Currency - Only Crypto Options */}
           <div className="mb-6">
             <label className="block text-sm text-gray-400 mb-2">From (Cryptocurrency)</label>
@@ -286,7 +290,7 @@ const Convert = () => {
         </div>
 
         {/* Live Exchange Rates */}
-        <div className="bg-[#1A1F2C] border border-gray-800 rounded-xl p-6 mb-6 shadow-lg animate-fade-in" style={{animationDelay: "200ms"}}>
+        <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6  shadow-xl border border-gray-700/30 animate-slide-up mb-5" style={{animationDelay: "200ms"}}>
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-semibold">Crypto Exchange Rates</h3>
             <button 
@@ -299,9 +303,9 @@ const Convert = () => {
 
           <div className="space-y-4">
             {CRYPTO_CURRENCIES.map((currency) => (
-              <div key={currency.id} className="flex items-center justify-between p-3 bg-[#222222] rounded-lg hover:bg-gray-800 transition-colors">
+              <div key={currency.id} className="flex items-center justify-between p-3  rounded-lg hover:bg-gray-800 transition-colors">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-xl mr-3">
+                  <div className="w-10 h-10 rounded-full  flex items-center justify-center text-xl mr-3">
                     {currency.flag}
                   </div>
                   <div>
@@ -347,7 +351,7 @@ const Convert = () => {
         </div>
         
         {/* Recent Transactions - Extra Feature */}
-        <div className="bg-[#1A1F2C] border border-gray-800 rounded-xl p-6 shadow-lg animate-fade-in" style={{animationDelay: "400ms"}}>
+        <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6  shadow-xl border border-gray-700/30 animate-slide-up" style={{animationDelay: "400ms"}}>
           <h3 className="text-xl font-semibold mb-6">Recent Transactions</h3>
           <div className="space-y-3">
             {[

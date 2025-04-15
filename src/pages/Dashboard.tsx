@@ -64,7 +64,7 @@ export default function Dashboard() {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-20">
+        <section className="container   py-10">
           <ContainerScroll
             titleComponent={
               <>
@@ -97,7 +97,7 @@ export default function Dashboard() {
             }
           >
             {/* Dashboard Preview */}
-            <div className="mx-auto max-w-5xl overflow-hidden rounded-xl bg-slate-900/50 backdrop-blur-sm">
+            <div className="mx-auto max-w-11xl overflow-hidden rounded-xl bg-slate-900 backdrop-blur-sm">
               <div className="relative p-6">
                 <div className="mb-6 flex items-center justify-between">
                   <div className="flex items-center space-x-2">

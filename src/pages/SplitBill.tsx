@@ -430,7 +430,7 @@ const SplitBill: React.FC = () => {
   };
 
   return (
-    <div className="font-sans  flex items-center justify-center   ">
+    <div className="font-sans  flex items-center justify-center  mt-14 ">
       <div className=" w-full space-y-6">
         <div className="flex items-center justify-center gap-3 mb-4 animate-float">
           <div className="h-12 w-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/20">
@@ -468,6 +468,16 @@ const SplitBill: React.FC = () => {
               className="w-full bg-gray-900/50 border border-gray-700 rounded-lg py-3 px-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-transparent transition-all"
             />
           </div>
+          {/* <div className="flex items-center">
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 ${
+                    index % 3 === 0 ? 'bg-primary/20 text-primary' : 
+                    index % 3 === 1 ? 'bg-secondary/20 text-secondary' : 
+                    'bg-accent/20 text-accent'
+                  }`}>
+                    {person.name.charAt(0)}
+                  </div>
+                  <span>{person.name}</span>
+                </div> */}
           
           <div className="mb-6">
             <label className="block text-gray-300 text-sm font-medium mb-2">

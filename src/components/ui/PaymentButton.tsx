@@ -10,7 +10,7 @@ const PaymentButton = () => {
   return (
     <motion.button
       onClick={() => navigate('/make-payment')}
-      className="w-full relative overflow-hidden py-4 px-6 rounded-xl bg-primary text-white font-medium flex items-center justify-center space-x-2 button-highlight shadow-neon"
+      className="w-full relative overflow-hidden py-4 px-6 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium flex items-center justify-center space-x-2 button-highlight shadow-neon"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       initial={{ opacity: 0, y: 20 }}
