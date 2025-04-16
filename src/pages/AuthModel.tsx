@@ -105,12 +105,11 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
             onClick={(e) => e.stopPropagation()}
             className="bg-navy-900 w-full max-w-md rounded-lg shadow-xl overflow-hidden"
           >
-            <div className="relative p-6">
+            <div className="relative p-6 bg-slate-800">
               <button
                 onClick={onClose}
                 className="absolute right-4 top-4 text-gray-400 hover:text-white transition-colors"
-                aria-label="Close modal"
-              >
+                aria-label="Close modal">
                 <X size={24} />
               </button>
 
