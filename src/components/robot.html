@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Samurai Mask</title>
+    <style>
+        :root {
+            --primary-color: #ff2a2a;
+            --secondary-color: #00ff88;
+            --bg-color: #0a0a0a;
+            --face-color: #1a1a1a;
+            --metal-color: #333333;
+            --glow-intensity: 0.8;
+            --theme-index: 0;
+        }
+
+        /* Color Themes */
+        .theme-0 {
+            --primary-color: #ff2a2a;
+            --secondary-color: #00ff88;
+        }
+        .theme-1 {
+            --primary-color: #00a8ff;
+            --secondary-color: #ff00aa;
+        }
+        .theme-2 {
+            --primary-color: #aa00ff;
+            --secondary-color: #00ffaa;
+        }
+        .theme-3 {
+            --primary-color: #ffaa00;
+            --secondary-color: #00aaff;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-color);
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+            color: var(--secondary-color);
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+            min-width: 150px;
+        }
+
+        .control-group label {
+            margin-bottom: 5px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary-color);
+        }
+
+        .face-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: center;
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+
+        .face {
+            position: relative;
+            background: var(--face-color);
+            border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+            box-shadow: 
+                inset 0 0 30px rgba(255, 42, 42, 0.3),
+                0 0 50px rgba(255, 42, 42, 0.5),
+                0 0 100px rgba(0, 255, 136, 0.3);
+            border: 2px solid var(--metal-color);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            will-change: box-shadow, transform;
+        }
+
+        .face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 50px rgba(0, 255, 136, 0.2);
+            pointer-events: none;
+        }
+
+        .mask-plate {
+            position: absolute;
+            background: var(--metal-color);
+            border: 1px solid var(--primary-color);
+            box-shadow: 
+                inset 0 0 10px rgba(0, 0, 0, 0.5),
+                0 0 10px var(--primary-color);
+            will-change: box-shadow;
+        }
+
+        .forehead-plate {
+            width: 80%;
+            height: 20%;
+            top: -5%;
+            left: 10%;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+            border-bottom: none;
+        }
+
+        .cheek-plate {
+            width: 25%;
+            height: 30%;
+            bottom: 25%;
+        }
+
+        .cheek-plate.left {
+            left: 5%;
+            border-radius: 0 50% 50% 0 / 0 50% 50% 0;
+        }
+
+        .cheek-plate.right {
+            right: 5%;
+            border-radius: 50% 0 0 50% / 50% 0 0 50%;
+        }
+
+        .chin-plate {
+            width: 60%;
+            height: 15%;
+            bottom: -5%;
+            left: 20%;
+            border-radius: 0 0 50% 50% / 0 0 100% 100%;
+            border-top: none;
+        }
+
+        .eye-area {
+            position: absolute;
+            width: 100%;
+            height: 30%;
+            display: flex;
+            justify-content: space-around;
+            top: 30%;
+            will-change: transform;
+        }
+
+        .eye {
+            position: relative;
+            background: #000;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--metal-color);
+            box-shadow: 
+                inset 0 0 20px rgba(255, 42, 42, 0.5),
+                0 0 30px rgba(255, 42, 42, 0.7);
+            will-change: transform;
+        }
+
+        .eye-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #300000 0%, #000 70%);
+            border-radius: 50%;
+        }
+
+        .pupil {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, var(--secondary-color) 0%, #000 70%);
+            border-radius: 50%;
+            transition: transform 0.1s linear;
+            box-shadow: 
+                0 0 20px var(--secondary-color),
+                inset 0 0 10px rgba(0, 255, 136, 0.5);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            will-change: transform;
+        }
+
+        .eye-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+            background-size: 10px 10px;
+            border-radius: 50%;
+        }
+
+        .mouth-area {
+            position: absolute;
+            width: 50%;
+            height: 15%;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            will-change: transform;
+        }
+
+        .mouth {
+            width: 100%;
+            height: 15%;
+            background: #000;
+            border-radius: 0 0 50% 50% / 0 0 100% 100%;
+            border: 2px solid var(--metal-color);
+            border-top: none;
+            box-shadow: 
+                inset 0 -10px 20px rgba(255, 42, 42, 0.5),
+                0 0 20px rgba(255, 42, 42, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: height 0.2s ease, border-radius 0.2s ease;
+            will-change: height, border-radius;
+        }
+
+        .mouth::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: var(--primary-color);
+            opacity: 0.3;
+        }
+
+        .teeth {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .tooth {
+            width: 8%;
+            height: 40%;
+            background: #fff;
+            border-radius: 0 0 3px 3px;
+            box-shadow: 0 0 5px var(--secondary-color);
+        }
+
+        .hud-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hud-line {
+            position: absolute;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .hud-line.horizontal {
+            width: 100%;
+            height: 1px;
+            left: 0;
+        }
+
+        .hud-line.vertical {
+            width: 1px;
+            height: 100%;
+            top: 0;
+        }
+
+        .hud-text {
+            position: absolute;
+            font-size: 10px;
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px var(--secondary-color);
+        }
+
+        .circuit-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            stroke: rgba(0, 255, 136, 0.2);
+            stroke-width: 1;
+            fill: none;
+            pointer-events: none;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, var(--secondary-color) 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            z-index: 100;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        .status-text {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px var(--secondary-color);
+        }
+
+        .security-lock {
+            position: absolute;
+            width: 30%;
+            height: 15%;
+            top: 10%;
+            left: 35%;
+            background: var(--metal-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            box-shadow: 0 0 10px var(--primary-color);
+            transition: all 0.3s ease;
+            will-change: transform, box-shadow;
+        }
+
+        .security-lock::before {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 2px;
+            background: var(--primary-color);
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            opacity: 0.3;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 150px;
+            height: 5px;
+            background: #1a1a1a;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px var(--secondary-color);
+        }
+
+        /* Expression classes */
+        .expression-angry .mouth {
+            height: 10% !important;
+            border-radius: 0 0 20% 20% / 0 0 30% 30% !important;
+        }
+        .expression-happy .mouth {
+            height: 25% !important;
+            border-radius: 0 0 70% 70% / 0 0 100% 100% !important;
+        }
+        .expression-surprised .mouth {
+            height: 30% !important;
+            border-radius: 50% !important;
+        }
+
+        /* Animation for security lock */
+        @keyframes lockEngage {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Animation for samurai mask plates */
+        @keyframes plateGlow {
+            0% { box-shadow: 0 0 10px var(--primary-color); }
+            50% { box-shadow: 0 0 20px var(--primary-color); }
+            100% { box-shadow: 0 0 10px var(--primary-color); }
+        }
+
+        /* Mobile touch area */
+        .touch-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.2);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .touch-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--secondary-color);
+            font-size: 24px;
+            border: 2px solid var(--secondary-color);
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        /* Accessibility focus styles */
+        button:focus, input:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        /* Screen reader only class */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        @media (max-width: 768px) {
+            .touch-area {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div class="control-group">
+            <label for="sizeControl">Mask Size</label>
+            <input type="range" id="sizeControl" min="50" max="200" value="100" aria-label="Adjust mask size">
+        </div>
+        <div class="control-group">
+            <label for="glowControl">Glow Intensity</label>
+            <input type="range" id="glowControl" min="0" max="100" value="80" aria-label="Adjust glow intensity">
+        </div>
+        <div class="control-group">
+            <label for="themeControl">Color Theme</label>
+            <select id="themeControl" aria-label="Select color theme">
+                <option value="0">Classic</option>
+                <option value="1">Cyber Blue</option>
+                <option value="2">Neon Purple</option>
+                <option value="3">Solar Gold</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Expressions</label>
+            <div class="expression-buttons">
+                <button id="angryBtn" aria-label="Angry expression">😠</button>
+                <button id="happyBtn" aria-label="Happy expression">😊</button>
+                <button id="surprisedBtn" aria-label="Surprised expression">😲</button>
+                <button id="neutralBtn" aria-label="Neutral expression">😐</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="face-container" id="faceContainer">
+        <div class="face" id="face" tabindex="0" role="button" aria-label="Samurai mask security toggle">
+            <!-- Samurai mask plates -->
+            <div class="mask-plate forehead-plate"></div>
+            <div class="mask-plate cheek-plate left"></div>
+            <div class="mask-plate cheek-plate right"></div>
+            <div class="mask-plate chin-plate"></div>
+            
+            <!-- Security lock display -->
+            <div class="security-lock" id="securityLock">SECURE</div>
+            
+            <svg class="circuit-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M20,20 L80,20 L80,80 L20,80 Z" />
+                <path d="M30,30 L70,30 L70,70 L30,70 Z" />
+                <path d="M40,40 L60,40 L60,60 L40,60 Z" />
+                <circle cx="50" cy="50" r="10" />
+                <line x1="50" y1="20" x2="50" y2="80" />
+                <line x1="20" y1="50" x2="80" y2="50" />
+            </svg>
+            
+            <div class="hud-elements">
+                <div class="hud-line horizontal" style="top: 30%"></div>
+                <div class="hud-line horizontal" style="top: 70%"></div>
+                <div class="hud-line vertical" style="left: 30%"></div>
+                <div class="hud-line vertical" style="left: 70%"></div>
+                <div class="hud-text" style="top: 10%; left: 10%">BUSHIDO-OS v5.2.1</div>
+                <div class="hud-text" style="top: 10%; right: 10%; text-align: right">STATUS: SECURE</div>
+                <div class="hud-text" style="bottom: 10%; left: 10%">DEFENSE MODE: ACTIVE</div>
+                <div class="hud-text" style="bottom: 10%; right: 10%; text-align: right">THREAT LEVEL: 0%</div>
+            </div>
+
+            <div class="eye-area">
+                <div class="eye" id="leftEye">
+                    <div class="eye-inner"></div>
+                    <div class="pupil" id="leftPupil"></div>
+                    <div class="eye-grid"></div>
+                </div>
+                <div class="eye" id="rightEye">
+                    <div class="eye-inner"></div>
+                    <div class="pupil" id="rightPupil"></div>
+                    <div class="eye-grid"></div>
+                </div>
+            </div>
+
+            <div class="mouth-area">
+                <div class="mouth" id="mouth">
+                    <div class="teeth">
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                        <div class="tooth"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile touch controls -->
+    <div class="touch-area" id="touchArea">
+        <div class="touch-button" id="toggleLockBtn" aria-label="Toggle security lock">🔒</div>
+        <div class="touch-button" id="prevThemeBtn" aria-label="Previous theme">◀</div>
+        <div class="touch-button" id="nextThemeBtn" aria-label="Next theme">▶</div>
+    </div>
+    
+    <div class="cursor-follower" id="cursorFollower"></div>
+    <div class="status-text">SECURE ACCESS MODE: ENGAGED | BIOMETRIC SCANNING: ACTIVE</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const faceContainer = document.getElementById('faceContainer');
+            const face = document.getElementById('face');
+            const leftEye = document.getElementById('leftEye');
+            const rightEye = document.getElementById('rightEye');
+            const leftPupil = document.getElementById('leftPupil');
+            const rightPupil = document.getElementById('rightPupil');
+            const mouth = document.getElementById('mouth');
+            const cursorFollower = document.getElementById('cursorFollower');
+            const sizeControl = document.getElementById('sizeControl');
+            const glowControl = document.getElementById('glowControl');
+            const themeControl = document.getElementById('themeControl');
+            const securityLock = document.getElementById('securityLock');
+            const touchArea = document.getElementById('touchArea');
+            const toggleLockBtn = document.getElementById('toggleLockBtn');
+            const prevThemeBtn = document.getElementById('prevThemeBtn');
+            const nextThemeBtn = document.getElementById('nextThemeBtn');
+            const angryBtn = document.getElementById('angryBtn');
+            const happyBtn = document.getElementById('happyBtn');
+            const surprisedBtn = document.getElementById('surprisedBtn');
+            const neutralBtn = document.getElementById('neutralBtn');
+            const root = document.documentElement;
+
+            // Audio setup
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            let lockSound, unlockSound, scanSound, hoverSound;
+            
+            // Load sound files
+            function loadSound(url, callback) {
+                fetch(url)
+                    .then(response => response.arrayBuffer())
+                    .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+                    .then(audioBuffer => {
+                        callback(audioBuffer);
+                    })
+                    .catch(error => {
+                        console.error('Error loading sound:', error);
+                    });
+            }
+            
+            // Play sound function
+            function playSound(buffer) {
+                if (!buffer) return;
+                const source = audioContext.createBufferSource();
+                source.buffer = buffer;
+                source.connect(audioContext.destination);
+                source.start(0);
+            }
+
+            // Initialize sounds
+            loadSound('lock.wav', (buffer) => { lockSound = buffer; });
+            loadSound('unlock.wav', (buffer) => { unlockSound = buffer; });
+            loadSound('scan.wav', (buffer) => { scanSound = buffer; });
+            loadSound('hover.wav', (buffer) => { hoverSound = buffer; });
+
+            // State variables
+            let faceSize = 100;
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let faceAngle = 0;
+            let lastSecurityCheck = 0;
+            let isLocked = false;
+            let lastAnimationTime = 0;
+            let resizeTimeout;
+            let moveTimeout;
+            let currentExpression = 'neutral';
+            
+            // Check for mobile device
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                touchArea.style.display = 'flex';
+            }
+
+            // Initialize face size and position pupils
+            updateFaceSize();
+            centerPupils();
+
+            // Mouse movement tracking with debounce
+            function handleMouseMove(e) {
+                if (moveTimeout) {
+                    cancelAnimationFrame(moveTimeout);
+                }
+                
+                moveTimeout = requestAnimationFrame(() => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    
+                    // Update cursor follower position
+                    cursorFollower.style.left = `${mouseX}px`;
+                    cursorFollower.style.top = `${mouseY}px`;
+                });
+            }
+
+            // Touch movement tracking
+            function handleTouchMove(e) {
+                if (e.touches.length > 0) {
+                    mouseX = e.touches[0].clientX;
+                    mouseY = e.touches[0].clientY;
+                    
+                    // Update cursor follower position
+                    cursorFollower.style.left = `${mouseX}px`;
+                    cursorFollower.style.top = `${mouseY}px`;
+                }
+            }
+
+            // Event listeners
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+            // Click to toggle security lock
+            face.addEventListener('click', toggleSecurityLock);
+            face.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleSecurityLock();
+                }
+            });
+            
+            // Mobile button events
+            toggleLockBtn.addEventListener('click', toggleSecurityLock);
+            toggleLockBtn.addEventListener('touchstart', toggleSecurityLock, { passive: true });
+
+            // Theme control
+            themeControl.addEventListener('change', changeTheme);
+            prevThemeBtn.addEventListener('click', () => {
+                themeControl.selectedIndex = Math.max(0, themeControl.selectedIndex - 1);
+                changeTheme();
+            });
+            nextThemeBtn.addEventListener('click', () => {
+                themeControl.selectedIndex = Math.min(themeControl.options.length - 1, themeControl.selectedIndex + 1);
+                changeTheme();
+            });
+
+            // Expression buttons
+            angryBtn.addEventListener('click', () => setExpression('angry'));
+            happyBtn.addEventListener('click', () => setExpression('happy'));
+            surprisedBtn.addEventListener('click', () => setExpression('surprised'));
+            neutralBtn.addEventListener('click', () => setExpression('neutral'));
+
+            // Size control event listener
+            sizeControl.addEventListener('input', function() {
+                faceSize = parseInt(this.value);
+                updateFaceSize();
+            });
+
+            // Glow control event listener
+            glowControl.addEventListener('input', function() {
+                const glowValue = parseInt(this.value) / 100;
+                root.style.setProperty('--glow-intensity', glowValue);
+                updateGlowEffects(glowValue);
+            });
+
+            // Window resize with debounce
+            window.addEventListener('resize', function() {
+                if (resizeTimeout) {
+                    clearTimeout(resizeTimeout);
+                }
+                resizeTimeout = setTimeout(() => {
+                    updateFaceSize();
+                    centerPupils();
+                }, 100);
+            });
+
+            // Hover sound effect
+            face.addEventListener('mouseenter', () => playSound(hoverSound));
+            face.addEventListener('focus', () => playSound(hoverSound));
+
+            // Update face size based on slider
+            function updateFaceSize() {
+                const baseSize = faceSize;
+                face.style.width = `${baseSize}px`;
+                face.style.height = `${baseSize * 1.3}px`;
+                
+                // Eye sizes
+                const eyeSize = baseSize * 0.25;
+                leftEye.style.width = `${eyeSize}px`;
+                leftEye.style.height = `${eyeSize}px`;
+                rightEye.style.width = `${eyeSize}px`;
+                rightEye.style.height = `${eyeSize}px`;
+                
+                // Pupil sizes
+                const pupilSize = eyeSize * 0.5;
+                leftPupil.style.width = `${pupilSize}px`;
+                leftPupil.style.height = `${pupilSize}px`;
+                rightPupil.style.width = `${pupilSize}px`;
+                rightPupil.style.height = `${pupilSize}px`;
+                
+                // Position eye area
+                document.querySelector('.eye-area').style.top = `${baseSize * 0.3}px`;
+                
+                // Position mouth area
+                document.querySelector('.mouth-area').style.bottom = `${baseSize * 0.2}px`;
+                document.querySelector('.mouth-area').style.width = `${baseSize * 0.5}px`;
+            }
+
+            // Center pupils initially
+            function centerPupils() {
+                leftPupil.style.transform = 'translate(-50%, -50%)';
+                rightPupil.style.transform = 'translate(-50%, -50%)';
+            }
+
+            // Update glow effects based on intensity
+            function updateGlowEffects(intensity) {
+                face.style.boxShadow = `
+                    inset 0 0 ${30 * intensity}px rgba(255, 42, 42, 0.3),
+                    0 0 ${50 * intensity}px rgba(255, 42, 42, 0.5),
+                    0 0 ${100 * intensity}px rgba(0, 255, 136, 0.3)`;
+                
+                document.querySelectorAll('.eye').forEach(eye => {
+                    eye.style.boxShadow = `
+                        inset 0 0 ${20 * intensity}px rgba(255, 42, 42, 0.5),
+                        0 0 ${30 * intensity}px rgba(255, 42, 42, 0.7)`;
+                });
+                
+                document.querySelectorAll('.pupil').forEach(pupil => {
+                    pupil.style.boxShadow = `
+                        0 0 ${20 * intensity}px var(--secondary-color),
+                        inset 0 0 ${10 * intensity}px rgba(0, 255, 136, 0.5)`;
+                });
+            }
+
+            // Change color theme
+            function changeTheme() {
+                const themeIndex = themeControl.value;
+                root.style.setProperty('--theme-index', themeIndex);
+                document.body.className = `theme-${themeIndex}`;
+            }
+
+            // Set facial expression
+            function setExpression(expression) {
+                face.classList.remove(`expression-${currentExpression}`);
+                face.classList.add(`expression-${expression}`);
+                currentExpression = expression;
+            }
+
+            // Toggle security lock
+            function toggleSecurityLock() {
+                isLocked = !isLocked;
+                
+                if (isLocked) {
+                    playSound(lockSound);
+                    securityLock.textContent = "LOCKED";
+                    securityLock.style.color = "var(--secondary-color)";
+                    securityLock.style.animation = "lockEngage 0.5s ease";
+                    
+                    // Add plate glow effects
+                    document.querySelectorAll('.mask-plate').forEach(plate => {
+                        plate.style.animation = "plateGlow 2s infinite";
+                    });
+                    
+                    // Update HUD text
+                    document.querySelectorAll('.hud-text')[1].textContent = "STATUS: LOCKED";
+                    document.querySelector('.status-text').textContent = "SECURE ACCESS MODE: LOCKED | BIOMETRIC SCANNING: ACTIVE";
+                } else {
+                    playSound(unlockSound);
+                    securityLock.textContent = "SECURE";
+                    securityLock.style.color = "var(--primary-color)";
+                    securityLock.style.animation = "";
+                    
+                    // Remove plate glow effects
+                    document.querySelectorAll('.mask-plate').forEach(plate => {
+                        plate.style.animation = "";
+                    });
+                    
+                    // Update HUD text
+                    document.querySelectorAll('.hud-text')[1].textContent = "STATUS: SECURE";
+                    document.querySelector('.status-text').textContent = "SECURE ACCESS MODE: ENGAGED | BIOMETRIC SCANNING: ACTIVE";
+                }
+            }
+
+            // Optimized animation loop
+            function animate(timestamp) {
+                // Throttle animation to ~60fps
+                if (timestamp - lastAnimationTime < 16) {
+                    requestAnimationFrame(animate);
+                    return;
+                }
+                lastAnimationTime = timestamp;
+
+                const faceRect = face.getBoundingClientRect();
+                const faceCenterX = faceRect.left + faceRect.width / 2;
+                const faceCenterY = faceRect.top + faceRect.height / 2;
+                
+                // Calculate distance and angle from face center to mouse
+                const dx = mouseX - faceCenterX;
+                const dy = mouseY - faceCenterY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Face rotation based on horizontal mouse position
+                faceAngle = dx * 0.03;
+                face.style.transform = `rotate(${faceAngle}deg)`;
+                
+                // Eye tracking
+                updateEyeTracking(leftEye, leftPupil);
+                updateEyeTracking(rightEye, rightPupil);
+                
+                // Mouth animation based on security state and expression
+                if (currentExpression === 'neutral') {
+                    if (isLocked) {
+                        const mouthOpen = Math.min(distance / 100, 0.3);
+                        mouth.style.height = `${15 + mouthOpen * 5}%`;
+                        mouth.style.borderRadius = `0 0 ${50 - mouthOpen * 10}% ${50 - mouthOpen * 10}% / 0 0 ${100 - mouthOpen * 20}% ${100 - mouthOpen * 20}%`;
+                    } else {
+                        const mouthOpen = Math.min(distance / 100, 0.5);
+                        mouth.style.height = `${15 + mouthOpen * 10}%`;
+                        mouth.style.borderRadius = `0 0 ${50 - mouthOpen * 20}% ${50 - mouthOpen * 20}% / 0 0 ${100 - mouthOpen * 40}% ${100 - mouthOpen * 40}%`;
+                    }
+                }
+                
+                // Random security checks when locked
+                const now = Date.now();
+                if (isLocked && now - lastSecurityCheck > 2000) {
+                    performSecurityCheck();
+                    lastSecurityCheck = now;
+                }
+                
+                requestAnimationFrame(animate);
+            }
+
+            // Update eye tracking for a single eye
+            function updateEyeTracking(eye, pupil) {
+                const eyeRect = eye.getBoundingClientRect();
+                const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+                const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+                
+                // Calculate angle and distance to mouse
+                const dx = mouseX - eyeCenterX;
+                const dy = mouseY - eyeCenterY;
+                const distance = Math.min(Math.sqrt(dx * dx + dy * dy), eyeRect.width * 0.3);
+                const angle = Math.atan2(dy, dx);
+                
+                // Update pupil position
+                pupil.style.transform = `translate(calc(-50% + ${Math.cos(angle) * distance / 2}px), calc(-50% + ${Math.sin(angle) * distance / 2}px)`;
+            }
+
+            // Perform security check animation
+            function performSecurityCheck() {
+                if (!isLocked) return;
+                
+                playSound(scanSound);
+                
+                // Save original values
+                const originalText = securityLock.textContent;
+                const originalColor = securityLock.style.color;
+                
+                // Animate security check
+                securityLock.textContent = "SCANNING";
+                securityLock.style.color = "var(--secondary-color)";
+                
+                setTimeout(() => {
+                    securityLock.textContent = originalText;
+                    securityLock.style.color = originalColor;
+                }, 500);
+            }
+            
+            // Start animation loop
+            animate();
+        });
+    </script>
+</body>
+</html>
