@@ -154,3 +154,23 @@ Our solution solves the pain of centralized digital wallets that break in poor n
 │   └── services/
 ├── scripts/                 # Deployment & migration scripts
 └── README.md
+```
+
+## ⛔ Existing Limitations
+
+Traditional digital wallets often suffer from:
+
+- **Constant internet requirement**  
+  Transactions fail in rural areas, remote locations, or during travel when connectivity is poor.
+
+- **No multi‑currency support or customizable splits**  
+  You can’t automatically convert between currencies or split bills by arbitrary ratios (e.g., 20–30–50).
+
+- **Lack of offline validation**  
+  Without cryptographic offline signing, unconfirmed transactions can lead to disputes or fraud.
+
+- **Centralized dependency**  
+  Relying on centralized servers reduces transparency, creates single points of failure, and raises privacy concerns.
+
+❗ **TRANScrypt** solves these by providing a decentralized, offline‑first payment experience with on‑chain settlement, multi‑currency conversion, and flexible bill‑splitting.  
+
