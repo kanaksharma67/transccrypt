@@ -9,6 +9,8 @@ import SplitBill from './pages/SplitBill';
 import Convert from './pages/Convert';
 import { AuthModal } from './pages/AuthModel'; // Fixed typo in import (AuthModel -> AuthModal)
 
+import PetCare from './pages/Games';
+
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -31,7 +33,9 @@ function App() {
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
           <Route path="/split-bill" element={<SplitBill />} />
-          <Route path="/convert" element={<Convert />} /> {/* Uncommented and fixed */}
+          <Route path="/convert" element={<Convert />} />
+         
+          <Route path="/games" element={<PetCare />} />
         </Routes>
       </Layout>
     </Router>

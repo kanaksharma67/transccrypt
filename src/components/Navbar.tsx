@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutGrid, Home, History, Users, RefreshCw, CreditCard, User, Settings, LogIn } from 'lucide-react';
+import { LayoutGrid, Home, History, Users, RefreshCw, CreditCard, User, Settings, LogIn, Gamepad2 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -81,15 +81,16 @@ const Navbar = () => {
               <RefreshCw size={20} />
               <span>Convert</span>
             </Link>
-            
-            {/* Settings Link */}
             <Link 
-              to="/settings" 
-              className={`flex items-center gap-2 ${isActive('/settings') ? 'text-purple-500' : 'text-gray-400 hover:text-white'}`}
+              to="/games" 
+              className={`flex items-center gap-2 ${isActive('/games') ? 'text-purple-500' : 'text-gray-400 hover:text-white'}`}
             >
-              <Settings size={20} />
-              <span className="hidden md:inline">Settings</span>
+              <Gamepad2 size={20} />
+              <span>Games</span>
             </Link>
+            
+            
+              
             
             {/* Login Button - Added this new button */}
             <button
