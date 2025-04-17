@@ -7,6 +7,8 @@ import { ArrowRight, Shield, Wifi, Bell, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
+import WorldMap from "@/components/ui/world-map"
+import WorldMapDemo from "@/components/ui/world-map-demo"
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger)
@@ -64,7 +66,7 @@ export default function Dashboard() {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="container   py-10">
+        <section className="container py-10">
           <ContainerScroll
             titleComponent={
               <>
@@ -76,8 +78,8 @@ export default function Dashboard() {
                   </span>
                 </h1>
                 <p className="mx-auto mb-10 max-w-2xl text-lg text-slate-300">
-                  TransCrypt is a next-generation blockchain-powered payment solution designed to empower users with secure,
-                  fast, and reliable transactions—even without an internet connection.
+                  TransCrypt is a next-generation blockchain-powered payment solution designed to empower users with
+                  secure, fast, and reliable transactions—even without an internet connection.
                 </p>
                 <div className="mb-16 flex flex-wrap justify-center gap-4">
                   <Button
@@ -142,8 +144,8 @@ export default function Dashboard() {
                             </div>
                           </div>
                         </div>
-                        <div className={`text-sm font-medium ₹{i === 3 ? "text-emerald-400" : "text-red-400"}`}>
-                          {i === 3 ? "+₹2,750.00" : `-₹₹{(i * 12.5).toFixed(2)}`}
+                        <div className={`text-sm font-medium ${i === 3 ? "text-emerald-400" : "text-red-400"}`}>
+                          {i === 3 ? "+₹2,750.00" : `-₹${(i * 12.5).toFixed(2)}`}
                         </div>
                       </div>
                     ))}
@@ -155,34 +157,35 @@ export default function Dashboard() {
         </section>
 
         {/* Facilities Section */}
-        <section className="bg-slate-950/50 py-20">
-          <div className="container mx-auto px-4">
-            <div ref={facilitiesRef} className="mx-auto max-w-6xl">
-              <div className="mb-16 text-center">
-                <h2 className="mb-2 text-3xl font-bold text-white">Facilities We Provide</h2>
-                <p className="text-slate-400">Powerful features to revolutionize your payment experience</p>
-              </div>
-
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                {facilities.map((facility, i) => (
-                  <Card
-                    key={i}
-                    ref={(el) => (facilityCardsRef.current[i] = el)}
-                    className="overflow-hidden border-slate-800 bg-gradient-to-br from-slate-800 to-slate-900 p-0 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-sky-900/20"
-                  >
-                    <div className="p-6">
-                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-slate-950/50 backdrop-blur-sm">
-                        {facility.icon}
-                      </div>
-                      <h3 className="mb-2 text-xl font-semibold text-white">{facility.title}</h3>
-                      <p className="text-slate-400">{facility.description}</p>
-                    </div>
-                    <div className="h-1 w-full bg-gradient-to-r from-transparent via-sky-400 to-transparent opacity-50"></div>
-                  </Card>
-                ))}
-              </div>
-            </div>
+        <section ref={facilitiesRef} className="container py-20">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">Key Features</h2>
+            <p className="mx-auto max-w-2xl text-slate-400">
+              Our platform combines cutting-edge blockchain technology with practical payment solutions that work
+              anywhere, anytime.
+            </p>
           </div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {facilities.map((facility, index) => (
+              <Card
+                key={facility.title}
+                className="bg-slate-800/50 border-slate-700 backdrop-blur-sm"
+                ref={(el) => (facilityCardsRef.current[index] = el)}
+              >
+                <div className="flex flex-col items-center p-6 text-center">
+                  <div className="mb-4 rounded-full bg-slate-700/50 p-3">{facility.icon}</div>
+                  <h3 className="mb-2 text-xl font-medium text-white">{facility.title}</h3>
+                  <p className="text-slate-400">{facility.description}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* World Map Section */}
+        <section className="container">
+          <WorldMapDemo/>
         </section>
       </div>
     </div>
