@@ -7,7 +7,6 @@ import { ArrowRight, Shield, Wifi, Bell, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
-import WorldMap from "@/components/ui/world-map"
 import WorldMapDemo from "@/components/ui/world-map-demo"
 
 // Register GSAP plugin
