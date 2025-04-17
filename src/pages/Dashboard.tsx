@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ContainerScroll } from "@/components/ui/container-scroll-animation"
 import WorldMapDemo from "@/components/ui/world-map-demo"
-
+import { Link } from "react-router-dom"
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger)
 
@@ -81,12 +81,14 @@ export default function Dashboard() {
                   secure, fast, and reliable transactions—even without an internet connection.
                 </p>
                 <div className="mb-16 flex flex-wrap justify-center gap-4">
+                  <Link to="/home">
                   <Button
                     onClick={() => {}}
                     className="rounded-lg bg-gradient-to-r from-sky-400 to-blue-500 px-8 py-6 text-lg font-medium text-white hover:from-sky-500 hover:to-blue-600"
                   >
                     Get Started <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
+                  </Link>
                   <Button
                     variant="outline"
                     className="rounded-lg border border-slate-700 px-8 py-6 text-lg font-medium text-white hover:bg-slate-800"

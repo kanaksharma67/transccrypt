@@ -43,7 +43,7 @@ export default function WorldMap({ dots = [], lineColor = "#0ea5e9" }: MapProps)
   return (
     <div className="w-full aspect-[2/1] bg-transparent rounded-lg relative font-sans">
       {/* Add a subtle overlay to make the map more visible */}
-      <div className="absolute inset-0 bg-slate-900/20 rounded-lg backdrop-blur-[1px]"></div>
+      <div className="absolute inset-0 bg-slate-500/20 rounded-lg backdrop-blur-[1px]"></div>
 
       <img
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
