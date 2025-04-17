@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Care Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #4fc3a1;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --danger: #e63946;
+            --warning: #ffbe0b;
+            --success: #4caf50;
+            --night-bg: #0a1128;
+            --night-primary: #1e3a8a;
+            --moon-color: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 1s ease, color 1s ease;
+        }
+        
+        body.night-mode {
+            background: linear-gradient(135deg, var(--night-bg) 0%, #1e3a8a 100%);
+            color: var(--light);
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.8s ease-out;
+        }
+        
+        body.night-mode .game-card {
+            background: #1e293b;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .game-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        body.night-mode .game-header {
+            background: linear-gradient(to right, var(--night-primary), #1e3a8a);
+        }
+        
+        .game-content {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background: rgba(75, 192, 192, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        body.night-mode .game-stats {
+            background: rgba(30, 58, 138, 0.2);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        body.night-mode .stat-value {
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+        
+        body.night-mode .stat-label {
+            color: #94a3b8;
+        }
+        
+        .game-area {
+            height: 250px;
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(22, 96, 136, 0.3);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #3da58a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 195, 161, 0.3);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+        
+        .btn-warning:hover {
+            background-color: #e6ac00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 190, 11, 0.3);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c1121f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #2d6a4f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .btn-action-available::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            border: 2px solid white;
+            animation: pulse 2s infinite;
+        }
+        
+        /* Plant elements */
+        .plant-pot {
+            width: 120px;
+            height: 90px;
+            background: #8d6e63;
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            z-index: 1;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .pot-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 10%),
+                        radial-gradient(circle at 70% 70%, rgba(255,255,255,0.2) 0%, transparent 10%);
+            border-radius: 0 0 25px 25px;
+        }
+        
+        .plant {
+            position: absolute;
+            bottom: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform-origin: bottom center;
+        }
+        
+        /* Plant types */
+        .seed {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Default plant (green) */
+        .default-seed { background: #5d4037; }
+        .default-sprout {
+            width: 15px;
+            height: 50px;
+            background: linear-gradient(to bottom, #388e3c, #4caf50);
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .default-sprout::before, .default-sprout::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 25px;
+            background: #4caf50;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .default-sprout::before {
+            left: -5px;
+            top: 20px;
+            transform: rotate(-30deg);
+        }
+        .default-sprout::after {
+            right: -5px;
+            top: 20px;
+            transform: rotate(30deg);
+        }
+        .default-small-plant {
+            width: 60px;
+            height: 100px;
+            background: linear-gradient(to bottom, #388e3c, #4caf50);
+            clip-path: polygon(0% 100%, 25% 60%, 50% 80%, 75% 60%, 100% 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .default-small-plant::before, .default-small-plant::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #4caf50;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .default-small-plant::before {
+            left: -15px;
+            top: 30px;
+            transform: rotate(-20deg);
+        }
+        .default-small-plant::after {
+            right: -15px;
+            top: 30px;
+            transform: rotate(20deg);
+        }
+        .default-medium-plant {
+            width: 90px;
+            height: 150px;
+            background: linear-gradient(to bottom, #2e7d32, #388e3c);
+            clip-path: polygon(0% 100%, 15% 70%, 30% 90%, 50% 60%, 70% 90%, 85% 70%, 100% 100%, 50% 0%);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .default-medium-plant::before, .default-medium-plant::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #388e3c;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .default-medium-plant::before {
+            left: -25px;
+            top: 50px;
+            transform: rotate(-25deg);
+        }
+        .default-medium-plant::after {
+            right: -25px;
+            top: 50px;
+            transform: rotate(25deg);
+        }
+        .default-tree {
+            width: 120px;
+            height: 200px;
+            background: linear-gradient(to bottom, #1b5e20, #2e7d32);
+            clip-path: polygon(0% 100%, 10% 70%, 20% 90%, 30% 60%, 40% 80%, 50% 50%, 60% 80%, 70% 60%, 80% 90%, 90% 70%, 100% 100%, 50% 0%);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .default-tree::before, .default-tree::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #2e7d32;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .default-tree::before {
+            left: -35px;
+            top: 70px;
+            transform: rotate(-30deg);
+        }
+        .default-tree::after {
+            right: -35px;
+            top: 70px;
+            transform: rotate(30deg);
+        }
+        
+        /* Flowering plant (pink) */
+        .flowering-seed { background: #6d4c41; }
+        .flowering-sprout {
+            width: 15px;
+            height: 50px;
+            background: linear-gradient(to bottom, #7b1fa2, #9c27b0);
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .flowering-sprout::before, .flowering-sprout::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 25px;
+            background: #9c27b0;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .flowering-small-plant {
+            width: 60px;
+            height: 100px;
+            background: linear-gradient(to bottom, #7b1fa2, #9c27b0);
+            clip-path: polygon(0% 100%, 25% 60%, 50% 80%, 75% 60%, 100% 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .flowering-small-plant::before, .flowering-small-plant::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #9c27b0;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .flowering-medium-plant {
+            width: 90px;
+            height: 150px;
+            background: linear-gradient(to bottom, #6a1b9a, #7b1fa2);
+            clip-path: polygon(0% 100%, 15% 70%, 30% 90%, 50% 60%, 70% 90%, 85% 70%, 100% 100%, 50% 0%);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .flowering-medium-plant::before, .flowering-medium-plant::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #7b1fa2;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .flowering-tree {
+            width: 120px;
+            height: 200px;
+            background: linear-gradient(to bottom, #4a148c, #6a1b9a);
+            clip-path: polygon(0% 100%, 10% 70%, 20% 90%, 30% 60%, 40% 80%, 50% 50%, 60% 80%, 70% 60%, 80% 90%, 90% 70%, 100% 100%, 50% 0%);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .flowering-tree::before, .flowering-tree::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #6a1b9a;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .flowering-tree::before {
+            left: -35px;
+            top: 70px;
+            transform: rotate(-30deg);
+        }
+        .flowering-tree::after {
+            right: -35px;
+            top: 70px;
+            transform: rotate(30deg);
+        }
+        .flower {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #ff4081;
+            border-radius: 50% 50% 0 0;
+            transform: rotate(45deg);
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            z-index: 2;
+        }
+        
+        /* Cactus plant (blue-green) */
+        .cactus-seed { background: #5d4037; }
+        .cactus-sprout {
+            width: 15px;
+            height: 50px;
+            background: linear-gradient(to bottom, #009688, #4db6ac);
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .cactus-sprout::before, .cactus-sprout::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            background: #4db6ac;
+            border-radius: 5px;
+        }
+        .cactus-sprout::before {
+            left: -5px;
+            top: 15px;
+            transform: rotate(-15deg);
+        }
+        .cactus-sprout::after {
+            right: -5px;
+            top: 15px;
+            transform: rotate(15deg);
+        }
+        .cactus-small-plant {
+            width: 40px;
+            height: 100px;
+            background: linear-gradient(to bottom, #00897b, #009688);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .cactus-small-plant::before, .cactus-small-plant::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 50px;
+            background: #009688;
+            border-radius: 10px;
+        }
+        .cactus-small-plant::before {
+            left: -20px;
+            top: 20px;
+            transform: rotate(-15deg);
+        }
+        .cactus-small-plant::after {
+            right: -20px;
+            top: 20px;
+            transform: rotate(15deg);
+        }
+        .cactus-medium-plant {
+            width: 50px;
+            height: 150px;
+            background: linear-gradient(to bottom, #00796b, #00897b);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .cactus-medium-plant::before, .cactus-medium-plant::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 80px;
+            background: #00897b;
+            border-radius: 15px;
+        }
+        .cactus-medium-plant::before {
+            left: -30px;
+            top: 30px;
+            transform: rotate(-20deg);
+        }
+        .cactus-medium-plant::after {
+            right: -30px;
+            top: 30px;
+            transform: rotate(20deg);
+        }
+        .cactus-tree {
+            width: 60px;
+            height: 200px;
+            background: linear-gradient(to bottom, #00695c, #00796b);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .cactus-tree::before, .cactus-tree::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 120px;
+            background: #00796b;
+            border-radius: 20px;
+        }
+        .cactus-tree::before {
+            left: -40px;
+            top: 40px;
+            transform: rotate(-25deg);
+        }
+        .cactus-tree::after {
+            right: -40px;
+            top: 40px;
+            transform: rotate(25deg);
+        }
+        .cactus-spike {
+            position: absolute;
+            width: 3px;
+            height: 10px;
+            background: white;
+            transform: rotate(45deg);
+        }
+        
+        /* Decoration elements */
+        .decoration {
+            position: absolute;
+            z-index: 3;
+        }
+        
+        .water-drop {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #4fc3f7;
+            border-radius: 50% 0 50% 50%;
+            opacity: 0;
+            filter: drop-shadow(0 0 5px rgba(79, 195, 247, 0.7));
+            animation: waterDrop 1s linear;
+        }
+        
+        .sun {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ffeb3b 30%, rgba(255, 235, 59, 0.5) 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px #ffeb3b;
+            animation: sunPulse 4s infinite alternate;
+            transition: opacity 1s ease;
+        }
+        
+        .sun-rays {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-conic-gradient(
+                from 0deg,
+                rgba(255, 235, 59, 0.7) 0deg 15deg,
+                transparent 15deg 30deg
+            );
+            border-radius: 50%;
+            animation: rotateSun 20s linear infinite;
+        }
+        
+        .moon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, var(--moon-color) 30%, rgba(226, 232, 240, 0.5) 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(226, 232, 240, 0.7);
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        .moon-crater {
+            position: absolute;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        
+        /* Pest elements */
+        .pest {
+            position: absolute;
+            z-index: 4;
+            animation: pestMove 5s linear infinite;
+        }
+        
+        .aphid {
+            width: 10px;
+            height: 6px;
+            background: #8bc34a;
+            border-radius: 50%;
+        }
+        
+        .spider-mite {
+            width: 8px;
+            height: 8px;
+            background: #ff5722;
+            border-radius: 50%;
+        }
+        
+        .fungus {
+            width: 15px;
+            height: 15px;
+            background: #795548;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        /* Plant status indicators */
+        .status-indicator {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 5px;
+            z-index: 5;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        .needs-water { background-color: #4fc3f7; }
+        .can-fertilize { background-color: #8d6e63; }
+        .can-prune { background-color: #ffeb3b; }
+        .has-pest { background-color: #e53935; }
+        
+        /* Plant selection modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 400px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        body.night-mode .modal {
+            background: #1e293b;
+            color: white;
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .plant-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .plant-option {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        body.night-mode .plant-option {
+            background: #334155;
+        }
+        
+        .plant-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--accent);
+        }
+        
+        .plant-option.selected {
+            border-color: var(--accent);
+            background: rgba(79, 195, 161, 0.1);
+        }
+        
+        .plant-preview {
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .plant-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .plant-difficulty {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        body.night-mode .plant-difficulty {
+            color: #94a3b8;
+        }
+        
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        /* Reward decorations */
+        .reward-ribbon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 40px;
+            height: 40px;
+            background: var(--warning);
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--dark);
+            z-index: 6;
+        }
+        
+        .reward-hat {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 20px;
+            background: var(--danger);
+            border-radius: 50% 50% 0 0;
+            z-index: 6;
+        }
+        
+        .reward-hat::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--danger);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes waterDrop {
+            0% {
+                transform: translateY(-30px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes sunPulse {
+            from { transform: scale(1); box-shadow: 0 0 30px #ffeb3b; }
+            to { transform: scale(1.1); box-shadow: 0 0 50px #ffeb3b; }
+        }
+        
+        @keyframes rotateSun {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes twinkle {
+            from { opacity: 0.3; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pestMove {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(5px); }
+            50% { transform: translateX(0) translateY(10px); }
+            75% { transform: translateX(-10px) translateY(5px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+        
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--accent);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.warning {
+            background: var(--warning);
+            color: var(--dark);
+        }
+        
+        .notification.danger {
+            background: var(--danger);
+        }
+        
+        .notification.success {
+            background: var(--success);
+        }
+        
+        /* Responsive */
+        @media (max-width: 500px) {
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .plant-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Plant Care Game</h1>
+            <p class="subtitle">Nurture your plant from seed to tree</p>
+        </header>
+        
+        <div class="game-card">
+            <div class="game-header">Plant Care</div>
+            <div class="game-content">
+                <div class="game-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="plant-days">0</div>
+                        <div class="stat-label">Days</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="plant-growth">0%</div>
+                        <div class="stat-label">Growth</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="plant-streak">0</div>
+                        <div class="stat-label">Streak</div>
+                    </div>
+                </div>
+                
+                <div class="game-area" id="plant-game-area">
+                    <div class="sun"><div class="sun-rays"></div></div>
+                    <div class="moon">
+                        <div class="moon-crater" style="top: 10px; left: 15px; width: 8px; height: 8px;"></div>
+                        <div class="moon-crater" style="top: 20px; right: 10px; width: 5px; height: 5px;"></div>
+                        <div class="moon-crater" style="bottom: 15px; left: 10px; width: 10px; height: 10px;"></div>
+                    </div>
+                    <div class="stars" id="stars"></div>
+                    <div class="plant-pot"><div class="pot-pattern"></div></div>
+                    <div class="plant seed" id="plant"></div>
+                    <div class="status-indicator" id="status-indicator"></div>
+                </div>
+                
+                <p id="plant-message">Water your plant daily to help it grow!</p>
+                
+                <div class="actions">
+                    <button class="btn btn-primary" id="water-plant">
+                        <span>💧</span> Water Plant
+                    </button>
+                    <button class="btn btn-accent" id="fertilize-plant" disabled>
+                        <span>🌱</span> Fertilize
+                    </button>
+                    <button class="btn btn-warning" id="prune-plant" disabled>
+                        <span>✂️</span> Prune
+                    </button>
+                    <button class="btn btn-danger" id="treat-plant" disabled>
+                        <span>🐛</span> Treat
+                    </button>
+                    <button class="btn btn-success" id="change-plant">
+                        <span>🔄</span> Change Plant
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+    
+    <!-- Plant Selection Modal -->
+    <div class="modal-overlay" id="plant-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Choose Your Plant</h2>
+                <p>Select a plant type to care for</p>
+            </div>
+            <div class="plant-options" id="plant-options">
+                <!-- Options will be added dynamically -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="confirm-plant">Select Plant</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Plant types data
+        const plantTypes = [
+            {
+                id: 'default',
+                name: 'Green Leaf',
+                difficulty: 'Easy',
+                description: 'A classic green plant that grows steadily with basic care.',
+                waterFrequency: 1,
+                fertilizerBoost: 3,
+                pestChance: 0.1,
+                stages: ['default-seed', 'default-sprout', 'default-small-plant', 'default-medium-plant', 'default-tree']
+            },
+            {
+                id: 'flowering',
+                name: 'Pink Bloom',
+                difficulty: 'Medium',
+                description: 'A beautiful flowering plant that requires more attention but grows faster.',
+                waterFrequency: 1,
+                fertilizerBoost: 5,
+                pestChance: 0.2,
+                stages: ['flowering-seed', 'flowering-sprout', 'flowering-small-plant', 'flowering-medium-plant', 'flowering-tree'],
+                specialFeature: function() {
+                    if (this.growth >= 40) {
+                        const flower = document.createElement('div');
+                        flower.className = 'flower';
+                        document.getElementById('plant').appendChild(flower);
+                    }
+                }
+            },
+            {
+                id: 'cactus',
+                name: 'Desert Cactus',
+                difficulty: 'Hard',
+                description: 'A hardy cactus that needs less water but grows slower.',
+                waterFrequency: 2, // Needs water every 2 days
+                fertilizerBoost: 2,
+                pestChance: 0.05,
+                stages: ['cactus-seed', 'cactus-sprout', 'cactus-small-plant', 'cactus-medium-plant', 'cactus-tree'],
+                specialFeature: function() {
+                    if (this.growth >= 30) {
+                        // Add spikes to cactus
+                        const plant = document.getElementById('plant');
+                        for (let i = 0; i < 10; i++) {
+                            const spike = document.createElement('div');
+                            spike.className = 'cactus-spike';
+                            spike.style.left = `${Math.random() * 100}%`;
+                            spike.style.top = `${Math.random() * 100}%`;
+                            spike.style.transform = `rotate(${Math.random() * 360}deg)`;
+                            plant.appendChild(spike);
+                        }
+                    }
+                }
+            }
+        ];
+
+        // Reward decorations
+        const rewards = [
+            { streak: 7, decoration: 'ribbon', message: '7-day streak! You earned a ribbon!' },
+            { streak: 14, decoration: 'hat', message: '14-day streak! Your plant got a fancy hat!' },
+            { streak: 30, decoration: 'both', message: '30-day streak! Your plant is now a champion!' }
+        ];
+
+        // Notification system
+        function showNotification(message, type = '') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification';
+            notification.classList.add('show');
+            if (type) notification.classList.add(type);
+            
+            setTimeout(() => {
+                notification.classList.remove('show', type);
+            }, 3000);
+        }
+        
+        // Plant Game
+        const plantGame = {
+            days: 0,
+            growth: 0,
+            streak: 0,
+            lastWatered: null,
+            fertilized: false,
+            pruned: false,
+            hasPest: false,
+            plantType: null,
+            decorations: [],
+            dayNightCycle: null,
+            currentHour: new Date().getHours(),
+            
+            init() {
+                this.loadData();
+                this.setupDayNightCycle();
+                this.updateDisplay();
+                this.updatePlantAppearance();
+                
+                // Setup event listeners
+                document.getElementById('water-plant').addEventListener('click', () => this.waterPlant());
+                document.getElementById('fertilize-plant').addEventListener('click', () => this.fertilizePlant());
+                document.getElementById('prune-plant').addEventListener('click', () => this.prunePlant());
+                document.getElementById('treat-plant').addEventListener('click', () => this.treatPlant());
+                document.getElementById('change-plant').addEventListener('click', () => this.showPlantSelection());
+                document.getElementById('confirm-plant').addEventListener('click', () => this.selectPlant());
+                
+                // Check if plant was cared for today
+                this.checkDailyStatus();
+                
+                // Initialize stars for night mode
+                this.initStars();
+                
+                // Show plant selection if no plant type is set
+                if (!this.plantType) {
+                    this.showPlantSelection();
+                }
+            },
+            
+            loadData() {
+                this.days = parseInt(localStorage.getItem('plantDays')) || 0;
+                this.growth = parseInt(localStorage.getItem('plantGrowth')) || 0;
+                this.streak = parseInt(localStorage.getItem('plantStreak')) || 0;
+                this.lastWatered = localStorage.getItem('plantLastWatered');
+                this.fertilized = localStorage.getItem('plantFertilized') === 'true';
+                this.pruned = localStorage.getItem('plantPruned') === 'true';
+                this.hasPest = localStorage.getItem('plantHasPest') === 'true';
+                this.plantType = localStorage.getItem('plantType');
+                this.decorations = JSON.parse(localStorage.getItem('plantDecorations')) || [];
+                
+                // Find the plant type object
+                if (this.plantType) {
+                    this.plantType = plantTypes.find(type => type.id === this.plantType) || plantTypes[0];
+                }
+            },
+            
+            saveData() {
+                localStorage.setItem('plantDays', this.days);
+                localStorage.setItem('plantGrowth', this.growth);
+                localStorage.setItem('plantStreak', this.streak);
+                localStorage.setItem('plantLastWatered', this.lastWatered);
+                localStorage.setItem('plantFertilized', this.fertilized);
+                localStorage.setItem('plantPruned', this.pruned);
+                localStorage.setItem('plantHasPest', this.hasPest);
+                localStorage.setItem('plantType', this.plantType?.id || '');
+                localStorage.setItem('plantDecorations', JSON.stringify(this.decorations));
+            },
+            
+            setupDayNightCycle() {
+                // Check current time and set initial mode
+                this.currentHour = new Date().getHours();
+                this.updateDayNightMode();
+                
+                // Update every minute to check for day/night changes
+                this.dayNightCycle = setInterval(() => {
+                    const now = new Date();
+                    const currentHour = now.getHours();
+                    
+                    if (currentHour !== this.currentHour) {
+                        this.currentHour = currentHour;
+                        this.updateDayNightMode();
+                    }
+                }, 60000); // Check every minute
+            },
+            
+            updateDayNightMode() {
+                const isNight = this.currentHour < 6 || this.currentHour >= 18; // 6pm to 6am is night
+                document.body.classList.toggle('night-mode', isNight);
+                document.querySelector('.sun').style.opacity = isNight ? '0' : '1';
+                document.querySelector('.moon').style.opacity = isNight ? '1' : '0';
+                document.getElementById('stars').style.opacity = isNight ? '1' : '0';
+            },
+            
+            initStars() {
+                const starsContainer = document.getElementById('stars');
+                starsContainer.innerHTML = '';
+                
+                for (let i = 0; i < 50; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 50}%`;
+                    star.style.width = `${Math.random() * 3 + 1}px`;
+                    star.style.height = star.style.width;
+                    star.style.animationDelay = `${Math.random() * 2}s`;
+                    starsContainer.appendChild(star);
+                }
+            },
+            
+            waterPlant() {
+                const today = new Date().toDateString();
+                const plant = document.getElementById('plant');
+                
+                // Create water drop animations
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const drop = document.createElement('div');
+                        drop.className = 'water-drop';
+                        drop.style.left = `${Math.random() * 80 + 20}px`;
+                        drop.style.animationDelay = `${i * 0.1}s`;
+                        document.getElementById('plant-game-area').appendChild(drop);
+                        
+                        setTimeout(() => {
+                            drop.remove();
+                        }, 1000);
+                    }, i * 100);
+                }
+                
+                // Check if already watered today
+                if (this.lastWatered === today) {
+                    showNotification("You've already watered your plant today!");
+                    return;
+                }
+                
+                // Check if plant needs water based on type
+                const lastWateredDate = this.lastWatered ? new Date(this.lastWatered) : null;
+                const daysSinceWatered = lastWateredDate ? 
+                    Math.floor((new Date() - lastWateredDate) / (1000 * 60 * 60 * 24)) : 
+                    Infinity;
+                
+                if (daysSinceWatered < this.plantType.waterFrequency) {
+                    showNotification(`This plant only needs water every ${this.plantType.waterFrequency} days!`, 'warning');
+                    return;
+                }
+                
+                // Update growth and streak
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                
+                if (this.lastWatered === yesterday.toDateString()) {
+                    this.streak++;
+                    this.checkForRewards();
+                } else if (this.lastWatered !== today && this.lastWatered !== null) {
+                    this.streak = 1; // Reset streak if missed a day
+                    showNotification("Streak reset! Water daily to maintain your streak.", 'warning');
+                } else if (this.lastWatered === null) {
+                    this.streak = 1;
+                }
+                
+                this.days++;
+                
+                // Calculate growth based on care factors
+                let growthIncrease = 5;
+                if (this.fertilized) growthIncrease += this.plantType.fertilizerBoost;
+                if (this.pruned) growthIncrease += 2;
+                if (this.streak >= 7) growthIncrease += 2;
+                if (this.hasPest) growthIncrease = Math.floor(growthIncrease * 0.5); // Pests reduce growth
+                
+                this.growth += growthIncrease;
+                if (this.growth > 100) this.growth = 100;
+                
+                this.lastWatered = today;
+                this.fertilized = false;
+                this.pruned = false;
+                
+                // Random chance for pests
+                if (Math.random() < this.plantType.pestChance) {
+                    this.hasPest = true;
+                    this.spawnPests();
+                    showNotification("Oh no! Pests have attacked your plant!", 'danger');
+                }
+                
+                // Save to localStorage
+                this.saveData();
+                this.updateDisplay();
+                this.updatePlantAppearance();
+                
+                // Add growth animation
+                plant.style.animation = 'none';
+                void plant.offsetWidth; // Trigger reflow
+                plant.style.animation = 'bounce 0.5s ease';
+                
+                showNotification(`Plant watered! Growth +${growthIncrease}%`, 'success');
+            },
+            
+            fertilizePlant() {
+                if (this.fertilized) {
+                    showNotification("You've already fertilized your plant!", 'warning');
+                    return;
+                }
+                
+                this.fertilized = true;
+                this.saveData();
+                
+                document.getElementById('fertilize-plant').disabled = true;
+                
+                // Create particle effect
+                for (let i = 0; i < 10; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.width = '5px';
+                    particle.style.height = '5px';
+                    particle.style.backgroundColor = '#8d6e63';
+                    particle.style.position = 'absolute';
+                    particle.style.borderRadius = '50%';
+                    particle.style.left = `${Math.random() * 60 + 30}px`;
+                    particle.style.bottom = '90px';
+                    particle.style.opacity = '0.8';
+                    particle.style.animation = `waterDrop ${Math.random() * 0.5 + 0.5}s linear`;
+                    document.getElementById('plant-game-area').appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 1000);
+                }
+                
+                showNotification("Plant fertilized! Next watering will give extra growth.", 'success');
+            },
+            
+            prunePlant() {
+                if (this.pruned) {
+                    showNotification("You've already pruned your plant today!", 'warning');
+                    return;
+                }
+                
+                if (this.growth < 30) {
+                    showNotification("Your plant is too small to prune!", 'warning');
+                    return;
+                }
+                
+                this.pruned = true;
+                this.saveData();
+                
+                document.getElementById('prune-plant').disabled = true;
+                showNotification("Plant pruned! This will help it grow stronger.", 'success');
+                
+                // Add snip animation
+                const plant = document.getElementById('plant');
+                plant.style.transform = 'translateX(-50%) scale(0.95)';
+                setTimeout(() => {
+                    plant.style.transform = 'translateX(-50%) scale(1)';
+                }, 200);
+            },
+            
+            treatPlant() {
+                if (!this.hasPest) {
+                    showNotification("Your plant doesn't have pests!", 'warning');
+                    return;
+                }
+                
+                this.hasPest = false;
+                this.saveData();
+                
+                // Remove pests from display
+                document.querySelectorAll('.pest').forEach(pest => pest.remove());
+                
+                document.getElementById('treat-plant').disabled = true;
+                showNotification("Pests treated! Your plant is healthy again.", 'success');
+            },
+            
+            spawnPests() {
+                // Clear any existing pests
+                document.querySelectorAll('.pest').forEach(pest => pest.remove());
+                
+                // Create 3-5 pests
+                const pestCount = Math.floor(Math.random() * 3) + 3;
+                const pestTypes = ['aphid', 'spider-mite', 'fungus'];
+                
+                for (let i = 0; i < pestCount; i++) {
+                    const pestType = pestTypes[Math.floor(Math.random() * pestTypes.length)];
+                    const pest = document.createElement('div');
+                    pest.className = `pest ${pestType}`;
+                    pest.style.left = `${Math.random() * 80 + 10}px`;
+                    pest.style.bottom = `${Math.random() * 150 + 50}px`;
+                    pest.style.animationDelay = `${Math.random() * 2}s`;
+                    document.getElementById('plant-game-area').appendChild(pest);
+                }
+                
+                this.saveData();
+                this.updateStatusIndicator();
+            },
+            
+            checkDailyStatus() {
+                const today = new Date().toDateString();
+                const fertilizeBtn = document.getElementById('fertilize-plant');
+                const pruneBtn = document.getElementById('prune-plant');
+                const treatBtn = document.getElementById('treat-plant');
+                
+                // Enable buttons if not used today
+                fertilizeBtn.disabled = this.fertilized;
+                pruneBtn.disabled = this.pruned || this.growth < 30;
+                treatBtn.disabled = !this.hasPest;
+                
+                // Check if plant needs water (not watered today)
+                const lastWateredDate = this.lastWatered ? new Date(this.lastWatered) : null;
+                const daysSinceWatered = lastWateredDate ? 
+                    Math.floor((new Date() - lastWateredDate) / (1000 * 60 * 60 * 24)) : 
+                    Infinity;
+                
+                const needsWater = daysSinceWatered >= (this.plantType?.waterFrequency || 1);
+                
+                if (needsWater && this.days > 0) {
+                    document.getElementById('plant-message').textContent = "Your plant needs water today!";
+                    document.getElementById('plant-message').style.color = 'var(--danger)';
+                } else {
+                    document.getElementById('plant-message').style.color = '';
+                }
+                
+                // Update status indicators
+                this.updateStatusIndicator();
+            },
+            
+            updateStatusIndicator() {
+                const indicator = document.getElementById('status-indicator');
+                indicator.innerHTML = '';
+                
+                // Water indicator
+                const lastWateredDate = this.lastWatered ? new Date(this.lastWatered) : null;
+                const daysSinceWatered = lastWateredDate ? 
+                    Math.floor((new Date() - lastWateredDate) / (1000 * 60 * 60 * 24)) : 
+                    Infinity;
+                
+                const needsWater = daysSinceWatered >= (this.plantType?.waterFrequency || 1);
+                
+                if (needsWater && this.days > 0) {
+                    const waterDot = document.createElement('div');
+                    waterDot.className = 'status-dot needs-water';
+                    waterDot.title = 'Needs water';
+                    indicator.appendChild(waterDot);
+                }
+                
+                // Fertilize indicator
+                if (!this.fertilized && this.growth >= 20) {
+                    const fertilizeDot = document.createElement('div');
+                    fertilizeDot.className = 'status-dot can-fertilize';
+                    fertilizeDot.title = 'Can be fertilized';
+                    indicator.appendChild(fertilizeDot);
+                    
+                    // Add visual indicator to button
+                    document.getElementById('fertilize-plant').classList.add('btn-action-available');
+                } else {
+                    document.getElementById('fertilize-plant').classList.remove('btn-action-available');
+                }
+                
+                // Prune indicator
+                if (!this.pruned && this.growth >= 30) {
+                    const pruneDot = document.createElement('div');
+                    pruneDot.className = 'status-dot can-prune';
+                    pruneDot.title = 'Can be pruned';
+                    indicator.appendChild(pruneDot);
+                    
+                    // Add visual indicator to button
+                    document.getElementById('prune-plant').classList.add('btn-action-available');
+                } else {
+                    document.getElementById('prune-plant').classList.remove('btn-action-available');
+                }
+                
+                // Pest indicator
+                if (this.hasPest) {
+                    const pestDot = document.createElement('div');
+                    pestDot.className = 'status-dot has-pest';
+                    pestDot.title = 'Has pests';
+                    indicator.appendChild(pestDot);
+                    
+                    // Add visual indicator to button
+                    document.getElementById('treat-plant').classList.add('btn-action-available');
+                } else {
+                    document.getElementById('treat-plant').classList.remove('btn-action-available');
+                }
+            },
+            
+            updatePlantAppearance() {
+                const plant = document.getElementById('plant');
+                plant.className = 'plant';
+                plant.innerHTML = ''; // Clear any special elements
+                
+                if (!this.plantType) return;
+                
+                // Determine growth stage
+                let stageIndex;
+                if (this.growth >= 90) stageIndex = 4;
+                else if (this.growth >= 70) stageIndex = 3;
+                else if (this.growth >= 40) stageIndex = 2;
+                else if (this.growth >= 15) stageIndex = 1;
+                else stageIndex = 0;
+                
+                plant.classList.add(this.plantType.stages[stageIndex]);
+                
+                // Apply special features for this plant type
+                if (this.plantType.specialFeature) {
+                    this.plantType.specialFeature.call(this);
+                }
+                
+                // Apply decorations
+                this.applyDecorations();
+                
+                // Enable/disable buttons based on growth
+                document.getElementById('fertilize-plant').disabled = this.fertilized || this.growth < 20;
+                document.getElementById('prune-plant').disabled = this.pruned || this.growth < 30;
+                document.getElementById('treat-plant').disabled = !this.hasPest;
+            },
+            
+            updateDisplay() {
+                document.getElementById('plant-days').textContent = this.days;
+                document.getElementById('plant-growth').textContent = `${this.growth}%`;
+                document.getElementById('plant-streak').textContent = this.streak;
+                
+                if (!this.plantType) return;
+                
+                if (this.growth >= 100) {
+                    document.getElementById('plant-message').textContent = `Your ${this.plantType.name} has grown into a magnificent specimen! ${this.plantType.id === 'flowering' ? '🌸' : '🌳'}`;
+                } else if (this.growth >= 80) {
+                    document.getElementById('plant-message').textContent = `Your ${this.plantType.name} is now thriving!`;
+                } else if (this.growth >= 60) {
+                    document.getElementById('plant-message').textContent = `Your ${this.plantType.name} is growing beautifully!`;
+                } else if (this.growth >= 40) {
+                    document.getElementById('plant-message').textContent = `Your ${this.plantType.name} is getting bushy!`;
+                } else if (this.growth >= 20) {
+                    document.getElementById('plant-message').textContent = `Your ${this.plantType.name} is growing nicely!`;
+                } else if (this.growth >= 10) {
+                    document.getElementById('plant-message').textContent = `Your ${this.plantType.name} has sprouted!`;
+                } else {
+                    document.getElementById('plant-message').textContent = `Your ${this.plantType.name} seed is planted!`;
+                }
+            },
+            
+            showPlantSelection() {
+                const modal = document.getElementById('plant-modal');
+                const optionsContainer = document.getElementById('plant-options');
+                optionsContainer.innerHTML = '';
+                
+                plantTypes.forEach((type, index) => {
+                    const option = document.createElement('div');
+                    option.className = 'plant-option';
+                    if (this.plantType?.id === type.id) {
+                        option.classList.add('selected');
+                    }
+                    option.dataset.id = type.id;
+                    
+                    option.innerHTML = `
+                        <div class="plant-preview">
+                            <div class="plant ${type.stages[2]}"></div>
+                        </div>
+                        <div class="plant-name">${type.name}</div>
+                        <div class="plant-difficulty">Difficulty: ${type.difficulty}</div>
+                        <p>${type.description}</p>
+                    `;
+                    
+                    option.addEventListener('click', () => {
+                        document.querySelectorAll('.plant-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        option.classList.add('selected');
+                    });
+                    
+                    optionsContainer.appendChild(option);
+                });
+                
+                modal.classList.add('active');
+            },
+            
+            selectPlant() {
+                const modal = document.getElementById('plant-modal');
+                const selectedOption = document.querySelector('.plant-option.selected');
+                
+                if (!selectedOption) {
+                    showNotification("Please select a plant type", 'warning');
+                    return;
+                }
+                
+                const selectedType = plantTypes.find(type => type.id === selectedOption.dataset.id);
+                this.plantType = selectedType;
+                
+                // Reset plant data when changing types (optional)
+                if (localStorage.getItem('plantType') !== selectedType.id) {
+                    this.growth = 0;
+                    this.days = 0;
+                    this.streak = 0;
+                    this.lastWatered = null;
+                    this.fertilized = false;
+                    this.pruned = false;
+                    this.hasPest = false;
+                    this.decorations = [];
+                }
+                
+                this.saveData();
+                this.updateDisplay();
+                this.updatePlantAppearance();
+                this.checkDailyStatus();
+                
+                modal.classList.remove('active');
+                showNotification(`You're now caring for a ${selectedType.name}!`, 'success');
+            },
+            
+            checkForRewards() {
+                const newReward = rewards.find(reward => 
+                    this.streak === reward.streak && 
+                    !this.decorations.includes(reward.decoration)
+                );
+                
+                if (newReward) {
+                    this.decorations.push(newReward.decoration);
+                    this.saveData();
+                    this.applyDecorations();
+                    showNotification(newReward.message, 'success');
+                }
+            },
+            
+            applyDecorations() {
+                // Clear existing decorations
+                document.querySelectorAll('.decoration').forEach(dec => dec.remove());
+                document.querySelectorAll('.reward-ribbon, .reward-hat').forEach(dec => dec.remove());
+                
+                // Apply new decorations
+                if (this.decorations.includes('ribbon') || this.decorations.includes('both')) {
+                    const ribbon = document.createElement('div');
+                    ribbon.className = 'reward-ribbon';
+                    ribbon.textContent = this.streak;
+                    document.getElementById('plant-game-area').appendChild(ribbon);
+                }
+                
+                if (this.decorations.includes('hat') || this.decorations.includes('both')) {
+                    const hat = document.createElement('div');
+                    hat.className = 'reward-hat';
+                    document.getElementById('plant-game-area').appendChild(hat);
+                }
+            }
+        };
+        
+        // Initialize game when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            plantGame.init();
+        });
+    </script>
+</body>
+</html>
