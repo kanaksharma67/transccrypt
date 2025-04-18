@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, Shield, Key, Wallet, Globe, Moon, Sun, ChevronRight, LogOut } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { useNavigate } from 'react-router-dom';
@@ -25,71 +25,130 @@ const Settings = () => {
   const [soundVolume, setSoundVolume] = useState([50]);
   const [hapticStrength, setHapticStrength] = useState([75]);
 
-  // State for modals
+  // State for modals and notifications
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showWalletsModal, setShowWalletsModal] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [notificationToast, setNotificationToast] = useState<{message: string, type: string} | null>(null);
 
-  // Handle theme change (you might want to persist this in localStorage)
+  // Handle theme change
   const handleThemeChange = (newTheme: string) => {
     setTheme(newTheme);
     document.documentElement.classList.toggle('dark', newTheme === 'dark');
     localStorage.setItem('theme', newTheme);
   };
 
-  // Handle language change
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLanguage = e.target.value;
-    setLanguage(newLanguage);
-    // You might want to implement i18n here
-    console.log('Language changed to:', newLanguage);
+  // Handle notification toggle with toast
+  const handleNotificationToggle = (type: 'email' | 'push', checked: boolean) => {
+    const newNotifications = {...notifications, [type]: checked};
+    setNotifications(newNotifications);
+    
+    // Show toast notification
+    setNotificationToast({
+      message: `${type === 'email' ? 'Email' : 'Push'} notifications ${checked ? 'enabled' : 'disabled'}`,
+      type: checked ? 'success' : 'warning'
+    });
+
+    // Save to localStorage
+    localStorage.setItem('notifications', JSON.stringify(newNotifications));
+
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+      setNotificationToast(null);
+    }, 3000);
   };
 
-  // Handle currency change
-  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCurrency = e.target.value;
-    setCurrency(newCurrency);
-    // You might want to update currency preferences in your app state
-    console.log('Currency changed to:', newCurrency);
-  };
+  // Load saved notifications on component mount
+  useEffect(() => {
+    const savedNotifications = localStorage.getItem('notifications');
+    if (savedNotifications) {
+      setNotifications(JSON.parse(savedNotifications));
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    }
+  }, []);
 
   // Handle logout
   const handleLogout = () => {
-    // Clear user session
     localStorage.removeItem('authToken');
-    // Redirect to login page
     navigate('/login');
-    console.log('User logged out');
   };
 
   // Handle password change
   const handlePasswordChange = (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      alert("Passwords don't match!");
+      setNotificationToast({
+        message: "Passwords don't match!",
+        type: 'error'
+      });
       return;
     }
     // Here you would typically call your API to change password
-    console.log('Password changed successfully');
+    setNotificationToast({
+      message: 'Password changed successfully!',
+      type: 'success'
+    });
     setShowPasswordModal(false);
     setCurrentPassword('');
     setNewPassword('');
     setConfirmPassword('');
+    
+    setTimeout(() => {
+      setNotificationToast(null);
+    }, 3000);
   };
 
   // Mock function to connect wallet
   const connectWallet = () => {
-    // In a real app, this would connect to a wallet provider
-    console.log('Connecting wallet...');
-    // For demo purposes, we'll just show a success message
-    alert('Wallet connected successfully!');
+    setNotificationToast({
+      message: 'Wallet connected successfully!',
+      type: 'success'
+    });
     setShowWalletsModal(false);
+    
+    setTimeout(() => {
+      setNotificationToast(null);
+    }, 3000);
+  };
+
+  // Get color based on value for the sliders
+  const getSliderColor = (value: number) => {
+    if (value < 30) return 'from-blue-500 to-blue-400';
+    if (value < 60) return 'from-green-500 to-green-400';
+    if (value < 80) return 'from-yellow-500 to-yellow-400';
+    return 'from-red-500 to-red-400';
   };
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-14">
+      {/* Notification Toast */}
+      <AnimatePresence>
+        {notificationToast && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className={`fixed bottom-6 right-6 px-6 py-3 rounded-lg shadow-lg z-50 ${
+              notificationToast.type === 'success' ? 'bg-green-500/90 text-white' :
+              notificationToast.type === 'warning' ? 'bg-yellow-500/90 text-gray-900' :
+              'bg-red-500/90 text-white'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Bell size={18} />
+              <span>{notificationToast.message}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Password Change Modal */}
       {showPasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -282,7 +341,7 @@ const Settings = () => {
                 <input
                   type="checkbox"
                   checked={notifications.email}
-                  onChange={(e) => setNotifications({ ...notifications, email: e.target.checked })}
+                  onChange={(e) => handleNotificationToggle('email', e.target.checked)}
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
@@ -298,7 +357,7 @@ const Settings = () => {
                 <input
                   type="checkbox"
                   checked={notifications.push}
-                  onChange={(e) => setNotifications({ ...notifications, push: e.target.checked })}
+                  onChange={(e) => handleNotificationToggle('push', e.target.checked)}
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-500/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-500"></div>
@@ -349,7 +408,7 @@ const Settings = () => {
               <h3 className="font-medium mb-4">Language</h3>
               <select
                 value={language}
-                onChange={handleLanguageChange}
+                onChange={(e) => setLanguage(e.target.value)}
                 className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2"
               >
                 <option value="en">English</option>
@@ -363,7 +422,7 @@ const Settings = () => {
               <h3 className="font-medium mb-4">Currency</h3>
               <select
                 value={currency}
-                onChange={handleCurrencyChange}
+                onChange={(e) => setCurrency(e.target.value)}
                 className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2"
               >
                 <option value="INR">Indian Rupee (₹)</option>
@@ -374,25 +433,39 @@ const Settings = () => {
             </div>
 
             <div>
-              <h3 className="font-medium mb-4">Sound Volume</h3>
-              <Slider
-                value={soundVolume}
-                onValueChange={setSoundVolume}
-                max={100}
-                step={1}
-                className="my-4"
-              />
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-medium">Sound Volume</h3>
+                <span className="text-sm text-gray-400">{soundVolume}%</span>
+              </div>
+              <div className="relative">
+                <div className={`absolute h-1.5 rounded-full bg-gradient-to-r ${getSliderColor(soundVolume[0])}`} 
+                     style={{ width: `${soundVolume[0]}%` }} />
+                <Slider
+                  value={soundVolume}
+                  onValueChange={setSoundVolume}
+                  max={100}
+                  step={1}
+                  className="relative my-4"
+                />
+              </div>
             </div>
 
             <div>
-              <h3 className="font-medium mb-4">Haptic Feedback</h3>
-              <Slider
-                value={hapticStrength}
-                onValueChange={setHapticStrength}
-                max={100}
-                step={1}
-                className="my-4"
-              />
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-medium">Haptic Feedback</h3>
+                <span className="text-sm text-gray-400">{hapticStrength}%</span>
+              </div>
+              <div className="relative">
+                <div className={`absolute h-1.5 rounded-full bg-gradient-to-r ${getSliderColor(hapticStrength[0])}`} 
+                     style={{ width: `${hapticStrength[0]}%` }} />
+                <Slider
+                  value={hapticStrength}
+                  onValueChange={setHapticStrength}
+                  max={100}
+                  step={1}
+                  className="relative my-4"
+                />
+              </div>
             </div>
           </div>
         </div>
