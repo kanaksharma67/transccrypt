@@ -6,10 +6,10 @@ import History from './pages/History';
 import Payment from './pages/Payment';
 import Dashboard from './pages/Dashboard';
 import SplitBill from './pages/SplitBill';
-import Convert from './pages/Convert';
-import { AuthModal } from './pages/AuthModel'; // Fixed typo in import (AuthModel -> AuthModal)
-
+import { AuthModal } from './pages/AuthModel';
 import PetCare from './pages/Games';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -21,7 +21,6 @@ function App() {
   return (
     <Router>
       <Layout>
-        {/* AuthModal can be rendered outside Routes since it's a modal */}
         <AuthModal 
           isOpen={isAuthModalOpen}
           onClose={toggleAuthModal}
@@ -33,9 +32,9 @@ function App() {
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
           <Route path="/split-bill" element={<SplitBill />} />
-          <Route path="/convert" element={<Convert />} />
-         
           <Route path="/games" element={<PetCare />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </Layout>
     </Router>
