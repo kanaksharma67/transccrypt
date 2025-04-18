@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Bell, Shield, Key, Wallet, Globe, Moon, Sun, ChevronRight, LogOut } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState({
     email: true,
     push: true,
@@ -20,17 +22,180 @@ const Settings = () => {
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('en');
   const [currency, setCurrency] = useState('INR');
-
   const [soundVolume, setSoundVolume] = useState([50]);
   const [hapticStrength, setHapticStrength] = useState([75]);
 
+  // State for modals
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showWalletsModal, setShowWalletsModal] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  // Handle theme change (you might want to persist this in localStorage)
+  const handleThemeChange = (newTheme: string) => {
+    setTheme(newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    localStorage.setItem('theme', newTheme);
+  };
+
+  // Handle language change
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newLanguage = e.target.value;
+    setLanguage(newLanguage);
+    // You might want to implement i18n here
+    console.log('Language changed to:', newLanguage);
+  };
+
+  // Handle currency change
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCurrency = e.target.value;
+    setCurrency(newCurrency);
+    // You might want to update currency preferences in your app state
+    console.log('Currency changed to:', newCurrency);
+  };
+
+  // Handle logout
   const handleLogout = () => {
-    // Add logout logic here
-    console.log('Logging out...');
+    // Clear user session
+    localStorage.removeItem('authToken');
+    // Redirect to login page
+    navigate('/login');
+    console.log('User logged out');
+  };
+
+  // Handle password change
+  const handlePasswordChange = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      alert("Passwords don't match!");
+      return;
+    }
+    // Here you would typically call your API to change password
+    console.log('Password changed successfully');
+    setShowPasswordModal(false);
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+  };
+
+  // Mock function to connect wallet
+  const connectWallet = () => {
+    // In a real app, this would connect to a wallet provider
+    console.log('Connecting wallet...');
+    // For demo purposes, we'll just show a success message
+    alert('Wallet connected successfully!');
+    setShowWalletsModal(false);
   };
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-14">
+      {/* Password Change Modal */}
+      {showPasswordModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-gray-800 rounded-2xl p-6 w-full max-w-md"
+          >
+            <h3 className="text-xl font-semibold mb-4">Change Password</h3>
+            <form onSubmit={handlePasswordChange}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Current Password</label>
+                  <input
+                    type="password"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">New Password</label>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Confirm New Password</label>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowPasswordModal(false)}
+                  className="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700"
+                >
+                  Change Password
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Wallets Modal */}
+      {showWalletsModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-gray-800 rounded-2xl p-6 w-full max-w-md"
+          >
+            <h3 className="text-xl font-semibold mb-4">Connect Wallet</h3>
+            <div className="space-y-3">
+              <button
+                onClick={connectWallet}
+                className="w-full flex items-center gap-3 p-3 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-gray-600"
+              >
+                <img src="/metamask-icon.png" alt="MetaMask" className="w-6 h-6" />
+                <span>MetaMask</span>
+              </button>
+              <button
+                onClick={connectWallet}
+                className="w-full flex items-center gap-3 p-3 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-gray-600"
+              >
+                <img src="/walletconnect-icon.png" alt="WalletConnect" className="w-6 h-6" />
+                <span>WalletConnect</span>
+              </button>
+              <button
+                onClick={connectWallet}
+                className="w-full flex items-center gap-3 p-3 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-gray-600"
+              >
+                <img src="/coinbase-icon.png" alt="Coinbase" className="w-6 h-6" />
+                <span>Coinbase Wallet</span>
+              </button>
+            </div>
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => setShowWalletsModal(false)}
+                className="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Security Settings */}
         <div className="bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8">
@@ -74,7 +239,10 @@ const Settings = () => {
               </label>
             </div>
 
-            <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors">
+            <button 
+              onClick={() => setShowPasswordModal(true)}
+              className="w-full flex items-center justify-between px-4 py-3 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors"
+            >
               <div className="flex items-center gap-3">
                 <Key size={20} className="text-gray-400" />
                 <span>Change Password</span>
@@ -82,7 +250,10 @@ const Settings = () => {
               <ChevronRight size={20} className="text-gray-400" />
             </button>
 
-            <button className="w-full flex items-center justify-between px-4 py-3 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors">
+            <button 
+              onClick={() => setShowWalletsModal(true)}
+              className="w-full flex items-center justify-between px-4 py-3 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors"
+            >
               <div className="flex items-center gap-3">
                 <Wallet size={20} className="text-gray-400" />
                 <span>Connected Wallets</span>
@@ -150,7 +321,7 @@ const Settings = () => {
               <h3 className="font-medium mb-4">Theme</h3>
               <div className="flex gap-4">
                 <button
-                  onClick={() => setTheme('light')}
+                  onClick={() => handleThemeChange('light')}
                   className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border ${
                     theme === 'light'
                       ? 'border-purple-500 bg-purple-500/20'
@@ -161,7 +332,7 @@ const Settings = () => {
                   <span>Light</span>
                 </button>
                 <button
-                  onClick={() => setTheme('dark')}
+                  onClick={() => handleThemeChange('dark')}
                   className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border ${
                     theme === 'dark'
                       ? 'border-purple-500 bg-purple-500/20'
@@ -178,7 +349,7 @@ const Settings = () => {
               <h3 className="font-medium mb-4">Language</h3>
               <select
                 value={language}
-                onChange={(e) => setLanguage(e.target.value)}
+                onChange={handleLanguageChange}
                 className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2"
               >
                 <option value="en">English</option>
@@ -192,7 +363,7 @@ const Settings = () => {
               <h3 className="font-medium mb-4">Currency</h3>
               <select
                 value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
+                onChange={handleCurrencyChange}
                 className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-2"
               >
                 <option value="INR">Indian Rupee (₹)</option>

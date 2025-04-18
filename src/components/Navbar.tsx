@@ -150,13 +150,13 @@ const Navbar = () => {
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56 bg-gray-800 border-gray-700 mt-2">
-                  <DropdownMenuItem className="hover:bg-gray-700 focus:bg-gray-700">
+                  <DropdownMenuItem className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400">
                     <Link to="/profile" className="flex items-center w-full gap-2">
                       <User size={16} />
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-gray-700 focus:bg-gray-700">
+                  <DropdownMenuItem className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400">
                     <Link to="/settings" className="flex items-center w-full gap-2">
                       <Settings size={16} />
                       <span>Settings</span>
