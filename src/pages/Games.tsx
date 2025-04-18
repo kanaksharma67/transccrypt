@@ -270,12 +270,12 @@ const PetCare = () => {
         gameState.isNight 
           ? 'bg-gradient-to-b from-slate-900 rounded-2xl' 
           : 'bg-gradient-to-b from-slate-900 rounded-2xl'
-      } p-4 transition-all duration-1000`}
+      } p-4 transition-all duration-1000 mt-20`}
     >
       <div className="max-w-md mx-auto">
         <header className="text-center mb-8">
           <h1 className={`text-4xl font-bold mb-2 ${
-            gameState.isNight ? 'text-white' : 'text-gray-800'
+            gameState.isNight ? 'text-white' : 'text-white'
           } transition-colors duration-500`}>
             Pet Care Game
           </h1>
@@ -385,7 +385,7 @@ const PetCare = () => {
                 className={`p-3 rounded-lg font-semibold transform hover:scale-105 transition-all duration-200 ${
                   gameState.isNight
                     ? 'bg-gradient-to-r from-purple-600 to-purple-700'
-                    : 'bg-gradient-to-r from-purple-400 to-purple-500'
+                    : 'bg-gradient-to-r from-purple-600 to-purple-700'
                 } text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}
               >
                 {isSleeping ? 'Wake Up' : 'Sleep'}
