@@ -11,6 +11,8 @@ import PetCare from './pages/Games';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Convert from './pages/Convert';
+// import  {PlantCareGame}  from './components/PlantCareGame/PlantCareGame';
+import PlantCareGame from './components/PlantCareGame/PlantCareGame'; // Importing the PlantCareGame component
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -33,10 +35,14 @@ function App() {
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
           <Route path="/split" element={<SplitBill />} />
-          <Route path="/games" element={<PetCare />} />
+          {/* <Route path="/games" element={<PetCare />} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path='/convert' element={<Convert />} />
+          <Route path="/split-bill" element={<SplitBill />} />
+          <Route path="/convert" element={<Convert />} />
+         <Route path="/pet-care" element={<PetCare />} />
+          <Route path="/plant-care" element={<PlantCareGame/>} />
         </Routes>
       </Layout>
     </Router>

@@ -48,6 +48,12 @@ export default {
           '50%': { opacity: 0.5 },
         },
       },
+      colors: {
+        brown: {
+          700: '#8d6e63',
+          800: '#5d4037',
+        },
+      },
     },
   },
   plugins: [],

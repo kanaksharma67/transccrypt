@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutGrid, Home, History, Users, RefreshCw, CreditCard, User, Settings, LogIn, Gamepad2, Menu, X } from 'lucide-react';
+import { 
+  LayoutGrid, 
+  Home, 
+  History, 
+  Users, 
+  RefreshCw, 
+  CreditCard, 
+  User, 
+  Settings, 
+  LogIn, 
+  Gamepad2, 
+  Menu, 
+  X,
+  ChevronDown 
+} from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
 } from '@/components/ui/dropdown-menu';
-
 import { AuthModal } from '@/pages/AuthModel';
 
 const Navbar = () => {
@@ -16,9 +30,11 @@ const Navbar = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isGamesOpen, setIsGamesOpen] = useState(false);
   
   const isActive = (path: string) => {
-    return location.pathname === path;
+    return location.pathname === path || 
+           (path === '/games' && (location.pathname === '/plant-care' || location.pathname === '/pet-care'));
   };
 
   const toggleAuthModal = () => {
@@ -30,7 +46,7 @@ const Navbar = () => {
     { path: '/home', icon: Home, label: 'Home' },
     { path: '/history', icon: History, label: 'History' },
     { path: '/make-payment', icon: CreditCard, label: 'Payments' },
-    { path: '/Split', icon: Users, label: 'Split' },
+    { path: '/split-bill', icon: Users, label: 'Split Bill' },
     { path: '/convert', icon: RefreshCw, label: 'Convert' },
     { path: '/games', icon: Gamepad2, label: 'Games' },
   ];
@@ -52,35 +68,72 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-6">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                    isActive(item.path)
-                      ? 'text-purple-500 bg-purple-500/10'
-                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                  }`}
-                >
-                  <item.icon size={20} />
-                  <span>{item.label}</span>
-                </Link>
-              ))}
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="flex lg:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-400 hover:text-white p-2"
-              >
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
+            <div className="hidden lg:flex items-center gap-1">
+              {navItems.map((item) => {
+                if (item.path === '/games') {
+                  return (
+                    <DropdownMenu key={item.path} onOpenChange={setIsGamesOpen}>
+                      <DropdownMenuTrigger className="focus:outline-none">
+                        <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+                          isActive(item.path)
+                            ? 'text-purple-500 bg-purple-500/10'
+                            : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                        }`}>
+                          <item.icon size={20} />
+                          <span>{item.label}</span>
+                          <ChevronDown 
+                            size={16} 
+                            className={`transition-transform ${isGamesOpen ? 'rotate-180' : ''}`} 
+                          />
+                        </div>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent 
+                        className="w-48 bg-gray-800 border-gray-700 mt-2"
+                        align="start"
+                      >
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem 
+                            className={`hover:bg-gray-700 focus:bg-gray-700 ${
+                              location.pathname === '/plant-care' ? 'text-purple-500' : 'text-gray-300'
+                            }`}
+                          >
+                            <Link to="/plant-care" className="flex items-center w-full gap-2">
+                              <span>Plant Care</span>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem 
+                            className={`hover:bg-gray-700 focus:bg-gray-700 ${
+                              location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
+                            }`}
+                          >
+                            <Link to="/pet-care" className="flex items-center w-full gap-2">
+                              <span>Pet Care</span>
+                            </Link>
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  );
+                }
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+                      isActive(item.path)
+                        ? 'text-purple-500 bg-purple-500/10'
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    }`}
+                  >
+                    <item.icon size={20} />
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
             </div>
 
             {/* Right side buttons */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-2">
               <button
                 onClick={toggleAuthModal}
                 className="flex items-center gap-2 text-gray-400 hover:text-white px-3 py-2 rounded-lg transition-colors hover:bg-gray-800"
@@ -116,6 +169,16 @@ const Navbar = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="flex lg:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-400 hover:text-white p-2"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
             </div>
           </div>
         </div>
