@@ -166,21 +166,21 @@ const Settings = () => {
                 onClick={connectWallet}
                 className="w-full flex items-center gap-3 p-3 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-gray-600"
               >
-                <img src="/metamask-icon.png" alt="MetaMask" className="w-6 h-6" />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3ymr3UNKopfI0NmUY95Dr-0589vG-91KuAA&s" alt="MetaMask" className="w-6 h-6" />
                 <span>MetaMask</span>
               </button>
               <button
                 onClick={connectWallet}
                 className="w-full flex items-center gap-3 p-3 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-gray-600"
               >
-                <img src="/walletconnect-icon.png" alt="WalletConnect" className="w-6 h-6" />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAUpkrZvGNGglwLFW9FkIy9xQkczJAS5gTdA&s" alt="WalletConnect" className="w-6 h-6" />
                 <span>WalletConnect</span>
               </button>
               <button
                 onClick={connectWallet}
                 className="w-full flex items-center gap-3 p-3 bg-gray-700/50 hover:bg-gray-700 rounded-lg border border-gray-600"
               >
-                <img src="/coinbase-icon.png" alt="Coinbase" className="w-6 h-6" />
+                <img src="https://altcoinsbox.com/wp-content/uploads/2022/12/coinbase-logo.png" alt="Coinbase" className="w-6 h-6" />
                 <span>Coinbase Wallet</span>
               </button>
             </div>
