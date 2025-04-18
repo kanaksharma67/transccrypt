@@ -89,7 +89,7 @@ const ParticleButton = ({
   onClick: () => void;
   disabled?: boolean;
 }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null)
   
   const createParticles = () => {
     if (!buttonRef.current) return;
@@ -303,8 +303,7 @@ const QRCodeModal = ({
             <QRCode 
               value={upiLink} 
               size={200} 
-              level="H" 
-              includeMargin={true}
+              level="H"
             />
           </div>
           
@@ -695,7 +694,7 @@ const SplitBill: React.FC = () => {
   };
 
   return (
-    <div className="font-sans flex items-center justify-center mt-14">
+    <div className="font-sans flex items-center justify-center mt-20">
       <div className="w-full space-y-6">
         <div className="flex items-center justify-center gap-3 mb-4 animate-float">
           <div className="h-12 w-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/20">

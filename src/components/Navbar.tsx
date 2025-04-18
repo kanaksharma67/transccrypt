@@ -30,7 +30,7 @@ const Navbar = () => {
     { path: '/home', icon: Home, label: 'Home' },
     { path: '/history', icon: History, label: 'History' },
     { path: '/make-payment', icon: CreditCard, label: 'Payments' },
-    { path: '/split-bill', icon: Users, label: 'Split Bill' },
+    { path: '/Split', icon: Users, label: 'Split' },
     { path: '/convert', icon: RefreshCw, label: 'Convert' },
     { path: '/games', icon: Gamepad2, label: 'Games' },
   ];

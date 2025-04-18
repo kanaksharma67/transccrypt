@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowDown, RefreshCcw, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/Navbar";
 
 interface Currency {
   id: string;
@@ -169,6 +170,7 @@ const Convert = () => {
 
   return (
     <div className="min-h-screen  text-white mt-14">
+      <Navbar/>
       <div className="container mx-auto max-w-4xl py-12 px-4">
         <h2 className="text-3xl font-bold mb-8 animate-fade-in">Crypto to Fiat Converter</h2>
 

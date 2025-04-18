@@ -10,6 +10,7 @@ import { AuthModal } from './pages/AuthModel';
 import PetCare from './pages/Games';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
+import Convert from './pages/Convert';
 
 function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -31,10 +32,11 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
-          <Route path="/split-bill" element={<SplitBill />} />
+          <Route path="/split" element={<SplitBill />} />
           <Route path="/games" element={<PetCare />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path='/convert' element={<Convert />} />
         </Routes>
       </Layout>
     </Router>
