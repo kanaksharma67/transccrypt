@@ -268,8 +268,8 @@ const PetCare = () => {
     <div 
       className={`min-h-screen ${
         gameState.isNight 
-          ? 'bg-gradient-to-b from-gray-900 to-blue-900' 
-          : 'bg-gradient-to-b from-blue-100 to-purple-100'
+          ? 'bg-gradient-to-b from-slate-900 rounded-2xl' 
+          : 'bg-gradient-to-b from-slate-900 rounded-2xl'
       } p-4 transition-all duration-1000`}
     >
       <div className="max-w-md mx-auto">
@@ -280,14 +280,14 @@ const PetCare = () => {
             Pet Care Game
           </h1>
           <p className={`text-lg ${
-            gameState.isNight ? 'text-gray-300' : 'text-gray-600'
+            gameState.isNight ? 'text-gray-100' : 'text-gray-100'
           } transition-colors duration-500`}>
             Take care of your virtual pet
           </p>
         </header>
 
         <div className={`rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-all duration-300 ${
-          gameState.isNight ? 'bg-gray-800 shadow-blue-500/20' : 'bg-white shadow-purple-500/20'
+          gameState.isNight ? 'bg-gray-800 shadow-blue-500/20 ' : 'bg-gray-800 shadow-blue-500/20'
         }`}>
           <div className={`p-4 ${
             gameState.isNight 
@@ -324,7 +324,7 @@ const PetCare = () => {
             <div className={`h-48 relative rounded-2xl mb-6 overflow-hidden ${
               gameState.isNight 
                 ? 'bg-gradient-to-b from-gray-700 to-gray-800' 
-                : 'bg-gradient-to-b from-blue-100 to-purple-100'
+                : 'bg-gradient-to-b from-gray-700 to-gray-800'
             } transition-all duration-500`}>
               <div className="absolute top-2 right-2">
                 {gameState.isNight 
@@ -373,8 +373,8 @@ const PetCare = () => {
                 disabled={gameState.energy < 20}
                 className={`p-3 rounded-lg font-semibold transform hover:scale-105 transition-all duration-200 ${
                   gameState.isNight
-                    ? 'bg-gradient-to-r from-green-600 to-green-700'
-                    : 'bg-gradient-to-r from-green-400 to-green-500'
+                    ? 'bg-gradient-to-r from-green-900 to-green-900'
+                    : 'bg-gradient-to-r from-green-900 to-green-900'
                 } text-white disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}
               >
                 Play
@@ -539,8 +539,8 @@ const PetCare = () => {
                     key={key}
                     className={`p-2 rounded-lg ${
                       achieved
-                        ? 'bg-green-100 dark:bg-green-900'
-                        : 'bg-gray-100 dark:bg-gray-700'
+                        ? 'bg-green-200 dark:bg-green-900'
+                        : 'bg-gray-200 dark:bg-gray-700'
                     }`}
                   >
                     <div className="flex items-center gap-2">

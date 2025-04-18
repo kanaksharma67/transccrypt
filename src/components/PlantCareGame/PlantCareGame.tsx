@@ -298,7 +298,7 @@ const rewards: Reward[] = [
 
   return (
     <div className="min-h-screen bg-gradient-to-b bg-slate-900 dark:from-gray-900 dark:to-blue-900 text-gray-800 dark:text-gray-100 p-5 flex justify-center items-center transition-colors duration-1000">
-      <div className="max-w-md w-full bg-slate-900 dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-transform hover:-translate-y-1">
+      <div className="max-w-md w-full bg-gradient-to-b bg-gray-800 shadow-blue-500/20 dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-transform hover:-translate-y-1">
         <div className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950 text-white p-4 text-center text-xl font-semibold">
           Plant Care
         </div>
