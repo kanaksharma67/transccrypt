@@ -342,7 +342,7 @@ const rewards: Reward[] = [
       
       {notification && (
         <div
-          className={`fixed top-5 right-5 p-4 rounded-lg shadow-lg text-white ${
+          className={`fixed mt-20 right-5 p-4 rounded-lg shadow-lg text-white ${
             notification.type === 'warning'
               ? 'bg-yellow-400 text-gray-800'
               : notification.type === 'danger'
