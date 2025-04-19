@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Camera, Edit2, Shield, Bell, Key, Wallet, Globe, Moon, Sun, ChevronRight, LogOut } from 'lucide-react';
+import { Camera, Edit2, Shield, Bell, Key, Wallet, Globe, Moon, Sun, ChevronRight, LogOut, Crown } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 
 const Profile = () => {
@@ -127,9 +127,11 @@ const Profile = () => {
               <p className="text-gray-400">{profileData.email}</p>
               <div className="flex gap-4 mt-4">
                 <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">
+                <Crown size={16} className="inline mr-1" />
                   Pro Member
                 </span>
                 <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
+                <Shield size={16} className="inline mr-1" />
                   Verified
                 </span>
               </div>
