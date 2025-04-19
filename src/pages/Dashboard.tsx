@@ -108,45 +108,51 @@ export default function Dashboard() {
                     <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
                     <div className="h-3 w-3 rounded-full bg-green-500"></div>
                   </div>
-                  <div className="text-sm font-medium text-slate-400">TransCrypt Dashboard</div>
+                  <div className="text-sm font-medium text-slate-400">International Finance Dashboard</div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   <div className="md:col-span-2 rounded-lg bg-slate-800/50 p-4 backdrop-blur-sm">
-                    <div className="mb-2 text-sm text-slate-400">Total Balance</div>
-                    <div className="text-3xl font-bold text-white">₹12,458.32</div>
+                    <div className="mb-2 text-sm text-slate-400">Stellar (XLM)</div>
+                    <div className="text-3xl font-bold text-white">$0.1247 USD</div>
                     <div className="mt-2 flex items-center text-sm text-emerald-400">
                       <ArrowRight className="mr-1 h-3 w-3 rotate-45" />
-                      +2.4% from last week
+                      +3.8% in 24h
                     </div>
                   </div>
                   <div className="rounded-lg bg-slate-800/50 p-4 backdrop-blur-sm">
-                    <div className="mb-2 text-sm text-slate-400">Status</div>
+                    <div className="mb-2 text-sm text-slate-400">Fluvio Status</div>
                     <div className="flex items-center text-lg font-medium text-emerald-400">
                       <div className="mr-2 h-2 w-2 rounded-full bg-emerald-400"></div>
-                      Online
+                      Active
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-4 rounded-lg bg-slate-800/50 p-4 backdrop-blur-sm">
-                  <div className="mb-4 text-sm font-medium text-slate-400">Recent Transactions</div>
+                  <div className="mb-4 text-sm font-medium text-slate-400">Market Overview</div>
                   <div className="space-y-3">
-                    {[1, 2, 3, 4].map((i) => (
+                    {[
+                      { name: "Bitcoin (BTC)", price: "$42,567.89", change: "+2.4%", color: "text-emerald-400" },
+                      { name: "Ethereum (ETH)", price: "$2,341.56", change: "-1.2%", color: "text-red-400" },
+                      { name: "Ripple (XRP)", price: "$0.5423", change: "+0.8%", color: "text-emerald-400" },
+                      { name: "Cardano (ADA)", price: "$0.3812", change: "-0.5%", color: "text-red-400" },
+                    ].map((crypto, i) => (
                       <div key={i} className="flex items-center justify-between rounded-md bg-slate-700/50 p-3">
                         <div className="flex items-center space-x-3">
-                          <div className="h-8 w-8 rounded-full bg-slate-600"></div>
+                          <div className="h-8 w-8 rounded-full bg-slate-600 flex items-center justify-center">
+                            <span className="text-xs font-bold text-white">
+                              {crypto.name.split(" ")[1].replace("(", "").replace(")", "")}
+                            </span>
+                          </div>
                           <div>
-                            <div className="text-sm font-medium text-white">
-                              {["Coffee Shop", "Grocery Store", "Salary Deposit", "Subscription"][i - 1]}
-                            </div>
-                            <div className="text-xs text-slate-400">
-                              {["Today", "Yesterday", "May 15", "May 12"][i - 1]}
-                            </div>
+                            <div className="text-sm font-medium text-white">{crypto.name}</div>
+                            <div className="text-xs text-slate-400">Updated just now</div>
                           </div>
                         </div>
-                        <div className={`text-sm font-medium ${i === 3 ? "text-emerald-400" : "text-red-400"}`}>
-                          {i === 3 ? "+₹2,750.00" : `-₹${(i * 12.5).toFixed(2)}`}
+                        <div className="flex flex-col items-end">
+                          <div className="text-sm font-medium text-white">{crypto.price}</div>
+                          <div className={`text-xs ${crypto.color}`}>{crypto.change}</div>
                         </div>
                       </div>
                     ))}
