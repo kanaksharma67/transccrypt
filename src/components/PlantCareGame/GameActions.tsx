@@ -22,7 +22,7 @@ interface GameActionsProps {
     growth,
   }: GameActionsProps) => {
     return (
-      <div className="flex flex-wrap justify-center gap-2 mt-5">
+      <div className="flex flex-wrap justify-center gap-2 mt-8">
         <button
           onClick={onWater}
           className="flex items-center gap-2 px-5 py-3 rounded-full bg-blue-600 text-white font-semibold transition-all hover:bg-blue-700 hover:translate-y-[-2px] hover:shadow-md"

@@ -414,7 +414,7 @@ const PetCare = () => {
 
         {/* Notification */}
         {notification && (
-          <div className="fixed top-4 right-4 bg-gradient-to-r from-green-400 to-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-0 transition-transform duration-300 animate-slide-in">
+          <div className="fixed mt-10 right-4 bg-gradient-to-r from-green-400 to-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-0 transition-transform duration-300 animate-slide-in">
             {notification}
           </div>
         )}
