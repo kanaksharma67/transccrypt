@@ -89,7 +89,7 @@ const Payment = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-14">
+    <div className="max-w-5xl mx-auto mt-16">
       <div className="flex items-center gap-4 mb-8">
         <Link to="/" className="text-gray-400 hover:text-white">
           <ArrowLeft size={24} />

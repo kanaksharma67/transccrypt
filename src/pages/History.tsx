@@ -26,7 +26,7 @@ const History = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6 mt-14">Transaction History</h1>
+      <h1 className="text-2xl font-bold mb-6 mt-16">Transaction History</h1>
 
       <div className="flex gap-4 mb-6">
         <div className="flex-1 relative">
