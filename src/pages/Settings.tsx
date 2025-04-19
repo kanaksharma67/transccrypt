@@ -376,34 +376,7 @@ const Settings = () => {
           </div>
 
           <div className="space-y-6">
-            <div>
-              <h3 className="font-medium mb-4">Theme</h3>
-              <div className="flex gap-4">
-                <button
-                  onClick={() => handleThemeChange('light')}
-                  className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border ${
-                    theme === 'light'
-                      ? 'border-purple-500 bg-purple-500/20'
-                      : 'border-gray-700 hover:border-gray-600'
-                  }`}
-                >
-                  <Sun size={20} />
-                  <span>Light</span>
-                </button>
-                <button
-                  onClick={() => handleThemeChange('dark')}
-                  className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-lg border ${
-                    theme === 'dark'
-                      ? 'border-purple-500 bg-purple-500/20'
-                      : 'border-gray-700 hover:border-gray-600'
-                  }`}
-                >
-                  <Moon size={20} />
-                  <span>Dark</span>
-                </button>
-              </div>
-            </div>
-
+           
             <div>
               <h3 className="font-medium mb-4">Language</h3>
               <select
@@ -473,7 +446,7 @@ const Settings = () => {
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-red-500 text-red-800 rounded-lg hover:bg-red-600 transition-colors"
         >
           <LogOut size={20} />
           <span>Logout</span>
