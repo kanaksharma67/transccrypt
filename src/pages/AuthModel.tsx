@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  auth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail
+} from '@/firebase/firebaseconfig';
 
 declare global {
   interface Window {
@@ -10,8 +16,6 @@ declare global {
     };
   }
 }
-
-
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -25,7 +29,8 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
+  const [authError, setAuthError] = useState('');
+  const [resetSent, setResetSent] = useState(false);
 
   const formatAddress = (address: string): string => {
     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
@@ -34,6 +39,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const connectWallet = async () => {
     setIsLoading(true);
     setWalletStatus('Connecting...');
+    setAuthError('');
 
     try {
       if (!window.ethereum?.isMetaMask) {
@@ -65,24 +71,82 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setAuthError('');
+    setWalletStatus('');
 
     try {
       if (isLogin) {
-        // Login logic
-        console.log('Logging in with:', email, password);
-        // Add your actual authentication logic here
+        // Firebase login
+        await signInWithEmailAndPassword(auth, email, password);
+        onClose();
       } else {
-        // Signup logic
+        // Enhanced signup validation
+        if (password.length < 6) {
+          throw new Error('Password must be at least 6 characters');
+        }
         if (password !== confirmPassword) {
           throw new Error('Passwords do not match');
         }
-        console.log('Signing up with:', email, password);
-        // Add your actual registration logic here
+        
+        await createUserWithEmailAndPassword(auth, email, password);
+        onClose();
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        setWalletStatus(error.message);
+    } catch (error: any) {
+      console.error('Authentication error:', error);
+      
+      let errorMessage = 'Authentication failed';
+      if (error.code) {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            errorMessage = 'Email already in use. Try logging in instead.';
+            break;
+          case 'auth/invalid-email':
+            errorMessage = 'Please enter a valid email address';
+            break;
+          case 'auth/weak-password':
+            errorMessage = 'Password should be at least 6 characters';
+            break;
+          case 'auth/operation-not-allowed':
+            errorMessage = 'Email/password accounts are not enabled';
+            break;
+          default:
+            errorMessage = error.message || 'Unknown error occurred';
+        }
+      } else {
+        errorMessage = error.message;
       }
+      
+      setAuthError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setAuthError('Please enter your email first');
+      return;
+    }
+
+    setIsLoading(true);
+    setAuthError('');
+    setResetSent(false);
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setResetSent(true);
+      setAuthError('Password reset link sent to your email. Check your inbox (and spam folder).');
+    } catch (error: any) {
+      console.error('Password reset error:', error);
+      let errorMessage = 'Failed to send reset email';
+      
+      if (error.code === 'auth/user-not-found') {
+        errorMessage = 'No account found with this email';
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Please enter a valid email address';
+      }
+      
+      setAuthError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -123,7 +187,12 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                   className={`flex-1 py-2 rounded-md transition-colors ${
                     isLogin ? 'bg-purple-600 text-white' : 'text-purple-400 hover:text-purple-300'
                   }`}
-                  onClick={() => setIsLogin(true)}
+                  onClick={() => {
+                    setIsLogin(true);
+                    setAuthError('');
+                    setWalletStatus('');
+                    setResetSent(false);
+                  }}
                   disabled={isLoading}
                 >
                   Login
@@ -133,7 +202,12 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                   className={`flex-1 py-2 rounded-md transition-colors ${
                     !isLogin ? 'bg-purple-600 text-white' : 'text-purple-400 hover:text-purple-300'
                   }`}
-                  onClick={() => setIsLogin(false)}
+                  onClick={() => {
+                    setIsLogin(false);
+                    setAuthError('');
+                    setWalletStatus('');
+                    setResetSent(false);
+                  }}
                   disabled={isLoading}
                 >
                   Sign Up
@@ -141,11 +215,21 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
+                {authError && (
+                  <div className={`p-3 rounded-md text-sm ${
+                    resetSent 
+                      ? 'bg-green-900/50 text-green-300' 
+                      : 'bg-red-900/50 text-red-300'
+                  }`}>
+                    {authError}
+                  </div>
+                )}
+
                 <div>
                   <input
                     type="email"
                     placeholder="Email Address"
-                    className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                    className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-navy-900"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -157,7 +241,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                   <input
                     type="password"
                     placeholder="Password"
-                    className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                    className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-navy-900"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -172,7 +256,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                     <input
                       type="password"
                       placeholder="Confirm Password"
-                      className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                      className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-navy-900"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
@@ -188,10 +272,10 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                     <button
                       type="button"
                       className="text-purple-400 hover:text-purple-300 text-sm transition-colors"
-                      onClick={() => alert('Password reset functionality')}
-                      disabled={isLoading}
+                      onClick={handleForgotPassword}
+                      disabled={isLoading || resetSent}
                     >
-                      Forgot password?
+                      {resetSent ? 'Reset email sent' : 'Forgot password?'}
                     </button>
                   </div>
                 )}

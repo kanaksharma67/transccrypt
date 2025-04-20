@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fluvio/client": "^0.14.9",
+    "@heroicons/react": "^2.2.0",
     "@radix-ui/react-dropdown-menu": "^2.1.7",
     "@radix-ui/react-select": "^2.1.7",
     "@radix-ui/react-slider": "^1.2.4",
@@ -22,6 +23,7 @@
     "clsx": "^2.1.1",
     "dotted-map": "^2.2.3",
     "emailjs-com": "^3.2.0",
+    "firebase": "^11.6.0",
     "framer-motion": "^12.7.4",
     "gsap": "^3.12.7",
     "html2canvas": "^1.4.1",
