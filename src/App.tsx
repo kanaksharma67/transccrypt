@@ -11,6 +11,7 @@ import PetCare from './pages/Games';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Convert from './pages/Convert';
+import PaymentPage from './pages/PaymentPage';
 // import  {PlantCareGame}  from './components/PlantCareGame/PlantCareGame';
 import PlantCareGame from './components/PlantCareGame/PlantCareGame'; // Importing the PlantCareGame component
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/history" element={<History />} />
           <Route path="/make-payment" element={<Payment />} />
+          <Route path="/stellar-payments" element={<PaymentPage />} />
           <Route path="/split" element={<SplitBill />} />
           {/* <Route path="/games" element={<PetCare />} /> */}
           <Route path="/profile" element={<Profile />} />

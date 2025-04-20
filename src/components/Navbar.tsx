@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  LayoutGrid, 
-  Home, 
-  History, 
-  Users, 
-  RefreshCw, 
-  CreditCard, 
-  User, 
-  Settings, 
-  LogIn, 
-  Gamepad2, 
-  Menu, 
+import {
+  LayoutGrid,
+  Home,
+  History,
+  Users,
+  RefreshCw,
+  CreditCard,
+  User,
+  Settings,
+  LogIn,
+  Gamepad2,
+  Menu,
   X,
-  ChevronDown 
+  ChevronDown
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -31,10 +31,11 @@ const Navbar = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isGamesOpen, setIsGamesOpen] = useState(false);
-  
+  const [isPaymentsOpen, setIsPaymentsOpen] = useState(false);
+
   const isActive = (path: string) => {
-    return location.pathname === path || 
-           (path === '/games' && (location.pathname === '/plant-care' || location.pathname === '/pet-care'));
+    return location.pathname === path ||
+      (path === '/games' && (location.pathname === '/plant-care' || location.pathname === '/pet-care'));
   };
 
   const toggleAuthModal = () => {
@@ -45,7 +46,7 @@ const Navbar = () => {
     { path: '/', icon: LayoutGrid, label: 'Dashboard' },
     { path: '/home', icon: Home, label: 'Home' },
     { path: '/history', icon: History, label: 'History' },
-    { path: '/make-payment', icon: CreditCard, label: 'Payments' },
+    // { path: '/make-payment', icon: CreditCard, label: 'Payments' },
     { path: '/split-bill', icon: Users, label: 'Split Bill' },
     { path: '/convert', icon: RefreshCw, label: 'Convert' },
     { path: '/games', icon: Gamepad2, label: 'Games' },
@@ -74,37 +75,34 @@ const Navbar = () => {
                   return (
                     <DropdownMenu key={item.path} onOpenChange={setIsGamesOpen}>
                       <DropdownMenuTrigger className="focus:outline-none">
-                        <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                          isActive(item.path)
+                        <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
                             ? 'text-purple-500 bg-purple-500/10'
                             : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                        }`}>
+                          }`}>
                           <item.icon size={20} />
                           <span>{item.label}</span>
-                          <ChevronDown 
-                            size={16} 
-                            className={`transition-transform ${isGamesOpen ? 'rotate-180' : ''}`} 
+                          <ChevronDown
+                            size={16}
+                            className={`transition-transform ${isGamesOpen ? 'rotate-180' : ''}`}
                           />
                         </div>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent 
+                      <DropdownMenuContent
                         className="w-48 bg-gray-800 border-gray-700 mt-2"
                         align="start"
                       >
                         <DropdownMenuGroup>
-                          <DropdownMenuItem 
-                            className={`hover:bg-gray-700 focus:bg-gray-700 ${
-                              location.pathname === '/plant-care' ? 'text-purple-500' : 'text-gray-300'
-                            }`}
+                          <DropdownMenuItem
+                            className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/plant-care' ? 'text-purple-500' : 'text-gray-300'
+                              }`}
                           >
                             <Link to="/plant-care" className="flex items-center w-full gap-2">
                               <span>Plant Care</span>
                             </Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem 
-                            className={`hover:bg-gray-700 focus:bg-gray-700 ${
-                              location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
-                            }`}
+                          <DropdownMenuItem
+                            className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
+                              }`}
                           >
                             <Link to="/pet-care" className="flex items-center w-full gap-2">
                               <span>Pet Care</span>
@@ -119,17 +117,54 @@ const Navbar = () => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                      isActive(item.path)
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
                         ? 'text-purple-500 bg-purple-500/10'
                         : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                    }`}
+                      }`}
                   >
                     <item.icon size={20} />
                     <span>{item.label}</span>
                   </Link>
                 );
               })}
+              <DropdownMenu onOpenChange={setIsPaymentsOpen}>
+                <DropdownMenuTrigger className="focus:outline-none">
+                  <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive('/make-payment') || isActive('/stellar-payments')
+                      ? 'text-purple-500 bg-purple-500/10'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    }`}>
+                    <CreditCard size={20} />
+                    <span>Payments</span>
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform ${isPaymentsOpen ? 'rotate-180' : ''}`}
+                    />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-48 bg-gray-800 border-gray-700 mt-2"
+                  align="start"
+                >
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem
+                      className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/make-payment' ? 'text-purple-500' : 'text-gray-300'
+                        }`}
+                    >
+                      <Link to="/make-payment" className="flex items-center w-full gap-2">
+                        <span>UPI Payments</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/stellar-payments' ? 'text-purple-500' : 'text-gray-300'
+                        }`}
+                    >
+                      <Link to="/stellar-payments" className="flex items-center w-full gap-2">
+                        <span>Stellar Payments</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             {/* Right side buttons */}
@@ -192,11 +227,10 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                    isActive(item.path)
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
                       ? 'text-purple-500 bg-purple-500/10'
                       : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                  }`}
+                    }`}
                 >
                   <item.icon size={20} />
                   <span>{item.label}</span>
@@ -217,7 +251,7 @@ const Navbar = () => {
         )}
       </nav>
 
-      <AuthModal 
+      <AuthModal
         isOpen={isAuthModalOpen}
         onClose={toggleAuthModal}
       />
