@@ -31,6 +31,8 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [authError, setAuthError] = useState('');
   const [resetSent, setResetSent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const formatAddress = (address: string): string => {
     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
@@ -81,6 +83,9 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         onClose();
       } else {
         // Enhanced signup validation
+        if (!email || !password || !confirmPassword) {
+          throw new Error('All fields are required');
+        }
         if (password.length < 6) {
           throw new Error('Password must be at least 6 characters');
         }
@@ -88,7 +93,8 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
           throw new Error('Passwords do not match');
         }
         
-        await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        console.log('User created successfully:', userCredential.user);
         onClose();
       }
     } catch (error: any) {
@@ -229,7 +235,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                   <input
                     type="email"
                     placeholder="Email Address"
-                    className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-navy-900"
+                    className="w-full bg-gray-800 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-gray-700"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -237,11 +243,12 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                     aria-label="Email address"
                   />
                 </div>
-                <div>
+                
+                <div className="relative">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
-                    className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-navy-900"
+                    className="w-full bg-gray-800 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-gray-700 pr-10"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -249,14 +256,25 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                     aria-label="Password"
                     minLength={6}
                   />
+                  <button
+                    type="button"
+                    className="absolute right-3 top-3 text-gray-400 hover:text-white"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <span className="text-xs">Hide</span>
+                    ) : (
+                      <span className="text-xs">Show</span>
+                    )}
+                  </button>
                 </div>
 
                 {!isLogin && (
-                  <div>
+                  <div className="relative">
                     <input
-                      type="password"
+                      type={showConfirmPassword ? "text" : "password"}
                       placeholder="Confirm Password"
-                      className="w-full bg-navy-950 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-navy-900"
+                      className="w-full bg-gray-800 border border-blue-900 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors focus:bg-gray-700 pr-10"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
@@ -264,6 +282,17 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                       aria-label="Confirm password"
                       minLength={6}
                     />
+                    <button
+                      type="button"
+                      className="absolute right-3 top-3 text-gray-400 hover:text-white"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? (
+                        <span className="text-xs">Hide</span>
+                      ) : (
+                        <span className="text-xs">Show</span>
+                      )}
+                    </button>
                   </div>
                 )}
 
