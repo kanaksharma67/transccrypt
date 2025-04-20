@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+transcrypt-5ef6c-firebase-adminsdk-fbsvc-05f66edf48.json
+
+venv
+.venv
+.env
+env
