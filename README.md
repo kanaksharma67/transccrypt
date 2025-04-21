@@ -1,81 +1,72 @@
-<p align="center">
-  <img src="src/assets/LOGO_main.jpeg" alt="TRANScrypt Logo" width="300" height="300"/>
-</p>
+<div style="width: 280px; text-align: center; margin: 0 auto;">
+  <img src="src/assets/TRANScrypt_screenshot.png" alt="App Screenshot" style="width: 100%; height: auto; border-radius: 8px;"/>
+</div>
 
 <h1 align="center">🔐 Welcome to <span style="color:#10B981">TRANScrypt</span> - Decentralized, Offline‑Ready Peer‑to‑Peer Payments</h1>
 
 ---
 
-<div style="width: 280px; text-align: center; margin: 0 auto;">
-  <img src="src/assets/TRANScrypt_screenshot.png" alt="App Screenshot" style="width: 100%; height: auto; border-radius: 8px;"/>
-</div>
+
+## 🧩 Problem Statement  
+**Problem Statement 6 –  *Better Finance for everone with Stellar*
 
 ---
 
-# Project Presentation & Demo
-
-- 🎞️ [**Watch Demo Video**](https://youtu.be/your-demo-link)  
-- 🌐 [**Live Preview**](https://your-transcrypt-app.vercel.app/)  
+## 🎯 Objective  
+Millions of users in rural or low-network regions struggle with basic digital transactions due to poor or no internet connectivity. Our app, **Transcrypt**, aims to provide an **offline payment solution** that enables users to securely make peer-to-peer payments without requiring continuous internet. This addresses a critical gap in financial accessibility and inclusiveness, empowering users to make transactions even in remote areas.
 
 ---
 
-## 📚 Table of Contents
-- [🌟 Vision](#vision)  
-- [✍️ Project Description](#project-description)  
-- [📝 Proposed System](#proposed-system)  
-- [✨ Key Features](#key-features)  
-- [📷 Interface Preview](#interface-preview)  
-- [💻 Tech Stack](#tech-stack)  
-- [📱 App Structure](#app-structure)  
-- [⛔ Existing Limitations](#existing-limitations)  
-- [🚦 Getting Started](#getting-started)  
-- [🔄 Typical User Flow](#typical-user-flow)  
-- [📞 Contact](#contact)  
+## 🧠 Team & Approach  
+
+### **Team Name:**  
+**Aceers**
 
 ---
 
-## <a id="vision"></a>🌟 Vision
-
-TRANScrypt empowers users everywhere — even in offline or low‑connectivity zones — to securely exchange value, split expenses, and manage group payments without relying on centralized servers. By harnessing cryptographic offline validation and seamless on‑chain syncing, we bridge the gap between convenience and decentralization.
-
-<p align="right"><a href="#-table-of-contents">🔝 Back to Top</a></p>
-
----
-
-## <a id="project-description"></a>✍️ Project Description
-
-TRANScrypt is a blockchain‑based payment application designed for travellers, remote communities, and everyday groups who need:
-
-- **Offline Transactions**: Send and receive payments when there’s no internet, then sync securely once reconnected.  
-- **Customizable Bill Splitting**: Split restaurant tabs, rent, or group gifts equally or by any ratio (e.g., 40–60, 20–30–50).  
-- **Multi‑Currency Support**: Perform real‑time conversions automatically when parties transact across borders.  
-
-Our solution solves the pain of centralized digital wallets that break in poor network conditions, and streamlines shared expense management with full transparency and auditability on the blockchain.
-
-<p align="right"><a href="#-table-of-contents">🔝 Back to Top</a></p>
+### **Team Members:**  
+- Kanak Sharma ([GitHub](https://github.com/kanaksharma67) / Frontend & UI/UX Lead)  
+- Chirag Pandit ([GitHub ]( https://github.com/Chirag-pandit) /UI/UX Lead)  
+- Swarajit Dey ([GitHub ]( https://github.com/Sd2k3)/ AI-Ml Lead)
+- Akarshan (([GitHub ](https://github.com/Zxenith)/Blockchain Lead)
 
 ---
 
-## <a id="proposed-system"></a>📝 Proposed System
+### **Our  Approach:**  
+- We chose this problem to tackle the real-world issue of financial exclusion in low-connectivity zones, aiming to bring a reliable and secure digital alternative to cash.  
+- **Key challenges addressed:**  
+  - Enabling **offline transaction protocols**  
+  - Designing an intuitive **user interface** for tech-novice users  
+  - Ensuring **security and validation** without online verification  
+- We brainstormed the use of **Bluetooth/NFC/local mesh** for offline transfers and integrated an offline-first database model.  
+- Future enhancements include real-time syncing on reconnection, currency conversion, and AI-driven fraud detection.
 
-- **Offline TX Queue & Validation**  
-  Store cryptographically‑signed transactions locally.  
-- **Blockchain Sync Engine**  
-  Auto‑sync pending transactions to smart contracts when online.  
-- **Smart Contract Suite**  
-  Handles peer‑to‑peer transfers, splits, and settlement logic on‑chain.  
-- **Currency Conversion Module**  
-  Fetches up‑to‑date FX rates and applies conversions at the point of sync.  
-- **Notification & Alerts**  
-  Inform users of successful payments, outstanding dues, and reconnection syncs.  
+---
+## 🛠️ Tech Stack
 
-<p align="right"><a href="#-table-of-contents">🔝 Back to Top</a></p>
+### Core Technologies Used:
+- **Frontend:** React.js with TypeScript, Tailwind CSS, Accertinity UI , GSAP   
+- **Backend:** Python , Flask , Stellar idk
+- **Blockchain**: Solidity smart contracts on Ethereum / EVM-compatible chain  
+- **Database:** IndexedDB (for offline), MongoDB (cloud sync)
+- **Auth & Security**: JWT, client‑side cryptographic signing  
+- **APIs:** Custom Wallet Sync APIs
+- **DevOps**: Docker, GitHub Actions, Vercel / AWS  
+- **Hosting:** Vercel (Frontend), Render (Backend)
 
 ---
 
-## <a id="key-features"></a>✨ Key Features
+### Sponsor Technologies Used:
+- [ ] Groq: How you used Groq  
+- [✅ ] Monad: To Track achivements  
+- [✅ ] Fluvio: Real-time Financial Dashboard 
+- [ ] Base: AgentKit / OnchainKit / Smart Wallet usage  
+- [✅ ] Screenpiece: Screen-based analytics or workflows  
+- [✅ ] Stellar: Payments, identity, or token usage 
 
-### 🔑 Core Functionality
+---
+
+## ✅ Key Features
 - ✅ **Secure Offline Transactions** – Sign and queue payments without internet.  
 - 📊 **Custom Bill Splitting** – Equally or ratio‑based splits with a few taps.  
 - 💱 **Real‑Time Currency Conversion** – Automatic FX at settlement.  
@@ -88,49 +79,68 @@ Our solution solves the pain of centralized digital wallets that break in poor n
 - 🔔 **Rich Notifications** – Alerts for splits, payments, and sync status.  
 - 🔒 **Smart Contract Security** – Audited logic for dispute‑free settlements.  
 
-<p align="right"><a href="#-table-of-contents">🔝 Back to Top</a></p>
 
 ---
 
-## <a id="interface-preview"></a>📷 Interface Preview
+## 🎥 Demo & Deliverables
 
-<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 30px 0;">
-  <div style="width: 200px; text-align: center;">
-    <img src="src/assets/landing.png" alt="Landing Page" style="width: 100%; border-radius: 6px;"/>
-    <p style="font-size: 13px; margin-top: 8px;">Landing Page</p>
-  </div>
-  <div style="width: 200px; text-align: center;">
-    <img src="src/assets/offline_queue.png" alt="Offline Queue" style="width: 100%; border-radius: 6px;"/>
-    <p style="font-size: 13px; margin-top: 8px;">Offline Queue</p>
-  </div>
-  <div style="width: 200px; text-align: center;">
-    <img src="src/assets/split_bill.png" alt="Bill Splitting" style="width: 100%; border-radius: 6px;"/>
-    <p style="font-size: 13px; margin-top: 8px;">Bill Splitting</p>
-  </div>
-  <div style="width: 200px; text-align: center;">
-    <img src="src/assets/sync_status.png" alt="Sync Status" style="width: 100%; border-radius: 6px;"/>
-    <p style="font-size: 13px; margin-top: 8px;">Sync Status</p>
-  </div>
-</div>
-
-<p align="right"><a href="#-table-of-contents">🔝 Back to Top</a></p>
+- 🔗 [Demo Video Link (YouTube/Drive)](https://example.com)  
+- 📦 [Deployed Site](https://example.com)  
+- 💻 [GitHub Frontend Repo](https://github.com/yourfrontendrepo)  
+- 🛠 [GitHub Backend Repo](https://github.com/yourbackendrepo)  
+- 📃 Presentation Slides (if any)
 
 ---
 
-## <a id="tech-stack"></a>💻 Tech Stack
 
-<div align="center">
-  <img src="https://skillicons.dev/icons?i=react,tailwind,nodejs,express,web3,solidity,postgres,redis,typescript&theme=dark&perline=6" alt="Tech Stack Icons"/>
-</div>
+## ✅ Tasks & Bonus Checklist
 
-- **Frontend**: React, Tailwind CSS, TypeScript  
-- **Backend & API**: Node.js, Express, TypeScript  
-- **Blockchain**: Solidity smart contracts on Ethereum / EVM-compatible chain  
-- **Database & Cache**: PostgreSQL, Redis (for offline queue persistence)  
-- **Auth & Security**: JWT, client‑side cryptographic signing  
-- **DevOps**: Docker, GitHub Actions, Vercel / AWS  
+- ✅ All members of the team completed the mandatory task – Followed at least 2 of our social channels and filled the form (Details in Participant Manual)  
+- ✅ All members of the team completed Bonus Task 1 – Sharing of Badges and filled the form (2 points) (Details in Participant Manual)  
+- ✅ All members of the team completed Bonus Task 2 – Signing up for Sprint.dev and filled the form (3 points) (Details in Participant Manual)  
 
-<p align="right"><a href="#-table-of-contents">🔝 Back to Top</a></p>
+
+---
+
+## 🛠️ How to Run the Project
+
+### Requirements:
+- Node.js / Python / Docker / etc.  
+- API Keys (if any)  
+- `.env` file setup (if needed)
+
+---
+
+### Local Setup:
+
+```bash
+# Clone the repo
+git clone https://github.com/your-team/project-name
+
+# Install dependencies
+cd project-name
+npm install
+
+# Start development server
+npm run dev
+
+---
+
+## 🔮 Future Scope
+
+List improvements, extensions, or follow-up features:
+
+- ☑️ More integrations  
+- 🔒 Security enhancements  
+- 🌐 Localization / broader accessibility
+
+---
+
+## 📦 Resources / Credits
+
+- APIs or datasets used  
+- Open source libraries or tools referenced  
+- Acknowledgements
 
 ---
 
@@ -173,4 +183,21 @@ Traditional digital wallets often suffer from:
   Relying on centralized servers reduces transparency, creates single points of failure, and raises privacy concerns.
 
 ❗ **TRANScrypt** solves these by providing a decentralized, offline‑first payment experience with on‑chain settlement, multi‑currency conversion, and flexible bill‑splitting.  
+
+
+
+## 🎯 Final Words
+
+Share your hackathon journey — challenges, learnings, fun moments, or shout-outs!
+
+---
+
+
+
+
+
+
+
+
+
 
