@@ -20,7 +20,7 @@ Millions of users in rural or low-network regions struggle with basic digital tr
 ## 🧠 Team & Approach  
 
 ### **Team Name:**  
-**Aceers**
+###**Acerrs**
 
 ---
 
