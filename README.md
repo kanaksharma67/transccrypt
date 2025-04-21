@@ -125,25 +125,9 @@ npm run dev
 
 ---
 
-## 🔮 Future Scope
 
-List improvements, extensions, or follow-up features:
 
-- ☑️ More integrations  
-- 🔒 Security enhancements  
-- 🌐 Localization / broader accessibility
-
----
-
-## 📦 Resources / Credits
-
-- APIs or datasets used  
-- Open source libraries or tools referenced  
-- Acknowledgements
-
----
-
-## <a id="app-structure"></a>📱 App Structure
+## App Structure
 
 ```bash
 ├── src/
@@ -164,7 +148,24 @@ List improvements, extensions, or follow-up features:
 ├── scripts/                 # Deployment & migration scripts
 └── README.md
 ```
+---
+## 🔮 Future Scope
 
+List improvements, extensions, or follow-up features:
+
+- ☑️ More integrations  
+- 🔒 Security enhancements  
+- 🌐 Localization / broader accessibility
+
+---
+
+## 📦 Resources / Credits
+
+- APIs or datasets used  
+- Open source libraries or tools referenced  
+- Acknowledgements
+
+---
 ## ⛔ Existing Limitations
 
 Traditional digital wallets often suffer from:
