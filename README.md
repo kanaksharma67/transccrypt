@@ -105,9 +105,8 @@ Millions of users in rural or low-network regions struggle with basic digital tr
 ## 🛠️ How to Run the Project
 
 ### Requirements:
-- Node.js / Python / Docker / etc.  
-- API Keys (if any)  
-- `.env` file setup (if needed)
+- Node.js / Python etc. 
+- `.env` file setup 
 
 ---
 
@@ -115,10 +114,10 @@ Millions of users in rural or low-network regions struggle with basic digital tr
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-team/project-name
+git clone https://github.com/kanaksharma67/transccrypt
 
 # Install dependencies
-cd project-name
+cd transccrypt
 npm install
 
 # Start development server
