@@ -1,5 +1,5 @@
 
-import StellarVerseGame from "@/pages/StellarVerseGame";
+import StellarVerseGame from '../pages/StellarGameVerse';
 
 const Games = () => {
   return (
