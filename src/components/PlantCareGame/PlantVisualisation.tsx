@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-// import { useRef } from 'react';
-import { PlantType } from '@/components/types/PlantTypes';
+import React from 'react';
+import { PlantType } from '../types/PlantTypes';
 
 interface PlantVisualizationProps {
   plantType: PlantType | null;
@@ -10,145 +9,98 @@ interface PlantVisualizationProps {
   streak: number;
 }
 
-const PlantVisualization = ({
+const PlantVisualization: React.FC<PlantVisualizationProps> = ({
   plantType,
   growth,
   hasPest,
   decorations,
   streak,
-}: PlantVisualizationProps) => {
-  const [currentHour, setCurrentHour] = useState(new Date().getHours());
-  const isNight = currentHour < 6 || currentHour >= 18;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const hour = now.getHours();
-      if (hour !== currentHour) {
-        setCurrentHour(hour);
-      }
-    }, 60000);
-    return () => clearInterval(interval);
-  }, [currentHour]);
-
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 0; i < 50; i++) {
-      stars.push(
-        <div
-          key={i}
-          className="absolute bg-white rounded-full animate-twinkle"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 50}%`,
-            width: `${Math.random() * 3 + 1}px`,
-            height: `${Math.random() * 3 + 1}px`,
-            animationDelay: `${Math.random() * 2}s`,
-            opacity: isNight ? 1 : 0,
-            transition: 'opacity 1s ease',
-          }}
-        />
-      );
-    }
-    return stars;
-  };
-
-  const renderPlantStage = () => {
-    if (!plantType) return null;
-
-    let stageIndex;
-    if (growth >= 90) stageIndex = 4;
-    else if (growth >= 70) stageIndex = 3;
-    else if (growth >= 40) stageIndex = 2;
-    else if (growth >= 15) stageIndex = 1;
-    else stageIndex = 0;
-
-    const stageClass = plantType.stages[stageIndex];
-    
-    // Render special features if they exist
-    const specialFeature = plantType.specialFeature?.(growth);
-
+}) => {
+  if (!plantType) {
     return (
-      <div className={`plant ${stageClass}`}>
-        {specialFeature}
+      <div className="flex justify-center items-center h-40 my-8">
+        <div className="text-gray-400 dark:text-gray-500">Select a plant to start growing</div>
       </div>
     );
-  };
+  }
 
-  const renderDecorations = () => {
-    const elements = [];
-    
-    if (decorations.includes('ribbon') || decorations.includes('both')) {
-      elements.push(
-        <div
-          key="ribbon"
-          className="absolute top-[-10px] right-[-10px] w-10 h-10 bg-yellow-400 clip-path-polygon-ribbon flex justify-center items-start pt-1 text-xs font-bold text-gray-800 z-50"
-        >
-          {streak}
-        </div>
-      );
-    }
-    
-    if (decorations.includes('hat') || decorations.includes('both')) {
-      elements.push(
-        <div
-          key="hat"
-          className="absolute top-[-20px] left-1/2 transform -translate-x-1/2 w-8 h-5 bg-red-500 rounded-t-full z-50"
-        >
-          <div className="absolute bottom-[-5px] left-0 w-full h-[5px] bg-red-500"></div>
-        </div>
-      );
-    }
-    
-    return elements;
-  };
+  // Height calculation based on growth
+  const heightPercentage = (growth / 100) * 100;
 
   return (
-    <div className="relative h-64 flex justify-center items-end mb-5">
-      {/* Sun/Moon */}
+    <div className="flex justify-center items-end my-8 relative">
       <div
-        className={`absolute top-5 right-8 w-12 h-12 rounded-full ${
-          isNight ? 'bg-gray-200' : 'bg-yellow-400'
-        } shadow-lg transition-opacity duration-1000 ${
-          isNight ? 'opacity-0' : 'opacity-100'
-        }`}
+        className={`relative h-${Math.max(8, Math.floor(heightPercentage / 10) * 4)} w-${
+          Math.max(6, Math.floor(heightPercentage / 10) * 3)
+        } transition-all duration-1000 overflow-visible`}
+        style={{ minHeight: '80px', minWidth: '60px' }}
       >
-        {!isNight && (
-          <div className="absolute inset-0 bg-[repeating-conic-gradient(from_0deg,rgba(255,235,59,0.7)_0deg_15deg,transparent_15deg_30deg)] rounded-full animate-rotate-sun"></div>
+        {/* Base plant visualization */}
+        <div
+          className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-${Math.max(
+            6,
+            Math.floor(heightPercentage / 10) * 3
+          )} ${
+            plantType.id === 'default'
+              ? 'bg-green-500'
+              : plantType.id === 'flowering'
+              ? 'bg-pink-200'
+              : 'bg-yellow-700'
+          } rounded-t-full transition-all duration-700`}
+          style={{ 
+            height: `${heightPercentage}%`,
+            maxHeight: '160px',
+            minHeight: '30px',
+            minWidth: '30px' 
+          }}
+        ></div>
+
+        {/* Special features based on plant type */}
+        {plantType.specialFeature && plantType.specialFeature(growth)}
+
+        {/* Pest visualization */}
+        {hasPest &&
+          Array.from({ length: 5 }).map((_, i) => (
+            <div
+              key={`pest-${i}`}
+              className="absolute w-2 h-2 bg-black rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+            ></div>
+          ))}
+
+        {/* Decorations */}
+        {decorations.includes('ribbon') && (
+          <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
+            <div className="w-6 h-10 bg-blue-500 rounded-sm relative">
+              <div className="absolute bottom-0 left-0 w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-blue-500"></div>
+              <div className="absolute bottom-0 right-0 w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-blue-500"></div>
+            </div>
+          </div>
+        )}
+
+        {decorations.includes('hat') && (
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-8 h-4 bg-purple-700 rounded-t-full"></div>
+            <div className="w-12 h-1 bg-purple-900 rounded-sm -mt-1"></div>
+          </div>
+        )}
+
+        {/* Blockchain verification badge */}
+        {streak >= 3 && (
+          <div className="absolute -top-4 -left-4 bg-blue-600 text-white text-xs font-bold p-1 rounded-full w-6 h-6 flex items-center justify-center">
+            ✓
+          </div>
         )}
       </div>
-      
-      <div
-        className={`absolute top-5 right-8 w-12 h-12 rounded-full bg-gray-200 shadow-lg transition-opacity duration-1000 ${
-          isNight ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="absolute top-2 left-4 w-2 h-2 bg-black bg-opacity-10 rounded-full"></div>
-        <div className="absolute top-5 right-2 w-1.5 h-1.5 bg-black bg-opacity-10 rounded-full"></div>
-        <div className="absolute bottom-4 left-2 w-2.5 h-2.5 bg-black bg-opacity-10 rounded-full"></div>
+
+      {/* Pot */}
+      <div className="relative">
+        <div className="w-24 h-6 bg-orange-900 rounded-t-md"></div>
+        <div className="w-20 h-10 bg-orange-700 rounded-b-md mx-auto"></div>
       </div>
-      
-      {/* Stars */}
-      <div
-        className={`absolute inset-0 transition-opacity duration-1000 ${
-          isNight ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        {renderStars()}
-      </div>
-      
-      {/* Plant Pot */}
-      <div className="relative w-32 h-24 bg-brown-700 rounded-b-2xl shadow-inner">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.2)_0%,transparent_10%),radial-gradient(circle_at_70%_70%,rgba(255,255,255,0.2)_0%,transparent_10%)] rounded-b-2xl"></div>
-      </div>
-      
-      {/* Plant */}
-      <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 transition-all duration-800 origin-bottom">
-        {renderPlantStage()}
-      </div>
-      
-      {/* Decorations */}
-      {renderDecorations()}
     </div>
   );
 };
