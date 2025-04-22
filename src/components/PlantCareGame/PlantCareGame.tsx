@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { PlantType, GameState, Reward } from '../types/PlantTypes';
-import  PlantVisualization  from './PlantVisualisation';
+import { PlantType, GameState, Reward, Achievement } from '../types/PlantTypes';
+import PlantVisualization from './PlantVisualisation';
 import GameStats from './GameStats';
 import { GameActions } from './GameActions';
 import { PlantSelectionModal } from './PlantSelectionModal';
+import BlockchainAchievements from './BlockchainAchievements';
+import BlockchainWalletConnect from './BlockchainWalletConnect';
 
 const plantTypes: PlantType[] = [
   {
@@ -67,12 +69,55 @@ const plantTypes: PlantType[] = [
 ];
 
 const rewards: Reward[] = [
-  { streak: 7, decoration: 'ribbon', message: '7-day streak! You earned a ribbon!' },
-  { streak: 14, decoration: 'hat', message: '14-day streak! Your plant got a fancy hat!' },
-  { streak: 30, decoration: 'both', message: '30-day streak! Your plant is now a champion!' },
+  { streak: 7, decoration: 'ribbon', message: '7-day streak! You earned a ribbon!', tokens: 5 },
+  { streak: 14, decoration: 'hat', message: '14-day streak! Your plant got a fancy hat!', tokens: 10 },
+  { streak: 30, decoration: 'both', message: '30-day streak! Your plant is now a champion!', tokens: 25 },
 ];
 
- const PlantCareGame = () => {
+const initialAchievements: Achievement[] = [
+  {
+    id: 'first-water',
+    title: 'First Steps',
+    description: 'Water your plant for the first time',
+    completed: false,
+    tokenReward: 2,
+    verified: false
+  },
+  {
+    id: 'three-day-streak',
+    title: 'Consistency',
+    description: 'Maintain a 3-day watering streak',
+    completed: false,
+    tokenReward: 5,
+    verified: false
+  },
+  {
+    id: 'first-growth',
+    title: 'Growth Spurt',
+    description: 'Reach 25% growth with any plant',
+    completed: false,
+    tokenReward: 3,
+    verified: false
+  },
+  {
+    id: 'pest-control',
+    title: 'Pest Controller',
+    description: 'Successfully treat plant pests',
+    completed: false,
+    tokenReward: 4,
+    verified: false
+  },
+  {
+    id: 'full-growth',
+    title: 'Master Gardener',
+    description: 'Grow a plant to 100% completion',
+    completed: false,
+    tokenReward: 15,
+    verified: false
+  }
+];
+
+const PlantCareGame = () => {
   const [gameState, setGameState] = useState<GameState>(() => {
     const savedState = localStorage.getItem('plantGameState');
     return savedState
@@ -87,10 +132,16 @@ const rewards: Reward[] = [
           hasPest: false,
           plantType: null,
           decorations: [],
+          stellarTokens: 0,
+          achievements: initialAchievements,
+          walletConnected: false,
+          walletAddress: null,
         };
   });
 
-  const [showModal, setShowModal] = useState(false);
+  const [showPlantModal, setShowPlantModal] = useState(false);
+  const [showAchievementsModal, setShowAchievementsModal] = useState(false);
+  const [showWalletModal, setShowWalletModal] = useState(false);
   const [notification, setNotification] = useState<{ message: string; type: string } | null>(null);
 
   useEffect(() => {
@@ -156,6 +207,101 @@ const rewards: Reward[] = [
     // Random chance for pests
     const newHasPest = Math.random() < (plantType?.pestChance || 0);
 
+    // Check achievements
+    const newAchievements = [...gameState.achievements];
+    
+    // First water achievement
+    const firstWaterAchievement = newAchievements.find(a => a.id === 'first-water');
+    if (firstWaterAchievement && !firstWaterAchievement.completed) {
+      firstWaterAchievement.completed = true;
+      showNotification(`Achievement unlocked: ${firstWaterAchievement.title}!`, 'success');
+      
+      // Simulate blockchain verification after 2 seconds
+      setTimeout(() => {
+        setGameState(prevState => {
+          const updatedAchievements = prevState.achievements.map(a => 
+            a.id === 'first-water' ? { ...a, verified: true } : a
+          );
+          const newTokens = prevState.stellarTokens + firstWaterAchievement.tokenReward;
+          showNotification(`Verified on Monad! +${firstWaterAchievement.tokenReward} Stellar Tokens`, 'success');
+          return {
+            ...prevState,
+            achievements: updatedAchievements,
+            stellarTokens: newTokens
+          };
+        });
+      }, 2000);
+    }
+    
+    // 3-day streak achievement
+    const streakAchievement = newAchievements.find(a => a.id === 'three-day-streak');
+    if (streakAchievement && !streakAchievement.completed && newStreak >= 3) {
+      streakAchievement.completed = true;
+      showNotification(`Achievement unlocked: ${streakAchievement.title}!`, 'success');
+      
+      // Simulate blockchain verification after 3 seconds
+      setTimeout(() => {
+        setGameState(prevState => {
+          const updatedAchievements = prevState.achievements.map(a => 
+            a.id === 'three-day-streak' ? { ...a, verified: true } : a
+          );
+          const newTokens = prevState.stellarTokens + streakAchievement.tokenReward;
+          showNotification(`Verified on Monad! +${streakAchievement.tokenReward} Stellar Tokens`, 'success');
+          return {
+            ...prevState,
+            achievements: updatedAchievements,
+            stellarTokens: newTokens
+          };
+        });
+      }, 3000);
+    }
+    
+    // Growth achievement
+    const growthAchievement = newAchievements.find(a => a.id === 'first-growth');
+    if (growthAchievement && !growthAchievement.completed && newGrowth >= 25) {
+      growthAchievement.completed = true;
+      showNotification(`Achievement unlocked: ${growthAchievement.title}!`, 'success');
+      
+      // Simulate blockchain verification after 2.5 seconds
+      setTimeout(() => {
+        setGameState(prevState => {
+          const updatedAchievements = prevState.achievements.map(a => 
+            a.id === 'first-growth' ? { ...a, verified: true } : a
+          );
+          const newTokens = prevState.stellarTokens + growthAchievement.tokenReward;
+          showNotification(`Verified on Monad! +${growthAchievement.tokenReward} Stellar Tokens`, 'success');
+          return {
+            ...prevState,
+            achievements: updatedAchievements,
+            stellarTokens: newTokens
+          };
+        });
+      }, 2500);
+    }
+    
+    // Full growth achievement
+    const fullGrowthAchievement = newAchievements.find(a => a.id === 'full-growth');
+    if (fullGrowthAchievement && !fullGrowthAchievement.completed && newGrowth >= 100) {
+      fullGrowthAchievement.completed = true;
+      showNotification(`Achievement unlocked: ${fullGrowthAchievement.title}!`, 'success');
+      
+      // Simulate blockchain verification after 4 seconds
+      setTimeout(() => {
+        setGameState(prevState => {
+          const updatedAchievements = prevState.achievements.map(a => 
+            a.id === 'full-growth' ? { ...a, verified: true } : a
+          );
+          const newTokens = prevState.stellarTokens + fullGrowthAchievement.tokenReward;
+          showNotification(`Verified on Monad! +${fullGrowthAchievement.tokenReward} Stellar Tokens`, 'success');
+          return {
+            ...prevState,
+            achievements: updatedAchievements,
+            stellarTokens: newTokens
+          };
+        });
+      }, 4000);
+    }
+
     setGameState({
       ...gameState,
       days: gameState.days + 1,
@@ -165,6 +311,7 @@ const rewards: Reward[] = [
       fertilized: false,
       pruned: false,
       hasPest: newHasPest,
+      achievements: newAchievements,
     });
 
     showNotification(`Plant watered! Growth +${growthIncrease}%`, 'success');
@@ -213,9 +360,34 @@ const rewards: Reward[] = [
       return;
     }
 
+    const newAchievements = [...gameState.achievements];
+    const pestAchievement = newAchievements.find(a => a.id === 'pest-control');
+    
+    if (pestAchievement && !pestAchievement.completed) {
+      pestAchievement.completed = true;
+      showNotification(`Achievement unlocked: ${pestAchievement.title}!`, 'success');
+      
+      // Simulate blockchain verification after 3 seconds
+      setTimeout(() => {
+        setGameState(prevState => {
+          const updatedAchievements = prevState.achievements.map(a => 
+            a.id === 'pest-control' ? { ...a, verified: true } : a
+          );
+          const newTokens = prevState.stellarTokens + pestAchievement.tokenReward;
+          showNotification(`Verified on Monad! +${pestAchievement.tokenReward} Stellar Tokens`, 'success');
+          return {
+            ...prevState,
+            achievements: updatedAchievements,
+            stellarTokens: newTokens
+          };
+        });
+      }, 3000);
+    }
+
     setGameState({
       ...gameState,
       hasPest: false,
+      achievements: newAchievements,
     });
 
     showNotification("Pests treated! Your plant is healthy again.", 'success');
@@ -227,11 +399,18 @@ const rewards: Reward[] = [
     );
 
     if (newReward) {
+      const newTokens = gameState.stellarTokens + (newReward.tokens || 0);
+      
       setGameState({
         ...gameState,
         decorations: [...gameState.decorations, newReward.decoration],
+        stellarTokens: newTokens,
       });
-      showNotification(newReward.message, 'success');
+      
+      showNotification(
+        `${newReward.message} ${newReward.tokens ? `+${newReward.tokens} Stellar Tokens` : ''}`, 
+        'success'
+      );
     }
   };
 
@@ -248,6 +427,10 @@ const rewards: Reward[] = [
         hasPest: false,
         plantType,
         decorations: [],
+        stellarTokens: gameState.stellarTokens, // Keep tokens
+        achievements: gameState.achievements,   // Keep achievements
+        walletConnected: gameState.walletConnected,
+        walletAddress: gameState.walletAddress,
       });
     } else {
       setGameState({
@@ -259,26 +442,37 @@ const rewards: Reward[] = [
     showNotification(`You're now caring for a ${plantType.name}!`, 'success');
   };
 
+  const connectWallet = (address: string) => {
+    setGameState({
+      ...gameState,
+      walletConnected: true,
+      walletAddress: address,
+      stellarTokens: gameState.stellarTokens + 2, // Bonus for connecting wallet
+    });
+    
+    showNotification("Wallet connected successfully! +2 Stellar Tokens", 'success');
+  };
+
   const getPlantMessage = () => {
     const { plantType, growth } = gameState;
-    if (!plantType) return "Water your plant daily to help it grow!";
+    if (!plantType) return "Water your plant daily to help it grow and earn Stellar tokens!";
 
     if (growth >= 100) {
       return `Your ${plantType.name} has grown into a magnificent specimen! ${
         plantType.id === 'flowering' ? '🌸' : '🌳'
       }`;
     } else if (growth >= 80) {
-      return `Your ${plantType.name} is now thriving!`;
+      return `Your ${plantType.name} is now thriving! Keep going to earn more tokens.`;
     } else if (growth >= 60) {
-      return `Your ${plantType.name} is growing beautifully!`;
+      return `Your ${plantType.name} is growing beautifully! Achievements are being verified on Monad.`;
     } else if (growth >= 40) {
-      return `Your ${plantType.name} is getting bushy!`;
+      return `Your ${plantType.name} is getting bushy! Earn Stellar tokens with consistent care.`;
     } else if (growth >= 20) {
-      return `Your ${plantType.name} is growing nicely!`;
+      return `Your ${plantType.name} is growing nicely! Track your progress on the blockchain.`;
     } else if (growth >= 10) {
-      return `Your ${plantType.name} has sprouted!`;
+      return `Your ${plantType.name} has sprouted! Keep caring for it to unlock achievements.`;
     } else {
-      return `Your ${plantType.name} seed is planted!`;
+      return `Your ${plantType.name} seed is planted! Water daily to earn Stellar tokens.`;
     }
   };
 
@@ -297,14 +491,23 @@ const rewards: Reward[] = [
   const needsWater = checkNeedsWater();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b bg-slate-900 dark:from-gray-900 dark:to-blue-900 text-gray-800 dark:text-gray-100 p-5 flex justify-center items-center transition-colors duration-1000">
-      <div className="max-w-md w-full bg-gradient-to-b bg-gray-800 shadow-blue-500/20 dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg transition-transform hover:-translate-y-1">
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950 text-white p-4 text-center text-xl font-semibold">
-          Plant Care
+    <div className="min-h-screen bg-gradient-to-b from-blue-950 to-blue-900 dark:from-gray-900 dark:to-blue-900 text-gray-800 dark:text-gray-100 p-5 flex justify-center items-center transition-colors duration-1000">
+      <div className="max-w-md w-full bg-gradient-to-b from-gray-800 to-gray-700 shadow-blue-500/20 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 text-center">
+          <h1 className="text-xl font-bold">Stellar Plant Garden</h1>
+          <div className="text-xs bg-blue-900 rounded-full px-2 py-1 inline-block mt-1">
+            Powered by Monad • Verified by Screenpipe
+          </div>
         </div>
         
         <div className="p-5 text-center">
-          <GameStats days={gameState.days} growth={gameState.growth} streak={gameState.streak} />
+          <GameStats 
+            days={gameState.days} 
+            growth={gameState.growth} 
+            streak={gameState.streak}
+            stellarTokens={gameState.stellarTokens}
+            achievements={gameState.achievements.filter(a => a.verified).length}
+          />
           
           <PlantVisualization
             plantType={gameState.plantType}
@@ -323,21 +526,38 @@ const rewards: Reward[] = [
             onFertilize={fertilizePlant}
             onPrune={prunePlant}
             onTreat={treatPlant}
-            onChangePlant={() => setShowModal(true)}
+            onChangePlant={() => setShowPlantModal(true)}
+            onConnectWallet={() => setShowWalletModal(true)}
+            onViewAchievements={() => setShowAchievementsModal(true)}
             fertilized={gameState.fertilized}
             pruned={gameState.pruned}
             hasPest={gameState.hasPest}
             growth={gameState.growth}
+            walletConnected={gameState.walletConnected}
           />
         </div>
       </div>
       
       <PlantSelectionModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
+        isOpen={showPlantModal}
+        onClose={() => setShowPlantModal(false)}
         onSelect={selectPlant}
         currentPlantType={gameState.plantType}
         plantTypes={plantTypes}
+      />
+      
+      <BlockchainWalletConnect 
+        isOpen={showWalletModal}
+        onClose={() => setShowWalletModal(false)}
+        onConnect={connectWallet}
+      />
+      
+      <BlockchainAchievements
+        isOpen={showAchievementsModal}
+        onClose={() => setShowAchievementsModal(false)}
+        achievements={gameState.achievements}
+        stellarTokens={gameState.stellarTokens}
+        walletAddress={gameState.walletAddress}
       />
       
       {notification && (
