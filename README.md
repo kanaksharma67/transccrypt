@@ -26,7 +26,7 @@ Millions of users in rural or low-network regions struggle with basic digital tr
 
 ### **Team Members:**  
 - Kanak Sharma ([GitHub](https://github.com/kanaksharma67) / Frontend & UI/UX Lead)  
-- Chirag Pandit ([GitHub ]( https://github.com/Chirag-pandit) /UI/UX Lead)  
+- Chirag Pandit ([GitHub ]( https://github.com/Chirag-pandit) /Frontend & UI/UX Lead)  
 - Swarajit Dey ([GitHub ]( https://github.com/Sd2k3)/ AI-Ml Lead)
 - Akarshan (([GitHub ](https://github.com/Zxenith)/Blockchain Lead)
 
