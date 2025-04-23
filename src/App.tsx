@@ -43,7 +43,7 @@ function AppContent() {
       />
       
       <Routes>
-        <Route path="/" element={user ? <Dashboard /> : <Home />} />
+        <Route path="/" element={ <Dashboard /> } />
         <Route path="/home" element={<Home />} />
         <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
         <Route path="/make-payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
