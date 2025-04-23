@@ -256,9 +256,7 @@ const Settings = () => {
         </div>
       )}
 
-     <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-gray-900 to-gray-800/50 z-10" >
-      <SamuraiMask/>
-      </div>
+    
 
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Security Settings */}
