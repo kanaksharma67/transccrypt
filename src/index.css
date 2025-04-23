@@ -91,6 +91,40 @@
   }
 }
 
+
+/* Expression classes */
+.expression-angry .mouth {
+  height: 10% !important;
+  border-radius: 0 0 20% 20% / 0 0 30% 30% !important;
+}
+.expression-happy .mouth {
+  height: 25% !important;
+  border-radius: 0 0 70% 70% / 0 0 100% 100% !important;
+}
+.expression-surprised .mouth {
+  height: 30% !important;
+  border-radius: 50% !important;
+}
+
+/* Accessibility focus styles */
+button:focus, input:focus, select:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 @layer base {
   * {
     @apply border-border;
