@@ -28,7 +28,7 @@ const Payment = () => {
     }
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { 
     localStorage.setItem('paymentHistory', JSON.stringify(history));
   }, [history]);
 

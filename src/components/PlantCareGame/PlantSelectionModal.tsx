@@ -1,5 +1,5 @@
-import { PlantType } from "../types/PlantTypes";
-import { useState } from 'react';
+import React from 'react';
+import { PlantType } from '../types/PlantTypes';
 
 interface PlantSelectionModalProps {
   isOpen: boolean;
@@ -9,62 +9,73 @@ interface PlantSelectionModalProps {
   plantTypes: PlantType[];
 }
 
-export const PlantSelectionModal = ({
+export const PlantSelectionModal: React.FC<PlantSelectionModalProps> = ({
   isOpen,
   onClose,
   onSelect,
   currentPlantType,
   plantTypes,
-}: PlantSelectionModalProps) => {
-  const [selectedPlantId, setSelectedPlantId] = useState<string | null>(
-    currentPlantType?.id || null
-  );
-
+}) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 transition-opacity duration-300">
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-5 max-w-md w-[90%] max-h-[90vh] overflow-y-auto">
-        <div className="text-center mb-5">
-          <h2 className="text-xl font-bold">Choose Your Plant</h2>
-          <p>Select a plant type to care for</p>
-        </div>
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+      <div className="bg-gray-800 rounded-lg max-w-md w-full p-6 max-h-[80vh] overflow-y-auto">
+        <h2 className="text-xl font-bold mb-4 text-white">Select Your Plant</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-4">
           {plantTypes.map((plant) => (
             <div
               key={plant.id}
               className={`p-4 rounded-lg cursor-pointer transition-all ${
-                selectedPlantId === plant.id
-                  ? 'border-2 border-teal-500 bg-teal-50 dark:bg-teal-900 bg-opacity-10'
-                  : 'border-2 border-transparent bg-gray-100 dark:bg-gray-700'
+                currentPlantType?.id === plant.id
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
               }`}
-              onClick={() => setSelectedPlantId(plant.id)}
+              onClick={() => {
+                onSelect(plant);
+                onClose();
+              }}
             >
-              <div className="h-24 flex justify-center items-end mb-2">
-                <div className={`plant ${plant.stages[2]}`}></div>
+              <div className="flex justify-between items-center">
+                <h3 className="font-bold text-lg">{plant.name}</h3>
+                <span className="text-sm px-2 py-1 rounded bg-opacity-70 bg-gray-800">
+                  {plant.difficulty}
+                </span>
               </div>
-              <div className="font-semibold">{plant.name}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
-                Difficulty: {plant.difficulty}
+              
+              <p className="text-sm mt-2 text-gray-200">{plant.description}</p>
+              
+              <div className="mt-3 grid grid-cols-3 gap-2 text-xs">
+                <div className="bg-gray-800 p-1 rounded">
+                  <span className="block text-center text-gray-400">Water</span>
+                  <span className="block text-center font-bold">
+                    {plant.waterFrequency === 1 ? 'Daily' : `Every ${plant.waterFrequency} days`}
+                  </span>
+                </div>
+                
+                <div className="bg-gray-800 p-1 rounded">
+                  <span className="block text-center text-gray-400">Growth Boost</span>
+                  <span className="block text-center font-bold">+{plant.fertilizerBoost}</span>
+                </div>
+                
+                <div className="bg-gray-800 p-1 rounded">
+                  <span className="block text-center text-gray-400">Pest Risk</span>
+                  <span className="block text-center font-bold">
+                    {Math.round(plant.pestChance * 100)}%
+                  </span>
+                </div>
               </div>
-              <p className="text-sm mt-1">{plant.description}</p>
             </div>
           ))}
         </div>
         
-        <div className="flex justify-center mt-5 gap-2">
+        <div className="mt-6 flex justify-end">
           <button
-            onClick={() => {
-              const selected = plantTypes.find(p => p.id === selectedPlantId);
-              if (selected) {
-                onSelect(selected);
-              }
-              onClose();
-            }}
-            className="px-4 py-2 bg-blue-600 text-white rounded-full font-semibold"
+            onClick={onClose}
+            className="bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded"
           >
-            Select Plant
+            Cancel
           </button>
         </div>
       </div>
