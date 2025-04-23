@@ -78,7 +78,7 @@ const Settings = () => {
       toast({
         title: "Error",
         description: "Passwords don't match!",
-        variant: 'destructive'
+        type: 'error'
       });
       return;
     }
