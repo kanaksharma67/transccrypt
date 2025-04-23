@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, Shield, Key, Wallet, Globe, Moon, Sun, ChevronRight, LogOut } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { useNavigate } from 'react-router-dom';
+import SamuraiMask from './SamuraiMask';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -254,6 +255,10 @@ const Settings = () => {
           </motion.div>
         </div>
       )}
+
+     <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-gray-900 to-gray-800/50 z-10" >
+      <SamuraiMask/>
+      </div>
 
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Security Settings */}
