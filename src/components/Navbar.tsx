@@ -24,6 +24,7 @@ import {
   DropdownMenuGroup,
 } from '@/components/ui/dropdown-menu';
 import { AuthModal } from '@/pages/AuthModel';
+import { playClickSound,  } from '@/utils/sounds';
 
 const Navbar = () => {
   const location = useLocation();
@@ -39,6 +40,16 @@ const Navbar = () => {
 
   const toggleAuthModal = () => {
     setIsAuthModalOpen(!isAuthModalOpen);
+  };
+
+  const handleNavigation = () => {
+    playClickSound();
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleAuthModalWithSound = () => {
+    playClickSound();
+    toggleAuthModal();
   };
 
   const navItems = [
@@ -57,7 +68,11 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
+            <Link 
+              to="/" 
+              className="flex items-center gap-2"
+              onClick={playClickSound}
+            >
               <div className="bg-purple-600 rounded-full p-2">
                 <span className="text-xl">Σ</span>
               </div>
@@ -73,12 +88,17 @@ const Navbar = () => {
                 if (item.path === '/games') {
                   return (
                     <DropdownMenu key={item.path} onOpenChange={setIsGamesOpen}>
-                      <DropdownMenuTrigger className="focus:outline-none">
-                        <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                          isActive(item.path)
-                            ? 'text-purple-500 bg-purple-500/10'
-                            : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                        }`}>
+                      <DropdownMenuTrigger 
+                        className="focus:outline-none"
+                      >
+                        <div 
+                          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+                            isActive(item.path)
+                              ? 'text-purple-500 bg-purple-500/10'
+                              : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                          }`}
+                          onClick={playClickSound}
+                        >
                           <item.icon size={20} />
                           <span>{item.label}</span>
                           <ChevronDown 
@@ -97,7 +117,11 @@ const Navbar = () => {
                               location.pathname === '/plant-care' ? 'text-purple-500' : 'text-gray-300'
                             }`}
                           >
-                            <Link to="/plant-care" className="flex items-center w-full gap-2">
+                            <Link 
+                              to="/plant-care" 
+                              className="flex items-center w-full gap-2"
+                              onClick={playClickSound}
+                            >
                               <span>Plant Care</span>
                             </Link>
                           </DropdownMenuItem>
@@ -106,7 +130,11 @@ const Navbar = () => {
                               location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
                             }`}
                           >
-                            <Link to="/pet-care" className="flex items-center w-full gap-2">
+                            <Link 
+                              to="/pet-care" 
+                              className="flex items-center w-full gap-2"
+                              onClick={playClickSound}
+                            >
                               <span>Pet Care</span>
                             </Link>
                           </DropdownMenuItem>
@@ -124,6 +152,7 @@ const Navbar = () => {
                         ? 'text-purple-500 bg-purple-500/10'
                         : 'text-gray-400 hover:text-white hover:bg-gray-800'
                     }`}
+                    onClick={playClickSound}
                   >
                     <item.icon size={20} />
                     <span>{item.label}</span>
@@ -135,7 +164,7 @@ const Navbar = () => {
             {/* Right side buttons */}
             <div className="hidden lg:flex items-center gap-2">
               <button
-                onClick={toggleAuthModal}
+                onClick={toggleAuthModalWithSound}
                 className="flex items-center gap-2 text-gray-400 hover:text-white px-3 py-2 rounded-lg transition-colors hover:bg-gray-800"
               >
                 <LogIn size={20} />
@@ -143,27 +172,51 @@ const Navbar = () => {
               </button>
 
               <DropdownMenu>
-                <DropdownMenuTrigger className="focus:outline-none">
-                  <Avatar className="h-8 w-8 transition-transform hover:scale-105">
+                <DropdownMenuTrigger 
+                  className="focus:outline-none"
+                >
+                  <Avatar 
+                    className="h-8 w-8 transition-transform hover:scale-105"
+                    onClick={playClickSound}
+                  >
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 bg-gray-800 border-gray-700 mt-2">
-                  <DropdownMenuItem className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400">
-                    <Link to="/profile" className="flex items-center w-full gap-2">
+                <DropdownMenuContent 
+                  className="w-56 bg-gray-800 border-gray-700 mt-2"
+                >
+                  <DropdownMenuItem 
+                    className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400"
+                  >
+                    <Link 
+                      to="/profile" 
+                      className="flex items-center w-full gap-2"
+                      onClick={playClickSound}
+                    >
                       <User size={16} />
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400">
-                    <Link to="/settings" className="flex items-center w-full gap-2">
+                  <DropdownMenuItem 
+                    className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400"
+                  >
+                    <Link 
+                      to="/settings" 
+                      className="flex items-center w-full gap-2"
+                      onClick={playClickSound}
+                    >
                       <Settings size={16} />
                       <span>Settings</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-gray-700 focus:bg-gray-700 text-red-400">
-                    <button className="flex items-center w-full gap-2">
+                  <DropdownMenuItem 
+                    className="hover:bg-gray-700 focus:bg-gray-700 text-red-400"
+                  >
+                    <button 
+                      className="flex items-center w-full gap-2"
+                      onClick={playClickSound}
+                    >
                       <span>Sign Out</span>
                     </button>
                   </DropdownMenuItem>
@@ -174,7 +227,10 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <div className="flex lg:hidden">
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                onClick={() => {
+                  playClickSound();
+                  setIsMobileMenuOpen(!isMobileMenuOpen);
+                }}
                 className="text-gray-400 hover:text-white p-2"
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -191,12 +247,13 @@ const Navbar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={handleNavigation}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
                     isActive(item.path)
                       ? 'text-purple-500 bg-purple-500/10'
                       : 'text-gray-400 hover:text-white hover:bg-gray-800'
                   }`}
+                
                 >
                   <item.icon size={20} />
                   <span>{item.label}</span>
@@ -204,7 +261,7 @@ const Navbar = () => {
               ))}
               <button
                 onClick={() => {
-                  toggleAuthModal();
+                  toggleAuthModalWithSound();
                   setIsMobileMenuOpen(false);
                 }}
                 className="w-full flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
@@ -219,7 +276,7 @@ const Navbar = () => {
 
       <AuthModal 
         isOpen={isAuthModalOpen}
-        onClose={toggleAuthModal}
+        onClose={toggleAuthModalWithSound}
       />
     </>
   );

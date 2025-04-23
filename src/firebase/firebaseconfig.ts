@@ -1,6 +1,10 @@
 // src/firebase/firebaseConfig.ts
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+// Add these imports
+import { User } from "firebase/auth";
+
+
 import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
@@ -29,3 +33,8 @@ const auth = getAuth(app);
     createUserWithEmailAndPassword,
     sendPasswordResetEmail
   };
+
+  // Add these imports
+
+// Add to your exports
+export type { User };
