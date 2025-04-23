@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import {
   auth,
   signInWithEmailAndPassword,
@@ -33,6 +35,9 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [resetSent, setResetSent] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const formatAddress = (address: string): string => {
     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
@@ -81,6 +86,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         // Firebase login
         await signInWithEmailAndPassword(auth, email, password);
         onClose();
+        navigate('/dashboard');
       } else {
         // Enhanced signup validation
         if (!email || !password || !confirmPassword) {
@@ -96,6 +102,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         console.log('User created successfully:', userCredential.user);
         onClose();
+        navigate('/dashboard');
       }
     } catch (error: any) {
       console.error('Authentication error:', error);
