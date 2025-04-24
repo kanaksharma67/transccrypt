@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 250 96% 95%;
+    --foreground: 250 10% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 250 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 250 10% 10%;
+
+    --primary: 250 95% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 250 30% 90%;
+    --secondary-foreground: 250 10% 10%;
+
+    --muted: 250 30% 90%;
+    --muted-foreground: 250 5% 45%;
+
+    --accent: 250 30% 90%;
+    --accent-foreground: 250 10% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 250 20% 85%;
+    --input: 250 20% 85%;
+    --ring: 250 95% 60%;
+
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 250 30% 10%;
+    --foreground: 250 10% 95%;
+
+    --card: 250 25% 15%;
+    --card-foreground: 250 10% 95%;
+
+    --popover: 250 25% 15%;
+    --popover-foreground: 250 10% 95%;
+
+    --primary: 250 95% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 250 30% 20%;
+    --secondary-foreground: 250 10% 95%;
+
+    --muted: 250 30% 20%;
+    --muted-foreground: 250 5% 65%;
+
+    --accent: 250 30% 20%;
+    --accent-foreground: 250 10% 95%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 250 10% 95%;
+
+    --border: 250 30% 20%;
+    --input: 250 30% 20%;
+    --ring: 250 95% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl;
+  }
+
+  .gradient-border {
+    @apply relative before:absolute before:-inset-[1px] before:rounded-[inherit] before:bg-gradient-to-r before:from-primary/50 before:to-purple-500/50 before:-z-10;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+}
