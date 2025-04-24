@@ -1,120 +1,45 @@
-<div style="width: 280px; text-align: center; margin: 0 auto;">
-  <img src="src/assets/TRANScrypt_screenshot.png" alt="App Screenshot" style="width: 100%; height: auto; border-radius: 8px;"/>
-</div>
+Here's a beautifully formatted README.md for your GitHub repo that you can directly copy and paste:
 
-<h1 align="center">🔐 Welcome to <span style="color:#10B981">TRANScrypt</span> - Decentralized, Offline‑Ready Peer‑to‑Peer Payments</h1>
+```markdown
+# 🔐 TRANScrypt - Decentralized Offline P2P Payments
 
----
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/kanaksharma67/transccrypt?style=social)](https://github.com/kanaksharma67/transccrypt/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/kanaksharma67/transccrypt?style=social)](https://github.com/kanaksharma67/transccrypt/network)
 
+![TRANScrypt Banner](src/assets/banner.png)
 
-## 🧩 Problem Statement  
-**Problem Statement 6 –  *Better Finance for everone with Stellar*
+> **Financial inclusion beyond connectivity barriers**  
+> A decentralized payment solution that works offline, syncs when online
 
----
+## 🌟 About
 
-## 🎯 Objective  
-Millions of users in rural or low-network regions struggle with basic digital transactions due to poor or no internet connectivity. Our app, **Transcrypt**, aims to provide an **offline payment solution** that enables users to securely make peer-to-peer payments without requiring continuous internet. This addresses a critical gap in financial accessibility and inclusiveness, empowering users to make transactions even in remote areas.
+TRANScrypt revolutionizes digital payments by enabling secure peer-to-peer transactions without requiring continuous internet connectivity. Designed for rural areas, remote locations, and low-network environments, we're bridging the financial inclusion gap with blockchain technology.
 
----
+#hackathon #blockchain #fintech #web3 #decentralized #offlinefirst #stellar #financialinclusion #hackhazards
 
-## 🧠 Team & Approach  
+## ✨ Features
 
-### **Team Name : Accers**  
+- **📶 Offline Transactions** - Sign and queue payments without internet
+- **🔗 On-Chain Settlement** - All transactions recorded on blockchain when online
+- **💸 Smart Bill Splitting** - Equal or ratio-based splits with intuitive UI
+- **🌐 Multi-Currency Support** - Automatic FX conversion at settlement
+- **🔒 Military-Grade Security** - Client-side cryptographic signing
+- **📱 Progressive Web App** - Installable, works on any device
 
+## 🛠 Tech Stack
 
----
+### Core Technologies
+`React.js` `TypeScript` `Tailwind CSS` `Python` `Flask` `Solidity` `Ethereum` `IndexedDB` `MongoDB` `JWT` `Docker`
 
-### **Team Members:**  
-- Kanak Sharma ([GitHub](https://github.com/kanaksharma67) / Frontend & UI/UX Lead)  
-- Chirag Pandit ([GitHub ]( https://github.com/Chirag-pandit) /Frontend & UI/UX Lead)  
-- Swarajit Dey ([GitHub ]( https://github.com/Sd2k3)/ AI-Ml Lead)
-- Akarshan (([GitHub ](https://github.com/Zxenith)/Blockchain Lead)
+### Partner Technologies
+`Stellar` `Groq` `Monad` `Fluvio` `Base` `Screenpiece`
 
----
-
-### **Our  Approach:**  
-- We chose this problem to tackle the real-world issue of financial exclusion in low-connectivity zones, aiming to bring a reliable and secure digital alternative to cash.  
-- **Key challenges addressed:**  
-  - Enabling **offline transaction protocols**  
-  - Designing an intuitive **user interface** for tech-novice users  
-  - Ensuring **security and validation** without online verification  
-- We brainstormed the use of **Bluetooth/NFC/local mesh** for offline transfers and integrated an offline-first database model.  
-- Future enhancements include real-time syncing on reconnection, currency conversion, and AI-driven fraud detection.
-
----
-## 🛠️ Tech Stack
-
-### Core Technologies Used:
-- **Frontend:** React.js with TypeScript, Tailwind CSS, Accertinity UI , GSAP   
-- **Backend:** Python , Flask , Stellar idk
-- **Blockchain**: Solidity smart contracts on Ethereum / EVM-compatible chain  
-- **Database:** IndexedDB (for offline), MongoDB (cloud sync)
-- **Auth & Security**: JWT, client‑side cryptographic signing  
-- **APIs:** Custom Wallet Sync APIs
-- **DevOps**: Docker, GitHub Actions, Vercel / AWS  
-- **Hosting:** Vercel (Frontend), Render (Backend)
-
----
-
-### Sponsor Technologies Used:
-- [ ] Groq: How you used Groq  
-- [✅ ] Monad: To Track achivements  
-- [✅ ] Fluvio: Real-time Financial Dashboard 
-- [ ] Base: AgentKit / OnchainKit / Smart Wallet usage  
-- [✅ ] Screenpiece: Screen-based analytics or workflows  
-- [✅ ] Stellar: Payments, identity, or token usage 
-
----
-
-## ✅ Key Features
-- ✅ **Secure Offline Transactions** – Sign and queue payments without internet.  
-- 📊 **Custom Bill Splitting** – Equally or ratio‑based splits with a few taps.  
-- 💱 **Real‑Time Currency Conversion** – Automatic FX at settlement.  
-- 🔗 **On‑Chain Transparency** – All settled transactions recorded on blockchain.  
-- 🌙 **Dark‑Themed, Modular UI** – Intuitive, adaptive design for any environment.
-
-### 🚀 Advanced Features
-- 📥 **Offline Queue Management** – View, edit, or cancel pending transfers.  
-- 👥 **Group Payment Workflows** – Create “pools” for shared expenses.  
-- 🔔 **Rich Notifications** – Alerts for splits, payments, and sync status.  
-- 🔒 **Smart Contract Security** – Audited logic for dispute‑free settlements.  
-
-
----
-
-## 🎥 Demo & Deliverables
-
-- 🔗 [Demo Video Link (YouTube/Drive)](https://example.com)  
-- 📦 [Deployed Site](https://example.com)  
-- 💻 [GitHub Frontend Repo](https://github.com/yourfrontendrepo)  
-- 🛠 [GitHub Backend Repo](https://github.com/yourbackendrepo)  
-- 📃 Presentation Slides (if any)
-
----
-
-
-## ✅ Tasks & Bonus Checklist
-
-- ✅ All members of the team completed the mandatory task – Followed at least 2 of our social channels and filled the form (Details in Participant Manual)  
-- ✅ All members of the team completed Bonus Task 1 – Sharing of Badges and filled the form (2 points) (Details in Participant Manual)  
-- ✅ All members of the team completed Bonus Task 2 – Signing up for Sprint.dev and filled the form (3 points) (Details in Participant Manual)  
-
-
----
-
-## 🛠️ How to Run the Project
-
-### Requirements:
-- Node.js / Python etc. 
-- `.env` file setup 
-
----
-
-### Local Setup:
+## 🚀 Quick Start
 
 ```bash
-# Clone the repo
-git clone https://github.com/kanaksharma67/transccrypt
+# Clone the repository
+git clone https://github.com/kanaksharma67/transccrypt.git
 
 # Install dependencies
 cd transccrypt
@@ -123,81 +48,46 @@ npm install
 # Start development server
 npm run dev
 
----
-
-
-
-## App Structure
-
-```bash
-├── src/
-│   ├── assets/              # Logos & screenshots
-│   ├── components/          # UI components & hooks
-│   ├── pages/
-│   │   ├── /                # Landing
-│   │   ├── /app             # Main dashboard
-│   │   ├── /queue           # Offline transactions
-│   │   ├── /split           # Bill splitting
-│   │   └── /settings        # User preferences
-│   ├── contracts/           # Solidity smart contracts
-│   └── lib/                 # Blockchain & API utilities
-├── server/
-│   ├── controllers/
-│   ├── routes/
-│   └── services/
-├── scripts/                 # Deployment & migration scripts
-└── README.md
+# Run backend server (in separate terminal)
+cd server
+python app.py
 ```
----
-## 🔮 Future Scope
 
-List improvements, extensions, or follow-up features:
+## 📂 Project Structure
 
-- ☑️ More integrations  
-- 🔒 Security enhancements  
-- 🌐 Localization / broader accessibility
+```
+TRANScrypt/
+├── src/                   # Frontend source
+│   ├── assets/            # Images & media
+│   ├── components/        # Reusable UI components
+│   ├── pages/             # Application views
+│   ├── contracts/         # Smart contracts
+│   └── lib/               # Utility functions
+├── server/                # Backend source
+│   ├── controllers/       # Business logic
+│   ├── routes/            # API endpoints
+│   └── services/          # External integrations
+├── scripts/               # Deployment scripts
+└── docs/                  # Documentation
+```
 
----
+## 🌈 Meet Team Accers
 
-## 📦 Resources / Credits
+| Role | Team Member | GitHub |
+|------|------------|--------|
+| Frontend & UI/UX Lead | Kanak Sharma | [@kanaksharma67](https://github.com/kanaksharma67) |
+| Frontend & UI/UX Lead | Chirag Pandit | [@chiragpandit](https://github.com/chiragpandit) |
+| AI/ML Lead | Swarajit Dey | [@swarajitdey](https://github.com/swarajitdey) |
+| Blockchain Lead | Akarshan | [@akarshan](https://github.com/akarshan) |
 
-- APIs or datasets used  
-- Open source libraries or tools referenced  
-- Acknowledgements
+## 📜 License
 
----
-## ⛔ Existing Limitations
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Traditional digital wallets often suffer from:
+## 🙌 Acknowledgments
 
-- **Constant internet requirement**  
-  Transactions fail in rural areas, remote locations, or during travel when connectivity is poor.
-
-- **No multi‑currency support or customizable splits**  
-  You can’t automatically convert between currencies or split bills by arbitrary ratios (e.g., 20–30–50).
-
-- **Lack of offline validation**  
-  Without cryptographic offline signing, unconfirmed transactions can lead to disputes or fraud.
-
-- **Centralized dependency**  
-  Relying on centralized servers reduces transparency, creates single points of failure, and raises privacy concerns.
-
-❗ **TRANScrypt** solves these by providing a decentralized, offline‑first payment experience with on‑chain settlement, multi‑currency conversion, and flexible bill‑splitting.  
-
-
-
-## 🎯 Final Words
-
-Share your hackathon journey — challenges, learnings, fun moments, or shout-outs!
-
----
-
-
-
-
-
-
-
-
-
+- Stellar Development Foundation for their amazing blockchain platform
+- HackHazards organizers for this incredible opportunity
+- All open-source libraries that made this project possible
+```
 
