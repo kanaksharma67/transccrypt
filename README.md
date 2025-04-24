@@ -206,7 +206,7 @@
       </td>
        <td align="center">
         <img src=" <td align="center">
-        <img src="https://v0.dev/_next/image?url=https%3A%2F%2Fsjc.microlink.io%2F9ZpDWWe1ceok0Uwf46kXwM7xl55gqwDnaqFjFgiViaBotNwn4-jgI9pN0O2z4XPLmbqWYVG-Po6h8lC9E3DZMg.jpeg&w=2048&q=75" alt="Akarshan GitHub Profile" width="400px" style="border-radius: 8px;"/>
+        <img src="https://imagekit.io/tools/asset-public-link?detail=%7B%22name%22%3A%229ZpDWWe1ceok0Uwf46kXwM7xl55gqwDnaqFjFgiViaBotNwn4-jgI9pN0O2z4XPLmbqWYVG-Po6h8lC9E3DZMg.avif%22%2C%22type%22%3A%22image%2Favif%22%2C%22signedurl_expire%22%3A%222028-04-23T06%3A28%3A05.097Z%22%2C%22signedUrl%22%3A%22https%3A%2F%2Fmedia-hosting.imagekit.io%2Faf43cabe0bf34409%2F9ZpDWWe1ceok0Uwf46kXwM7xl55gqwDnaqFjFgiViaBotNwn4-jgI9pN0O2z4XPLmbqWYVG-Po6h8lC9E3DZMg.avif%3FExpires%3D1840084085%26Key-Pair-Id%3DK2ZIVPTIP2VGHC%26Signature%3DaPoU6~dNgbT~m7YAtv6ju5OzYDs8AIgl08y9xh7c7pBcBjzpKZ6k6pU1FmZZM~X4lnprdB7hFTw9trECejIL~1HzsidhC-R37~E-OmbmebSXF6R-0pAHDkkTfD9QvK9XrJyUpBV3r6HZiutKtrcblmXgnBbkwmKXB1zHkgTk8rIJNtWBss5MlTt7BPy541kQyoo4XmNrKPlu-s6QD-G4lYIsoo-hbBTbw3JLboRKXvTrudCeoliYpUoP-X06cltQ0h8-OHOl19rJmcRK3aryBF4AtNBnXAAcydcLS1HkNxwvfoXqwwTF7oq6hKbZi7zhbF3VtDbO5o4gNdbXiQ-0Bw__%22%7D" alt="Akarshan GitHub Profile" width="400px" style="border-radius: 8px;"/>
         <br />
         <em>Akarshan's GitHub Profile</em>
       </td>
