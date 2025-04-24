@@ -198,6 +198,12 @@
         <br />
         <em>Swarajit's GitHub Profile</em>
       </td>
+       <td align="center">
+        <img src=" <td align="center">
+        <img src="https://sjc.microlink.io/ceHEu4vv-4IAUO-Fs3XGXFZRDUzxN_cLeLKuxO13aQtlKG3tAG-idXIIsfa6fyWe6gHSaj6XOWemVbuRnO696g.jpeg" alt="Kanak sharma GitHub Profile" width="400px" style="border-radius: 8px;"/>
+        <br />
+        <em>Kanak's GitHub Profile</em>
+      </td>
     </tr>
   </table>
 </div>
