@@ -19,11 +19,11 @@ import { Toaster } from './components/ui/toaster';
 // Protected Route component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
-  
+
   if (!user) {
     return <Navigate to="/" replace />;
   }
-  
+
   return <>{children}</>;
 }
 
@@ -37,13 +37,13 @@ function AppContent() {
 
   return (
     <Layout>
-      <AuthModal 
+      <AuthModal
         isOpen={isAuthModalOpen}
         onClose={toggleAuthModal}
       />
-      
+
       <Routes>
-        <Route path="/" element={ <Dashboard /> } />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/home" element={<Home />} />
         <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
         <Route path="/make-payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />

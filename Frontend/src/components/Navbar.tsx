@@ -37,7 +37,7 @@ const Navbar = () => {
   const isActive = (path: string) => {
     return location.pathname === path ||
       (path === '/games' && (location.pathname === '/stellar-coin-wins' || location.pathname === '/pet-care')) ||
-      (path === '/make-payment' && (location.pathname === '/make-payment' || location.pathname === '/stellar-payments'));
+      (path === '/make-payment' && (location.pathname === '/make-payment' || location.pathname === '/stellar-payments' || location.pathname === '/offline-payment'));
   };
 
   const toggleAuthModal = () => {
@@ -69,8 +69,8 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="flex items-center gap-2"
               onClick={playClickSound}
             >
@@ -90,12 +90,11 @@ const Navbar = () => {
                   return (
                     <DropdownMenu key={item.path} onOpenChange={setIsGamesOpen}>
                       <DropdownMenuTrigger className="focus:outline-none">
-                        <div 
-                          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                            isActive(item.path)
-                              ? 'text-purple-500 bg-purple-500/10'
-                              : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                          }`}
+                        <div
+                          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
+                            ? 'text-purple-500 bg-purple-500/10'
+                            : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                            }`}
                           onClick={playClickSound}
                         >
                           <item.icon size={20} />
@@ -112,12 +111,11 @@ const Navbar = () => {
                       >
                         <DropdownMenuGroup>
                           <DropdownMenuItem
-                            className={`hover:bg-gray-700 focus:bg-gray-700 ${
-                              location.pathname === '/stellar-coin-wins' ? 'text-purple-500' : 'text-gray-300'
-                            }`}
+                            className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/stellar-coin-wins' ? 'text-purple-500' : 'text-gray-300'
+                              }`}
                           >
-                            <Link 
-                              to="/stellar-coin-wins" 
+                            <Link
+                              to="/stellar-coin-wins"
                               className="flex items-center w-full gap-2"
                               onClick={playClickSound}
                             >
@@ -125,12 +123,11 @@ const Navbar = () => {
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            className={`hover:bg-gray-700 focus:bg-gray-700 ${
-                              location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
-                            }`}
+                            className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
+                              }`}
                           >
-                            <Link 
-                              to="/pet-care" 
+                            <Link
+                              to="/pet-care"
                               className="flex items-center w-full gap-2"
                               onClick={playClickSound}
                             >
@@ -146,11 +143,10 @@ const Navbar = () => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                      isActive(item.path)
-                        ? 'text-purple-500 bg-purple-500/10'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                    }`}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
+                      ? 'text-purple-500 bg-purple-500/10'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                      }`}
                     onClick={playClickSound}
                   >
                     <item.icon size={20} />
@@ -158,15 +154,14 @@ const Navbar = () => {
                   </Link>
                 );
               })}
-              
+
               <DropdownMenu onOpenChange={setIsPaymentsOpen}>
                 <DropdownMenuTrigger className="focus:outline-none">
-                  <div 
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                      isActive('/make-payment')
-                        ? 'text-purple-500 bg-purple-500/10'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                    }`}
+                  <div
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive('/make-payment')
+                      ? 'text-purple-500 bg-purple-500/10'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                      }`}
                     onClick={playClickSound}
                   >
                     <CreditCard size={20} />
@@ -183,12 +178,11 @@ const Navbar = () => {
                 >
                   <DropdownMenuGroup>
                     <DropdownMenuItem
-                      className={`hover:bg-gray-700 focus:bg-gray-700 ${
-                        location.pathname === '/make-payment' ? 'text-purple-500' : 'text-gray-300'
-                      }`}
+                      className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/make-payment' ? 'text-purple-500' : 'text-gray-300'
+                        }`}
                     >
-                      <Link 
-                        to="/make-payment" 
+                      <Link
+                        to="/make-payment"
                         className="flex items-center w-full gap-2"
                         onClick={playClickSound}
                       >
@@ -196,17 +190,24 @@ const Navbar = () => {
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className={`hover:bg-gray-700 focus:bg-gray-700 ${
-                        location.pathname === '/stellar-payments' ? 'text-purple-500' : 'text-gray-300'
-                      }`}
+                      className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/stellar-payments' ? 'text-purple-500' : 'text-gray-300'
+                        }`}
                     >
-                      <Link 
-                        to="/stellar-payments" 
+                      <Link
+                        to="/stellar-payments"
                         className="flex items-center w-full gap-2"
                         onClick={playClickSound}
                       >
                         <span>Stellar Payments</span>
                       </Link>
+                      <a
+                        href="https://tubular-tartufo-89e2d6.netlify.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-gray-800"
+                      >
+                        <span>Offline Payment</span>
+                      </a>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -225,7 +226,7 @@ const Navbar = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger className="focus:outline-none">
-                  <Avatar 
+                  <Avatar
                     className="h-8 w-8 transition-transform hover:scale-105"
                     onClick={playClickSound}
                   >
@@ -233,14 +234,14 @@ const Navbar = () => {
                     <AvatarFallback>U</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent 
+                <DropdownMenuContent
                   className="w-56 bg-gray-800 border-gray-700 mt-2"
                 >
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400"
                   >
-                    <Link 
-                      to="/profile" 
+                    <Link
+                      to="/profile"
                       className="flex items-center w-full gap-2"
                       onClick={playClickSound}
                     >
@@ -248,11 +249,11 @@ const Navbar = () => {
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400"
                   >
-                    <Link 
-                      to="/settings" 
+                    <Link
+                      to="/settings"
                       className="flex items-center w-full gap-2"
                       onClick={playClickSound}
                     >
@@ -260,10 +261,10 @@ const Navbar = () => {
                       <span>Settings</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     className="hover:bg-gray-700 focus:bg-gray-700 text-red-400"
                   >
-                    <button 
+                    <button
                       className="flex items-center w-full gap-2"
                       onClick={playClickSound}
                     >
@@ -298,11 +299,10 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   onClick={handleNavigation}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                    isActive(item.path)
-                      ? 'text-purple-500 bg-purple-500/10'
-                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                  }`}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
+                    ? 'text-purple-500 bg-purple-500/10'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                    }`}
                 >
                   <item.icon size={20} />
                   <span>{item.label}</span>
@@ -314,27 +314,35 @@ const Navbar = () => {
                   <Link
                     to="/make-payment"
                     onClick={handleNavigation}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                      location.pathname === '/make-payment'
-                        ? 'text-purple-500 bg-purple-500/10'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                    }`}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${location.pathname === '/make-payment'
+                      ? 'text-purple-500 bg-purple-500/10'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                      }`}
                   >
                     <span>UPI Payments</span>
                   </Link>
                   <Link
                     to="/stellar-payments"
                     onClick={handleNavigation}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                      location.pathname === '/stellar-payments'
-                        ? 'text-purple-500 bg-purple-500/10'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                    }`}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${location.pathname === '/stellar-payments'
+                      ? 'text-purple-500 bg-purple-500/10'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                      }`}
                   >
                     <span>Stellar Payments</span>
                   </Link>
+                  <a
+                    href="https://tubular-tartufo-89e2d6.netlify.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-gray-800"
+                  >
+                    <span>Offline Payment</span>
+                  </a>
+
                 </div>
               </div>
+
               <button
                 onClick={() => {
                   toggleAuthModalWithSound();
