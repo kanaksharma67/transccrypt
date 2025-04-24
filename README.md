@@ -1,220 +1,219 @@
+<div align="center">
+  <img src="src/assets/logo.png" alt="TRANScrypt Logo" width="200"/>
+  
+  # TRANScrypt
+  ### Decentralized, Offline‑Ready Peer‑to‑Peer Payments
 
-# 🔐 TRANScrypt - Decentralized Offline-First Peer-to-Peer Payments
-
-![Project Banner](src/assets/banner.png)
-
-> **"Banking the Unbanked, Connecting the Disconnected"**  
-> A revolutionary payment solution that works with or without internet connectivity
-
-## 🌟 About TRANScrypt
-
-TRANScrypt is a groundbreaking financial inclusion platform designed to empower millions in rural and low-connectivity regions with secure digital payment capabilities. By combining decentralized blockchain technology with innovative offline protocols, we're eliminating the dependency on continuous internet connectivity for basic financial transactions.
-
-**#HackathonWinner #BlockchainRevolution #FinTechInnovation #Web3 #DeCentralizedFinance #OfflineFirst #StellarNetwork #FinancialInclusion #HackHazards**
-
-## ✨ Key Features
-
-### 🌐 Connectivity Agnostic
-- **Offline Transaction Signing** - Cryptographically secure payments without internet
-- **Smart Sync Technology** - Automatic cloud synchronization when connectivity resumes
-- **Multi-Channel Communication** - Bluetooth/NFC/Mesh network support
-
-### 💰 Financial Tools
-- **Intelligent Bill Splitting** 
-  - Equal divisions
-  - Custom ratio splits
-  - Percentage-based allocations
-- **Real-Time Currency Conversion** - 150+ supported currencies
-- **Group Payment Pools** - Collaborative savings and expense management
-
-### 🔒 Security
-- **Military-Grade Encryption** - End-to-end transaction security
-- **Biometric Authentication** - Fingerprint/Face ID support
-- **On-Chain Transparency** - Immutable transaction records
-
-### 🎛️ User Experience
-- **Adaptive Interface** - Light/Dark mode with high-contrast options
-- **Voice-Guided Navigation** - Accessibility-first design
-- **Data-Efficient** - Optimized for low-bandwidth environments
-
-## 🛠 Technology Stack
-
-### Frontend Development
-<p align="left">
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
-  <img src="https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white" alt="GSAP">
-</p>
-
-### Backend Infrastructure
-<p align="left">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
-  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" alt="JWT">
-</p>
-
-### Blockchain & Security
-<p align="left">
-  <img src="https://img.shields.io/badge/Solidity-e6e6e6?style=for-the-badge&logo=solidity&logoColor=black" alt="Solidity">
-  <img src="https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum">
-  <img src="https://img.shields.io/badge/Stellar-090909?style=for-the-badge&logo=stellar&logoColor=white" alt="Stellar">
-</p>
-
-### Data Management
-<p align="left">
-  <img src="https://img.shields.io/badge/IndexedDB-ED8B00?style=for-the-badge&logo=indexeddb&logoColor=white" alt="IndexedDB">
-  <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
-</p>
-
-### Partner Technologies
-<p align="left">
-  <img src="https://img.shields.io/badge/Groq-00FF00?style=for-the-badge&logo=groq&logoColor=white" alt="Groq">
-  <img src="https://img.shields.io/badge/Monad-000000?style=for-the-badge&logo=monad&logoColor=white" alt="Monad">
-  <img src="https://img.shields.io/badge/Fluvio-0066FF?style=for-the-badge&logo=fluvio&logoColor=white" alt="Fluvio">
-  <img src="https://img.shields.io/badge/Base-0052FF?style=for-the-badge&logo=base&logoColor=white" alt="Base">
-  <img src="https://img.shields.io/badge/Screenpiece-FF6600?style=for-the-badge&logo=screenpiece&logoColor=white" alt="Screenpiece">
-</p>
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js v18+
-- Python 3.10+
-- MongoDB Atlas account (for cloud sync)
-- MetaMask (for blockchain interactions)
-
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/kanaksharma67/transccrypt.git
-
-# Navigate to project directory
-cd transccrypt
-
-# Install frontend dependencies
-npm install
-
-# Install backend dependencies
-cd server
-pip install -r requirements.txt
-
-# Setup environment variables
-cp .env.example .env
-```
-
-### Running the Application
-```bash
-# Start frontend development server
-npm run dev
-
-# In separate terminal, start backend server
-cd server
-python app.py
-```
-
-## 📂 Project Architecture
-
-```
-TRANSCRYPT/
-├── src/                     # Frontend Application
-│   ├── assets/              # Static assets (images, fonts)
-│   ├── components/          # Reusable UI components
-│   │   ├── common/          # Generic components
-│   │   ├── wallet/          # Wallet-specific components
-│   │   └── transactions/    # Transaction flow components
-│   ├── hooks/               # Custom React hooks
-│   ├── lib/                 # Utility functions and helpers
-│   │   ├── blockchain/      # Blockchain interactions
-│   │   ├── offline/         # Offline transaction handling
-│   │   └── sync/            # Cloud synchronization
-│   ├── pages/               # Application views
-│   │   ├── auth/            # Authentication flows
-│   │   ├── dashboard/       # Main application interface
-│   │   ├── transactions/    # Transaction management
-│   │   └── settings/        # User preferences
-│   ├── stores/              # State management
-│   └── styles/              # Global styles and themes
-│
-├── server/                  # Backend Services
-│   ├── controllers/         # Business logic
-│   ├── middleware/          # Request processing
-│   ├── models/              # Data models
-│   ├── routes/              # API endpoints
-│   ├── services/            # External service integrations
-│   └── utils/               # Helper functions
-│
-├── contracts/               # Smart Contracts
-│   ├── build/               # Compiled contracts
-│   ├── migrations/          # Deployment scripts
-│   └── src/                 # Solidity source files
-│
-├── scripts/                 # Automation Scripts
-│   ├── deployment/          # CI/CD scripts
-│   └── database/            # DB migration scripts
-│
-├── docs/                    # Documentation
-│   ├── architecture/        # System diagrams
-│   ├── api/                 # API specifications
-│   └── guides/              # User/developer guides
-│
-└── tests/                   # Test suites
-    ├── unit/                # Unit tests
-    ├── integration/         # Integration tests
-    └── e2e/                 # End-to-end tests
-```
-
-## 🌈 Meet Team Accers
-
-| Role | Member | Contribution | Social |
-|------|--------|--------------|--------|
-| **Frontend & UI/UX Lead** | Kanak Sharma | Designed core application flows and interactive elements | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/kanaksharma67) |
-| **Frontend & UI/UX Lead** | Chirag Pandit | Implemented responsive interfaces and accessibility features | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/chiragpandit) |
-| **AI/ML Lead** | Swarajit Dey | Developed fraud detection algorithms and predictive analytics | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/swarajitdey) |
-| **Blockchain Lead** | Akarshan | Architected smart contracts and offline transaction protocol | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/akarshan) |
-
-## 📈 Roadmap
-
-### Phase 1: Core Functionality (Completed)
-- Offline transaction signing
-- Basic wallet operations
-- On-chain settlement
-
-### Phase 2: Enhanced Features (In Progress)
-- Multi-currency support
-- Advanced bill splitting
-- Group payment pools
-
-### Phase 3: Future Development
-- AI-powered fraud detection
-- Voice-based interfaces
-- Hardware wallet integration
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Please follow these steps:
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📜 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## 🙌 Acknowledgments
-
-- **Stellar Development Foundation** for their visionary blockchain platform
-- **HackHazards organizers** for creating this incredible opportunity
-- **All open-source contributors** whose work made this project possible
-- **Our beta testers** for their valuable feedback and patience
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![Stellar](https://img.shields.io/badge/Stellar-7D00FF?style=for-the-badge&logo=stellar&logoColor=white)](https://www.stellar.org/)
+  [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+  [![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+  [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+  [![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)](https://ethereum.org/)
+  
+  *Empowering financial transactions in low-connectivity environments*
+  
+  **[Demo](https://transcrypt.vercel.app) • [Documentation](https://github.com/kanaksharma67/transcrypt/wiki) • [Report Issue](https://github.com/kanaksharma67/transcrypt/issues)**
+  
+  #hackathon #hackhazards #fintech #blockchain #offlinepayments #p2p
+</div>
 
 ---
 
-<p align="center">
-  Made with ❤️ by Team Accers | 2024 HackHazards Submission
-</p>
-```
+## 🧩 Problem Statement
 
+**Problem Statement 6 – Better Finance for Everyone with Stellar**
+
+Millions of users in rural or low-network regions struggle with basic digital transactions due to poor or no internet connectivity. Traditional payment solutions fail in these environments, creating a significant barrier to financial inclusion and economic participation.
+
+## 🎯 Our Solution
+
+TRANScrypt provides an innovative offline payment solution that enables users to securely make peer-to-peer payments without requiring continuous internet connectivity. This addresses a critical gap in financial accessibility, empowering users to make transactions even in remote areas with limited infrastructure.
+
+<div align="center">
+  <img src="src/assets/app-screenshot.png" alt="TRANScrypt App Screenshot" width="80%"/>
+</div>
+
+## ✨ Key Features
+
+| Feature | Description |
+|---------|-------------|
+| 🔄 **Secure Offline Transactions** | Sign and queue payments without internet connection |
+| 📊 **Custom Bill Splitting** | Split bills equally or with custom ratios with just a few taps |
+| 💱 **Real‑Time Currency Conversion** | Automatic FX rates applied at settlement time |
+| 🔗 **On‑Chain Transparency** | All settled transactions recorded on blockchain for verification |
+| 🌙 **Dark‑Themed, Modular UI** | Intuitive, adaptive design for any environment |
+| 📥 **Offline Queue Management** | View, edit, or cancel pending transfers |
+| 👥 **Group Payment Workflows** | Create "pools" for shared expenses |
+| 🔔 **Rich Notifications** | Alerts for splits, payments, and sync status |
+| 🔒 **Smart Contract Security** | Audited logic for dispute‑free settlements |
+
+## 🛠️ Tech Stack
+
+### Core Technologies
+- **Frontend**: React.js with TypeScript, Tailwind CSS, Accertinity UI, GSAP
+- **Backend**: Python, Flask, Stellar SDK
+- **Blockchain**: Solidity smart contracts on Ethereum / EVM-compatible chain
+- **Database**: IndexedDB (for offline), MongoDB (cloud sync)
+- **Auth & Security**: JWT, client‑side cryptographic signing
+- **APIs**: Custom Wallet Sync APIs
+- **DevOps**: Docker, GitHub Actions, Vercel / AWS
+- **Hosting**: Vercel (Frontend), Render (Backend)
+
+### Partner Technologies
+- ✅ **Monad**: Transaction achievement tracking and gamification
+- ✅ **Fluvio**: Real-time financial dashboard and analytics
+- ✅ **Screenpiece**: Screen-based analytics and user journey workflows
+- ✅ **Stellar**: Core payment infrastructure, identity verification, and token management
+
+## 🧠 Team
+
+### Team Accers
+
+| Member | Role | GitHub |
+|--------|------|--------|
+| Kanak Sharma | Frontend & UI/UX Lead | [GitHub](https://github.com/kanaksharma67) |
+| Chirag Pandit | Frontend & UI/UX Lead | [GitHub](https://github.com/chiragpandit) |
+| Swarajit Dey | AI-ML Lead | [GitHub](https://github.com/swarajitdey) |
+| Akarshan | Blockchain Lead | [GitHub](https://github.com/akarshan) |
+
+## 🚀 Our Approach
+
+We chose this problem to tackle the real-world issue of financial exclusion in low-connectivity zones, aiming to bring a reliable and secure digital alternative to cash.
+
+### Key Challenges Addressed:
+- Enabling robust offline transaction protocols
+- Designing an intuitive user interface for tech-novice users
+- Ensuring security and validation without online verification
+
+We implemented Bluetooth/NFC/local mesh networking for offline transfers and integrated an offline-first database model to ensure data persistence and integrity.
+
+## 📂 Project Structure
+
+\`\`\`bash
+├── src/
+│   ├── assets/              # Logos & screenshots
+│   ├── components/          # UI components & hooks
+│   ├── pages/
+│   │   ├── /                # Landing
+│   │   ├── /app             # Main dashboard
+│   │   ├── /queue           # Offline transactions
+│   │   ├── /split           # Bill splitting
+│   │   └── /settings        # User preferences
+│   ├── contracts/           # Solidity smart contracts
+│   └── lib/                 # Blockchain & API utilities
+├── server/
+│   ├── controllers/
+│   ├── routes/
+│   └── services/
+├── scripts/                 # Deployment & migration scripts
+└── README.md
+\`\`\`
+
+## 🎥 Demo & Deliverables
+
+- 🔗 [Demo Video](https://youtu.be/transcrypt-demo)
+- 📦 [Deployed Site](https://transcrypt.vercel.app)
+- 💻 [GitHub Frontend Repo](https://github.com/kanaksharma67/transcrypt)
+- 🛠️ [GitHub Backend Repo](https://github.com/kanaksharma67/transcrypt-backend)
+- 📊 [Presentation Slides](https://docs.google.com/presentation/d/transcrypt)
+
+## 🚦 How to Run the Project
+
+### Requirements:
+- Node.js v16+
+- Python 3.8+
+- MongoDB (local or Atlas)
+- Stellar testnet account
+
+### Environment Setup:
+Create a `.env` file in the root directory with:
+\`\`\`
+REACT_APP_API_URL=http://localhost:5000
+REACT_APP_STELLAR_NETWORK=testnet
+REACT_APP_MONGODB_URI=mongodb://localhost:27017/transcrypt
+\`\`\`
+
+### Local Development:
+
+\`\`\`bash
+# Clone the repo
+git clone https://github.com/kanaksharma67/transcrypt
+
+# Install frontend dependencies
+cd transcrypt
+npm install
+
+# Start frontend development server
+npm run dev
+
+# In a separate terminal, set up the backend
+cd server
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+# Start backend server
+python app.py
+\`\`\`
+
+Visit `http://localhost:3000` to see the application running.
+
+## ⛔ Problems with Traditional Digital Wallets
+
+<table>
+  <tr>
+    <th>Limitation</th>
+    <th>TRANScrypt Solution</th>
+  </tr>
+  <tr>
+    <td>🌐 <b>Constant internet requirement</b><br>Transactions fail in rural areas, remote locations, or during travel</td>
+    <td>✅ Offline-first architecture with local transaction signing and queuing</td>
+  </tr>
+  <tr>
+    <td>💱 <b>No multi-currency support</b><br>Can't convert between currencies automatically</td>
+    <td>✅ Built-in currency conversion at settlement time with competitive rates</td>
+  </tr>
+  <tr>
+    <td>🔄 <b>Lack of offline validation</b><br>Unconfirmed transactions lead to disputes</td>
+    <td>✅ Cryptographic offline signing with blockchain settlement</td>
+  </tr>
+  <tr>
+    <td>🏢 <b>Centralized dependency</b><br>Reduced transparency and privacy concerns</td>
+    <td>✅ Decentralized architecture with on-chain verification</td>
+  </tr>
+</table>
+
+## 🔮 Future Roadmap
+
+- 🌍 **Global Expansion**: Support for additional currencies and regions
+- 🤝 **Merchant Integration**: Tools for small businesses to accept offline payments
+- 🔐 **Enhanced Security**: Biometric authentication and advanced encryption
+- 🌐 **Mesh Network**: Expanded offline capabilities through local mesh networks
+- 🗣️ **Localization**: Support for 10+ languages to improve accessibility
+- 🤖 **AI Fraud Detection**: Machine learning models to identify suspicious transactions
+
+## 🏆 Hackathon Journey
+
+Our team embarked on this hackathon journey with a shared passion for financial inclusion. The biggest challenge we faced was designing a secure transaction protocol that works reliably offline while preventing double-spending. Through countless hours of brainstorming and testing, we developed our unique approach that combines local cryptographic signing with blockchain settlement.
+
+Special thanks to the mentors who provided invaluable guidance, especially on integrating Stellar's payment infrastructure with our offline-first approach.
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgements
+
+- Stellar Development Foundation for their robust payment infrastructure
+- The open-source community for various libraries and tools
+- HackHazards organizers for the opportunity to build this solution
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by Team Accers</p>
+  <p>© 2025 TRANScrypt. All rights reserved.</p>
+</div>
