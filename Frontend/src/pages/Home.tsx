@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Send, ReceiptIcon, RefreshCw, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
-import { useState } from 'react';
 import SpendingChart from '@/components/ui/SpendingChart';
 import {
   Chart as ChartJS,
@@ -19,6 +18,8 @@ import Payment from './Payment';
 import PaymentButton from '@/components/ui/PaymentButton';
 import TransactionList, { Transaction } from '@/components/ui/TransactionList';
 import QuickActions from '@/components/ui/QuickActions';
+import { useAuth } from '@/context/AuthContext';
+import axios from 'axios';
 
 ChartJS.register(
   CategoryScale,
@@ -32,47 +33,45 @@ ChartJS.register(
 );
 
 const Home = () => {
+  const { user } = useAuth();
+  const [balances, setBalances] = useState(null);
   const [chartPeriod, setChartPeriod] = useState<'weekly' | 'monthly'>('weekly');
-  
-  const recentTransactions: Transaction[] = [
-    {
-      id: '1',
-      type: 'sent',
-      title: 'To Alex Williams',
-      amount: 250.00,
-      currency: '₹',
-      date: new Date('2025-04-08'),
-      status: 'completed',
-    },
-    {
-      id: '2',
-      type: 'received',
-      title: 'From John Smith',
-      amount: 125.50,
-      currency: '₹',
-      date: new Date('2025-04-07'),
-      status: 'completed',
-    },
-    {
-      id: '3',
-      type: 'converted',
-      title: 'BTC to ETH',
-      amount: 540.75,
-      currency: '₹',
-      date: new Date('2025-04-05'),
-      status: 'completed',
-    },
-    {
-      id: '4',
-      type: 'split',
-      title: 'Dinner with friends',
-      amount: 42.30,
-      currency: '₹',
-      date: new Date('2025-04-03'),
-      status: 'pending',
-    },
-  ];
 
+  useEffect(() => {
+    const fetchBalances = async () => {
+      try {
+        const res = await axios.post('http://localhost:5000/balance', {
+          wallet_addresses: user?.wallet_addresses,
+        });
+        setBalances(res.data.balances);
+      } catch (err) {
+        console.error('Failed to fetch balances', err);
+      }
+    };
+
+    if (user?.wallet_addresses) {
+      fetchBalances();
+    }
+  }, [user]);
+
+  const displayData = balances
+    ? Object.entries(balances).map(([key, value]) => {
+      const coinNameMap = {
+        BTC: { name: 'Bitcoin', color: 'bg-purple-600' },
+        ETH: { name: 'Ethereum', color: 'bg-teal-600' },
+        SOL: { name: 'Solana', color: 'bg-green-600' },
+      };
+
+      const coin = coinNameMap[key] || { name: key, color: 'bg-gray-600' };
+      return {
+        name: coin.name,
+        amount: `${value.balance} ${key}`,
+        value: `₹${value.inr_value.toLocaleString()}`,
+        change: `${value.change_24h > 0 ? '+' : ''}${value.change_24h}%`,
+        color: coin.color,
+      };
+    })
+    : [];
 
   const weeklyChartData = [
     { name: 'Mon', amount: 150 },
@@ -83,7 +82,7 @@ const Home = () => {
     { name: 'Sat', amount: 450 },
     { name: 'Sun', amount: 200 },
   ];
-  
+
   const monthlyChartData = [
     { name: 'Jan', amount: 1200 },
     { name: 'Feb', amount: 940 },
@@ -98,10 +97,10 @@ const Home = () => {
     { name: 'Nov', amount: 2000 },
     { name: 'Dec', amount: 2200 },
   ];
-  
+
   const chartData = chartPeriod === 'weekly' ? weeklyChartData : monthlyChartData;
 
- 
+
   return (
     <div className="space-y-6 mt-16">
       <div className="flex justify-between items-start mb-8">
@@ -125,14 +124,10 @@ const Home = () => {
           </div>
 
           <div className="space-y-4">
-            {[
-              { name: 'Bitcoin', amount: '0.58 BTC', value: '₹5,280.42', change: '+3.2%', color: 'bg-purple-600' },
-              { name: 'Ethereum', amount: '4.6 ETH', value: '₹2,458.15', change: '-1.8%', color: 'bg-teal-600' },
-              { name: 'Solana', amount: '32.4 SOL', value: '₹714.4', change: '+8.5%', color: 'bg-green-600' }
-            ].map((asset) => (
+            {displayData.map((asset) => (
               <div key={asset.name} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`₹{asset.color} w-8 h-8 rounded-full flex items-center justify-center`}>
+                  <div className={`${asset.color} w-8 h-8 rounded-full flex items-center justify-center`}>
                     {asset.name[0]}
                   </div>
                   <div>
@@ -178,10 +173,10 @@ const Home = () => {
           <div>Split</div>
         </Link>
       </div>
-     {/* <QuickActions/> */}
-      <PaymentButton/>
+      {/* <QuickActions/> */}
+      <PaymentButton />
 
-      <TransactionList  transactions={recentTransactions} />
+      {/* <TransactionList  transactions={recentTransactions} /> */}
 
 
       {/* <div className="bg-[#1a2235] rounded-lg p-6">
@@ -197,10 +192,10 @@ const Home = () => {
         </div>
       </div> */}
 
-      <SpendingChart 
-          data={chartData}
-          period={chartPeriod}
-          onChangePeriod={setChartPeriod}
+      <SpendingChart
+        data={chartData}
+        period={chartPeriod}
+        onChangePeriod={setChartPeriod}
       />
     </div>
   );

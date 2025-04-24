@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { AuthModal } from '@/pages/AuthModel';
 import { playClickSound } from '@/utils/sounds';
+import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const location = useLocation();
@@ -33,11 +34,14 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isGamesOpen, setIsGamesOpen] = useState(false);
   const [isPaymentsOpen, setIsPaymentsOpen] = useState(false);
+  const { user, setUser } = useAuth();
+  console.log('User in Navbar:', user);
+
 
   const isActive = (path: string) => {
     return location.pathname === path ||
       (path === '/games' && (location.pathname === '/stellar-coin-wins' || location.pathname === '/pet-care')) ||
-      (path === '/make-payment' && (location.pathname === '/make-payment' || location.pathname === '/stellar-payments'));
+      (path === '/make-payment' && (location.pathname === '/make-payment' || location.pathname === '/stellar-payments' || location.pathname === '/qr-page'));
   };
 
   const toggleAuthModal = () => {
@@ -200,6 +204,7 @@ const Navbar = () => {
                       >
                         <span>Stellar Payments</span>
                       </Link>
+                    </DropdownMenuItem>
                       <a
                         href="https://tubular-tartufo-89e2d6.netlify.app"
                         target="_blank"
@@ -208,6 +213,17 @@ const Navbar = () => {
                       >
                         <span>Offline Payment</span>
                       </a>
+                      <DropdownMenuItem
+                      className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/qr-page' ? 'text-purple-500' : 'text-gray-300'
+                        }`}
+                    >
+                      <Link
+                        to="/qr-page"
+                        className="flex items-center w-full gap-2"
+                        onClick={playClickSound}
+                      >
+                        <span>QR Page</span>
+                      </Link>
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -339,6 +355,16 @@ const Navbar = () => {
                   >
                     <span>Offline Payment</span>
                   </a>
+                  <Link
+                    to="/qr-page"
+                    onClick={handleNavigation}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${location.pathname === '/qr-page'
+                      ? 'text-purple-500 bg-purple-500/10'
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                      }`}
+                  >
+                    <span>QR Page</span>
+                  </Link>
 
                 </div>
               </div>
