@@ -4,7 +4,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import History from './pages/History';
 import Payment from './pages/Payment';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Index';
 import SplitBill from './pages/SplitBill';
 import { AuthModal } from './pages/AuthModel';
 import PetCare from './pages/Games';
