@@ -91,7 +91,7 @@ export default function Dashboard() {
                   </Link>
                   <Button
                     variant="outline"
-                    className="rounded-lg border border-slate-700 px-8 py-6 text-lg font-medium text-white hover:bg-slate-800"
+                    className="rounded-lg border border-slate-600 px-8 py-6 text-lg font-medium text-white hover:bg-slate-800"
                   >
                     Learn More
                   </Button>

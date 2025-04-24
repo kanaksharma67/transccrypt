@@ -36,7 +36,7 @@ const Navbar = () => {
 
   const isActive = (path: string) => {
     return location.pathname === path ||
-      (path === '/games' && (location.pathname === '/plant-care' || location.pathname === '/pet-care')) ||
+      (path === '/games' && (location.pathname === '/stellar-coin-wins' || location.pathname === '/pet-care')) ||
       (path === '/make-payment' && (location.pathname === '/make-payment' || location.pathname === '/stellar-payments'));
   };
 
@@ -113,15 +113,15 @@ const Navbar = () => {
                         <DropdownMenuGroup>
                           <DropdownMenuItem
                             className={`hover:bg-gray-700 focus:bg-gray-700 ${
-                              location.pathname === '/plant-care' ? 'text-purple-500' : 'text-gray-300'
+                              location.pathname === '/stellar-coin-wins' ? 'text-purple-500' : 'text-gray-300'
                             }`}
                           >
                             <Link 
-                              to="/plant-care" 
+                              to="/stellar-coin-wins" 
                               className="flex items-center w-full gap-2"
                               onClick={playClickSound}
                             >
-                              <span>Plant Care</span>
+                              <span>Stellar Coin Wins</span>
                             </Link>
                           </DropdownMenuItem>
                           <DropdownMenuItem
