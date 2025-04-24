@@ -200,7 +200,7 @@
       </td>
        <td align="center">
         <img src=" <td align="center">
-        <img src="https://sjc.microlink.io/ceHEu4vv-4IAUO-Fs3XGXFZRDUzxN_cLeLKuxO13aQtlKG3tAG-idXIIsfa6fyWe6gHSaj6XOWemVbuRnO696g.jpeg" alt="Kanak sharma GitHub Profile" width="400px" style="border-radius: 8px;"/>
+        <img src="/_next/image?url=https%3A%2F%2Fsjc.microlink.io%2F98jDIlaTpATeTgCRBz1XyrBXtyo71GIMAj1d462R23P0IuiByBTMRq6qWhOMec-KyKBykMUeMdsCzzjv72-2Pw.jpeg&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fsjc.microlink.io%2F98jDIlaTpATeTgCRBz1XyrBXtyo71GIMAj1d462R23P0IuiByBTMRq6qWhOMec-KyKBykMUeMdsCzzjv72-2Pw.jpeg&w=1080&q=75 2x" alt="Kanak sharma GitHub Profile" width="400px" style="border-radius: 8px;"/>
         <br />
         <em>Kanak's GitHub Profile</em>
       </td>
