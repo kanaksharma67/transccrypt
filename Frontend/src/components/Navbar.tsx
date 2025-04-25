@@ -111,16 +111,18 @@ const Navbar = () => {
                       >
                         <DropdownMenuGroup>
                           <DropdownMenuItem
-                            className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/stellar-coin-wins' ? 'text-purple-500' : 'text-gray-300'
+                            className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/https://stellar-screenplay-arena-45.vercel.app/' ? 'text-purple-500' : 'text-gray-300'
                               }`}
                           >
-                            <Link
-                              to="/stellar-coin-wins"
+                            <a 
+                            href='https://stellar-screenplay-arena-45.vercel.app/'
+                            target="_blank"
+                            rel="noopener noreferrer"
                               className="flex items-center w-full gap-2"
                               onClick={playClickSound}
                             >
                               <span>Stellar Coin Wins</span>
-                            </Link>
+                            </a>
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
@@ -200,6 +202,12 @@ const Navbar = () => {
                       >
                         <span>Stellar Payments</span>
                       </Link>
+                    </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className={`hover:bg-gray-700 focus:bg-gray-700
+                        ${location.pathname === 'https://tubular-tartufo-89e2d6.netlify.app' ? 'text-purple-500' : 'text-gray-300' 
+                          }`}
+                      >
                       <a
                         href="https://tubular-tartufo-89e2d6.netlify.app"
                         target="_blank"
