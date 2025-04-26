@@ -15,6 +15,7 @@ import PaymentPage from './pages/PaymentPage';
 import PlantCareGame from './components/PlantCareGame/PlantCareGame';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Toaster } from './components/ui/toaster';
+import QRPage from './pages/QRPage';
 
 // Protected Route component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -48,6 +49,7 @@ function AppContent() {
         <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
         <Route path="/make-payment" element={<ProtectedRoute><Payment /></ProtectedRoute>} />
         <Route path="/stellar-payments" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
+        <Route path="/qr-page" element={<ProtectedRoute><QRPage /></ProtectedRoute>} />
         <Route path="/split" element={<ProtectedRoute><SplitBill /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />

@@ -27,7 +27,25 @@ interface AuthModalProps {
   onClose: () => void;
 }
 
+interface User {
+  name: string;
+  email: string;
+  password: string;
+  balance: number;
+  wallet_addresses: {
+    btc: string;
+    eth: string;
+    sol: string;
+  };
+  wallet_secrets: {
+    btc: string;
+    eth: string;
+    sol: string;
+  };
+}
+
 export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isLogin, setIsLogin] = useState(true);
   const [walletStatus, setWalletStatus] = useState('');
   const [email, setEmail] = useState('');
@@ -39,9 +57,9 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [faceCaptureStatus, setFaceCaptureStatus] = useState('');
+  const { login } = useAuth();
 
   const navigate = useNavigate();
-  const { user } = useAuth();
 
   const formatAddress = (address: string): string => {
     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
@@ -146,54 +164,33 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
     setWalletStatus('');
 
     try {
-      if (isLogin) {
-        // Firebase login
-        await signInWithEmailAndPassword(auth, email, password);
-        onClose();
-        navigate('/dashboard');
-      } else {
-        // Enhanced signup validation
-        if (!email || !password || !confirmPassword) {
-          throw new Error('All fields are required');
-        }
-        if (password.length < 6) {
-          throw new Error('Password must be at least 6 characters');
-        }
-        if (password !== confirmPassword) {
-          throw new Error('Passwords do not match');
-        }
-        
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        console.log('User created successfully:', userCredential.user);
-        onClose();
-        navigate('/dashboard');
+      const endpoint = isLogin ? '/access' : '/create_wallet';
+      const payload = isLogin
+        ? { email, password }
+        : { name: email.split('@')[0], email, password };
+
+      const response = await fetch(`http://localhost:5000${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const res = await response.json();
+      
+      console.log('Response data:', res); // Log the response data for debugging
+      login(res); 
+
+      if (!response.ok) {
+        const errorMsg = res.error || 'Authentication failed';
+        setAuthError(errorMsg);
+        return;
       }
+
+      setUser(res);
+      onClose();
     } catch (error: any) {
       console.error('Authentication error:', error);
-      
-      let errorMessage = 'Authentication failed';
-      if (error.code) {
-        switch (error.code) {
-          case 'auth/email-already-in-use':
-            errorMessage = 'Email already in use. Try logging in instead.';
-            break;
-          case 'auth/invalid-email':
-            errorMessage = 'Please enter a valid email address';
-            break;
-          case 'auth/weak-password':
-            errorMessage = 'Password should be at least 6 characters';
-            break;
-          case 'auth/operation-not-allowed':
-            errorMessage = 'Email/password accounts are not enabled';
-            break;
-          default:
-            errorMessage = error.message || 'Unknown error occurred';
-        }
-      } else {
-        errorMessage = error.message;
-      }
-      
-      setAuthError(errorMessage);
+      setAuthError(error.message || 'Unknown error occurred');
     } finally {
       setIsLoading(false);
     }

@@ -1,29 +1,37 @@
-// src/context/AuthContext.tsx
-import { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-import { auth } from '@/firebase/firebaseconfig';
-import { User } from 'firebase/auth'; // Import User type from Firebase
-import { onAuthStateChanged } from 'firebase/auth';
+interface User {
+  name: string;
+  email: string;
+  public_key: string;
+  secret: string;
+  balance: number;
+}
 
-const AuthContext = createContext<{ user: User | null }>({ user: null });
+interface AuthContextType {
+  user: User | null;
+  login: (userData: User) => void;
+  logout: () => void;
+}
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
+  const login = (userData: User) => setUser(userData);
+  const logout = () => setUser(null);
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-export function useAuth() {
-  return useContext(AuthContext);
+// ✅ Hook declared and exported at top-level
+export function useAuth(): AuthContextType {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("useAuth must be used within AuthProvider");
+  return context;
 }
