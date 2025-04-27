@@ -471,7 +471,6 @@ We chose this problem to tackle the real-world issue of financial exclusion in l
 
 ## 📂 Project Structure
 
-
 ├── src/
 │   ├── assets/              # Logos & screenshots
 │   ├── components/          # UI components & hooks
@@ -500,7 +499,7 @@ We chose this problem to tackle the real-world issue of financial exclusion in l
 ├── scripts/                 # Deployment & migration scripts
 ├── tests/                   # Unit and integration tests
 └── README.md
-\`\`\`
+
 
 ## 🎥 Demo & Deliverables
 
