@@ -1,6 +1,11 @@
 from stellar_sdk import Server, Keypair, TransactionBuilder, Network, Asset, exceptions
 import requests
-server = Server(horizon_url="https://horizon.stellar.org")
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+server = Server(horizon_url="https://horizon-testnet.stellar.org")
 
 
 def get_stellar_balance(public_key):
@@ -13,6 +18,37 @@ def get_stellar_balance(public_key):
     except Exception as e:
         print(f"Balance error ({public_key}):", e)
         return 0.0
+
+def get_exchange_rate(base_currency, target_currency):
+    api_key = os.getenv("EXCHANGE_API_KEY")
+    base_currency = base_currency.upper()
+    target_currency = target_currency.upper()
+    url = f"https://v6.exchangerate-api.com/v6/{api_key}/latest/{base_currency}"
+    # print(url)
+    # url = "https://v6.exchangerate-api.com/v6/ad7554e3a0cbebf4c9f82525/latest/INR"
+    response = requests.get(url)
+    data = response.json()
+    if response.status_code == 200 and data['result'] == 'success':
+        return data['conversion_rates'][target_currency]
+    else:
+        raise Exception("Failed to fetch exchange rate.")
+
+# print(get_exchange_rate("USD", "INR"))
+
+def get_crypto_price_in_inr(crypto_symbol):
+    """
+    Retrieves the current INR price of the specified cryptocurrency using CoinGecko API.
+    """
+    url = 'https://api.coingecko.com/api/v3/simple/price'
+    params = {
+        'ids': crypto_symbol.lower(),
+        'vs_currencies': 'inr'
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get(crypto_symbol.lower(), {}).get('inr')
+    return None
 
 def get_crypto_data():
     url = 'https://api.coingecko.com/api/v3/simple/price'
@@ -52,7 +88,7 @@ def calculate_inr_balances(wallet_addresses):
         }
     return balances_inr
 
-def calculate_crypto_amounts(total_inr=10000):
+def calculate_crypto_amounts(total_inr=30000):
     crypto_data = get_crypto_data()
 
     num_coins = len(crypto_data)
@@ -159,3 +195,61 @@ def keep_payment(sender_secret_key, receiver_public_key, retain_amount):
 
 
 # print(calculate_crypto_amounts(10000))
+
+from stellar_sdk import Server, Keypair, TransactionBuilder, Network, Asset
+
+def send_payment_and_show_balances(sender_secret, receiver_public, amount, asset_code="XLM", asset_issuer=None):
+    # Initialize server and network
+    server = Server(horizon_url="https://horizon-testnet.stellar.org")  # Use testnet URL if needed
+    network_passphrase = Network.TESTNET_NETWORK_PASSPHRASE
+
+    # Load sender keypair and public key
+    sender_keypair = Keypair.from_secret(sender_secret)
+    sender_public = sender_keypair.public_key
+
+    # Function to fetch and print balances
+    def print_balances(account_id, label):
+        account_data = server.accounts().account_id(account_id).call()
+        print(f"\n{label} Balances for {account_id}:")
+        for balance in account_data['balances']:
+            asset_type = balance.get('asset_type')
+            asset_code_print = balance.get('asset_code') if asset_type != 'native' else 'XLM'
+            print(f"Asset: {asset_code_print}, Balance: {balance.get('balance')}")
+
+    # Show balances before payment
+    print_balances(sender_public, "Before Payment - Sender")
+    print_balances(receiver_public, "Before Payment - Receiver")
+
+    # Determine asset
+    asset = Asset.native() if asset_code == "XLM" else Asset(code=asset_code, issuer=asset_issuer)
+
+    # Load sender account
+    sender_account = server.load_account(account_id=sender_public)
+
+    # Build transaction
+    transaction = (
+        TransactionBuilder(
+            source_account=sender_account,
+            network_passphrase=network_passphrase,
+            base_fee=100
+        )
+        .append_payment_op(destination=receiver_public, amount=str(amount), asset=asset)
+        .set_timeout(30)
+        .build()
+    )
+
+    # Sign and submit transaction
+    transaction.sign(sender_keypair)
+    response = server.submit_transaction(transaction)
+    print("\nTransaction Successful!")
+    print(f"Transaction Hash: {response['hash']}")
+
+    # Show balances after payment
+    print_balances(sender_public, "After Payment - Sender")
+    print_balances(receiver_public, "After Payment - Receiver")
+
+    return response['hash']
+
+# send_payment_and_show_balances("SC7HP7A45MXTTZ2UMRGRZIGR7WYLSUXJ3LO3HP7IKIN4M2OCMXGYBJVO", "GDQN6YI7UCZJLL6GD7Z776NF2TUNTQZ2ORXGPWIOHH22JHXY2SYHRNJ3", 101)
+
+# print(calculate_crypto_amounts(30000))

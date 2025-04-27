@@ -11,7 +11,7 @@ const PaymentPage = () => {
 
   const handleAmountChange = (e) => {
     const value = e.target.value;
-    const regex = /^\d*\.?\d{0,7}$/;
+    const regex = /^\d*\.?\d{0,7}$/; // Allow up to 7 decimals
     if (regex.test(value)) {
       setAmount(value);
     }
@@ -19,12 +19,12 @@ const PaymentPage = () => {
 
   const handleSendPayment = async () => {
     if (!receiverEmail || !amount || isNaN(Number(amount))) {
-      setStatusMessage("Please fill out all fields correctly.");
+      setStatusMessage("❗ Please fill out all fields correctly.");
       return;
     }
 
     setIsLoading(true);
-    setStatusMessage("Processing Payment...");
+    setStatusMessage("🔄 Processing Payment...");
 
     const payload = {
       sender_email: user.email,
@@ -46,13 +46,14 @@ const PaymentPage = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Payment successful:', data);
-        setStatusMessage("Payment Done");
+        setStatusMessage(`✅ Payment sent.\nTransaction Hash: ${data.transaction_hash}`);
       } else {
-        setStatusMessage("Payment failed. Please try again.");
-        console.error('Payment failed:', response.statusText);
+        const errorData = await response.json();
+        setStatusMessage(`❌ Payment failed: ${errorData.error || 'Unknown error.'}`);
+        console.error('Payment failed:', errorData);
       }
     } catch (error) {
-      setStatusMessage("An error occurred during payment.");
+      setStatusMessage("❌ An error occurred during payment.");
       console.error('Error sending payment:', error);
     } finally {
       setIsLoading(false);
@@ -60,15 +61,16 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-16">
-      <h1 className="text-2xl font-bold mb-8">Send Payment</h1>
-      <div className="bg-gray-800/50 backdrop-blur-lg shadow-xl border border-gray-700/30 rounded-lg p-6 space-y-6">
+    <div className="max-w-3xl mx-auto mt-20 px-4">
+      <h1 className="text-3xl font-bold text-center mb-10">Send Payment</h1>
+      <div className="bg-gray-800/50 backdrop-blur-lg shadow-xl border border-gray-700/30 rounded-2xl p-8 space-y-6">
+        
         <div>
           <label className="block text-gray-400 mb-2">Wallet Type</label>
           <select
             value={walletType}
             onChange={(e) => setWalletType(e.target.value)}
-            className="w-full bg-[#0f1629] border border-gray-700 rounded-lg p-3 text-white"
+            className="w-full bg-[#0f1629] border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           >
             <option value="btc">Bitcoin</option>
             <option value="eth">Ethereum</option>
@@ -82,8 +84,8 @@ const PaymentPage = () => {
             type="email"
             value={receiverEmail}
             onChange={(e) => setReceiverEmail(e.target.value)}
-            placeholder="Receiver's email"
-            className="w-full bg-[#0f1629] border border-gray-700 rounded-lg p-3 text-white"
+            placeholder="Enter receiver's email"
+            className="w-full bg-[#0f1629] border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
         </div>
 
@@ -94,21 +96,23 @@ const PaymentPage = () => {
             value={amount}
             onChange={handleAmountChange}
             placeholder="Amount to send"
-            className="w-full bg-[#0f1629] border border-gray-700 rounded-lg p-3 text-white"
+            className="w-full bg-[#0f1629] border border-gray-700 rounded-lg p-3 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
-          <p className="text-sm text-gray-500 mt-1">Up to 7 decimal places allowed</p>
+          <p className="text-sm text-gray-500 mt-1">Up to 7 decimal places allowed.</p>
         </div>
 
         <button
           onClick={handleSendPayment}
-          className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition disabled:opacity-50"
+          className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition disabled:opacity-50"
           disabled={isLoading}
         >
           {isLoading ? 'Processing...' : 'Send Payment'}
         </button>
 
         {statusMessage && (
-          <div className="text-center text-sm text-gray-300 mt-2">{statusMessage}</div>
+          <div className="text-center text-sm whitespace-pre-line text-gray-300 mt-4">
+            {statusMessage}
+          </div>
         )}
       </div>
     </div>

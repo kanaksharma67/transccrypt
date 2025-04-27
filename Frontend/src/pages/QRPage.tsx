@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const QRPage = () => {
   const { user } = useAuth();
-  const [qrImages, setQrImages] = useState({
+  const [qrImages, setQrImages] = useState<{ btc: string | null; eth: string | null; sol: string | null }>({
     btc: null,
     eth: null,
     sol: null,
@@ -42,25 +42,29 @@ const QRPage = () => {
   }, [user]);
 
   return (
-    <div className="max-w-5xl mx-auto mt-16">
-      <h1 className="text-2xl font-bold mb-8">Send Payment</h1>
-      <div className="bg-gray-800/50 backdrop-blur-lg shadow-xl border border-gray-700/30 rounded-lg p-6 space-y-6">
+    <div className="max-w-5xl mx-auto mt-20 px-4">
+      <h1 className="text-3xl font-bold text-center mb-10">Your Wallet QR Codes</h1>
+      
+      <div className="bg-gray-800/50 backdrop-blur-lg shadow-xl border border-gray-700/30 rounded-2xl p-8 space-y-8">
         {loading ? (
           <div className="flex justify-center items-center h-40">
-            <span className="text-white">Generating QR codes...</span>
+            <span className="text-white text-lg">Generating QR codes...</span>
           </div>
         ) : (
-          <div className="flex justify-between gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {['btc', 'eth', 'sol'].map((key) => (
-              <img
-                key={key}
-                src={qrImages[key]}
-                alt={`${key.toUpperCase()} QR`}
-                className="rounded-lg w-48 h-48 object-contain border border-gray-700"
-              />
+              <div key={key} className="flex flex-col items-center space-y-4">
+                <img
+                  src={qrImages[key] || ''}
+                  alt={`${key.toUpperCase()} QR`}
+                  className="rounded-lg w-40 h-40 object-contain border border-gray-700"
+                />
+                <span className="text-white font-semibold">{key.toUpperCase()}</span>
+              </div>
             ))}
           </div>
         )}
+
         <button
           disabled
           className="w-full bg-gray-600 text-white py-3 rounded-lg cursor-not-allowed opacity-50"
@@ -70,7 +74,6 @@ const QRPage = () => {
       </div>
     </div>
   );
-  
 };
 
 export default QRPage;

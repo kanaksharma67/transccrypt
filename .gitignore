@@ -58,3 +58,6 @@ dist-ssr
 *.png
 *.jpg
 *.jpeg
+
+__pycache__
+__pycache__/*

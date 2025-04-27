@@ -35,6 +35,8 @@ const Navbar = () => {
   const [isGamesOpen, setIsGamesOpen] = useState(false);
   const [isPaymentsOpen, setIsPaymentsOpen] = useState(false);
   const { user, setUser } = useAuth();
+  const isLoggedIn = !!user;
+
   console.log('User in Navbar:', user);
 
 
@@ -88,215 +90,220 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
-              {navItems.map((item) => {
-                if (item.path === '/games') {
-                  return (
-                    <DropdownMenu key={item.path} onOpenChange={setIsGamesOpen}>
-                      <DropdownMenuTrigger className="focus:outline-none">
-                        <div
-                          className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
-                            ? 'text-purple-500 bg-purple-500/10'
-                            : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                            }`}
-                          onClick={playClickSound}
+            {isLoggedIn && (
+              <div className="hidden lg:flex items-center gap-1">
+                {navItems.map((item) => {
+                  if (item.path === '/games') {
+                    return (
+                      <DropdownMenu key={item.path} onOpenChange={setIsGamesOpen}>
+                        <DropdownMenuTrigger className="focus:outline-none">
+                          <div
+                            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
+                              ? 'text-purple-500 bg-purple-500/10'
+                              : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                              }`}
+                            onClick={playClickSound}
+                          >
+                            <item.icon size={20} />
+                            <span>{item.label}</span>
+                            <ChevronDown
+                              size={16}
+                              className={`transition-transform ${isGamesOpen ? 'rotate-180' : ''}`}
+                            />
+                          </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                          className="w-48 bg-gray-800 border-gray-700 mt-2"
+                          align="start"
                         >
-                          <item.icon size={20} />
-                          <span>{item.label}</span>
-                          <ChevronDown
-                            size={16}
-                            className={`transition-transform ${isGamesOpen ? 'rotate-180' : ''}`}
-                          />
-                        </div>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        className="w-48 bg-gray-800 border-gray-700 mt-2"
-                        align="start"
-                      >
-                        <DropdownMenuGroup>
-                          <DropdownMenuItem
-                            className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/https://stellar-screenplay-arena-45.vercel.app/' ? 'text-purple-500' : 'text-gray-300'
-                              }`}
-                          >
-                            <a 
-                            href='https://stellar-screenplay-arena-45.vercel.app/'
-                            target="_blank"
-                            rel="noopener noreferrer"
-                              className="flex items-center w-full gap-2"
-                              onClick={playClickSound}
+                          <DropdownMenuGroup>
+                            <DropdownMenuItem
+                              className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/https://stellar-screenplay-arena-45.vercel.app/' ? 'text-purple-500' : 'text-gray-300'
+                                }`}
                             >
-                              <span>Stellar Coin Wins</span>
-                            </a>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
-                              }`}
-                          >
-                            <Link
-                              to="/pet-care"
-                              className="flex items-center w-full gap-2"
-                              onClick={playClickSound}
+                              <a
+                                href='https://stellar-screenplay-arena-45.vercel.app/'
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center w-full gap-2"
+                                onClick={playClickSound}
+                              >
+                                <span>Stellar Coin Wins</span>
+                              </a>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/pet-care' ? 'text-purple-500' : 'text-gray-300'
+                                }`}
                             >
-                              <span>Pet Care</span>
-                            </Link>
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                              <Link
+                                to="/pet-care"
+                                className="flex items-center w-full gap-2"
+                                onClick={playClickSound}
+                              >
+                                <span>Pet Care</span>
+                              </Link>
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    );
+                  }
+                  return (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
+                        ? 'text-purple-500 bg-purple-500/10'
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                        }`}
+                      onClick={playClickSound}
+                    >
+                      <item.icon size={20} />
+                      <span>{item.label}</span>
+                    </Link>
                   );
-                }
-                return (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive(item.path)
-                      ? 'text-purple-500 bg-purple-500/10'
-                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                      }`}
-                    onClick={playClickSound}
-                  >
-                    <item.icon size={20} />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
+                })}
 
-              <DropdownMenu onOpenChange={setIsPaymentsOpen}>
-                <DropdownMenuTrigger className="focus:outline-none">
-                  <div
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive('/make-payment')
-                      ? 'text-purple-500 bg-purple-500/10'
-                      : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                      }`}
-                    onClick={playClickSound}
+                <DropdownMenu onOpenChange={setIsPaymentsOpen}>
+                  <DropdownMenuTrigger className="focus:outline-none">
+                    <div
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${isActive('/make-payment')
+                        ? 'text-purple-500 bg-purple-500/10'
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                        }`}
+                      onClick={playClickSound}
+                    >
+                      <CreditCard size={20} />
+                      <span>Payments</span>
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform ${isPaymentsOpen ? 'rotate-180' : ''}`}
+                      />
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    className="w-48 bg-gray-800 border-gray-700 mt-2"
+                    align="start"
                   >
-                    <CreditCard size={20} />
-                    <span>Payments</span>
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform ${isPaymentsOpen ? 'rotate-180' : ''}`}
-                    />
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="w-48 bg-gray-800 border-gray-700 mt-2"
-                  align="start"
-                >
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem
-                      className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/make-payment' ? 'text-purple-500' : 'text-gray-300'
-                        }`}
-                    >
-                      <Link
-                        to="/make-payment"
-                        className="flex items-center w-full gap-2"
-                        onClick={playClickSound}
-                      >
-                        <span>UPI Payments</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/stellar-payments' ? 'text-purple-500' : 'text-gray-300'
-                        }`}
-                    >
-                      <Link
-                        to="/stellar-payments"
-                        className="flex items-center w-full gap-2"
-                        onClick={playClickSound}
-                      >
-                        <span>Stellar Payments</span>
-                      </Link>
-                    </DropdownMenuItem>
+                    <DropdownMenuGroup>
                       <DropdownMenuItem
-                        className={`hover:bg-gray-700 focus:bg-gray-700
-                        ${location.pathname === 'https://tubular-tartufo-89e2d6.netlify.app' ? 'text-purple-500' : 'text-gray-300' 
+                        className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/make-payment' ? 'text-purple-500' : 'text-gray-300'
                           }`}
                       >
-                      <a
-                        href="https://tubular-tartufo-89e2d6.netlify.app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-gray-800"
-                      >
-                        <span>Offline Payment</span>
-                      </a>
+                        <Link
+                          to="/make-payment"
+                          className="flex items-center w-full gap-2"
+                          onClick={playClickSound}
+                        >
+                          <span>UPI Payments</span>
+                        </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem
-                      className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/qr-page' ? 'text-purple-500' : 'text-gray-300'
-                        }`}
-                    >
-                      <Link
-                        to="/qr-page"
-                        className="flex items-center w-full gap-2"
-                        onClick={playClickSound}
+                        className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/stellar-payments' ? 'text-purple-500' : 'text-gray-300'
+                          }`}
                       >
-                        <span>QR Page</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+                        <Link
+                          to="/stellar-payments"
+                          className="flex items-center w-full gap-2"
+                          onClick={playClickSound}
+                        >
+                          <span>Stellar Payments</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className={`hover:bg-gray-700 focus:bg-gray-700
+                        ${location.pathname === 'https://tubular-tartufo-89e2d6.netlify.app' ? 'text-purple-500' : 'text-gray-300'
+                          }`}
+                      >
+                        <a
+                          href="https://tubular-tartufo-89e2d6.netlify.app"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-gray-400 hover:text-white hover:bg-gray-800"
+                        >
+                          <span>Offline Payment</span>
+                        </a>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/qr-page' ? 'text-purple-500' : 'text-gray-300'
+                          }`}
+                      >
+                        <Link
+                          to="/qr-page"
+                          className="flex items-center w-full gap-2"
+                          onClick={playClickSound}
+                        >
+                          <span>QR Page</span>
+                        </Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            )}
 
             {/* Right side buttons */}
             <div className="hidden lg:flex items-center gap-2">
-              <button
-                onClick={toggleAuthModalWithSound}
-                className="flex items-center gap-2 text-gray-400 hover:text-white px-3 py-2 rounded-lg transition-colors hover:bg-gray-800"
-              >
-                <LogIn size={20} />
-                <span>Login</span>
-              </button>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger className="focus:outline-none">
-                  <Avatar
-                    className="h-8 w-8 transition-transform hover:scale-105"
-                    onClick={playClickSound}
-                  >
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="w-56 bg-gray-800 border-gray-700 mt-2"
+              {!isLoggedIn ? (
+                <button
+                  onClick={toggleAuthModalWithSound}
+                  className="flex items-center gap-2 text-gray-400 hover:text-white px-3 py-2 rounded-lg transition-colors hover:bg-gray-800"
                 >
-                  <DropdownMenuItem
-                    className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400"
-                  >
-                    <Link
-                      to="/profile"
-                      className="flex items-center w-full gap-2"
+                  <LogIn size={20} />
+                  <span>Login</span>
+                </button>
+              ) : (
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="focus:outline-none">
+                    <Avatar
+                      className="h-8 w-8 transition-transform hover:scale-105"
                       onClick={playClickSound}
                     >
-                      <User size={16} />
-                      <span>Profile</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400"
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback>U</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    className="w-56 bg-gray-800 border-gray-700 mt-2"
                   >
-                    <Link
-                      to="/settings"
-                      className="flex items-center w-full gap-2"
-                      onClick={playClickSound}
+                    <DropdownMenuItem
+                      className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400"
                     >
-                      <Settings size={16} />
-                      <span>Settings</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    className="hover:bg-gray-700 focus:bg-gray-700 text-red-400"
-                  >
-                    <button
-                      className="flex items-center w-full gap-2"
-                      onClick={playClickSound}
+                      <Link
+                        to="/profile"
+                        className="flex items-center w-full gap-2"
+                        onClick={playClickSound}
+                      >
+                        <User size={16} />
+                        <span>Profile</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="hover:bg-gray-700 focus:bg-gray-700 text-gray-400"
                     >
-                      <span>Sign Out</span>
-                    </button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                      <Link
+                        to="/settings"
+                        className="flex items-center w-full gap-2"
+                        onClick={playClickSound}
+                      >
+                        <Settings size={16} />
+                        <span>Settings</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="hover:bg-gray-700 focus:bg-gray-700 text-red-400"
+                    >
+                      <button
+                        className="flex items-center w-full gap-2"
+                        onClick={playClickSound}
+                      >
+                        <span>Sign Out</span>
+                      </button>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
 
             {/* Mobile menu button */}

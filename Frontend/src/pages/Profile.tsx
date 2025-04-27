@@ -21,15 +21,15 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       setProfileData({
-        name: user.displayName || "Anonymous User",
+        name: user.name || "Anonymous User",
         email: user.email || "",
         phone: user.phoneNumber || "",
-        location: "New York, USA",
+        location: "India",
         bio: "Crypto enthusiast and tech lover",
       });
       setProfileImage(
         user.photoURL ||
-          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&h=200&q=80"
+          "https://www.shutterstock.com/image-illustration/bitcoin-crown-cryptocurrency-king-concept-600nw-2087743720.jpg"
       );
     }
   }, [user]);
@@ -169,7 +169,7 @@ const Profile = () => {
         <ProfileStatsGraph />
 
         {/* Recent Transactions */}
-        <div className="bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8">
+        {/* <div className="bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8">
           <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-500" viewBox="0 0 20 20" fill="currentColor">
               <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
@@ -199,7 +199,7 @@ const Profile = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Achievements */}
         <div className="bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8">

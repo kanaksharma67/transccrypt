@@ -7,6 +7,8 @@ import { ArrowDown, RefreshCcw, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
+import { useAuth } from "@/context/AuthContext"; // 🛠️ IMPORT useAuth
+import axios from 'axios';
 
 interface Currency {
   id: string;
@@ -24,55 +26,55 @@ const FIAT_CURRENCIES: Currency[] = [
     flag: "🇺🇸",
     currentPrice: 1
   },
-  {
-    id: "eur",
-    name: "Euro",
-    symbol: "EUR",
-    flag: "🇪🇺",
-    currentPrice: 0.92
-  },
-  {
-    id: "gbp",
-    name: "British Pound",
-    symbol: "GBP",
-    flag: "🇬🇧",
-    currentPrice: 0.78
-  },
-  {
-    id: "jpy",
-    name: "Japanese Yen",
-    symbol: "JPY",
-    flag: "🇯🇵",
-    currentPrice: 151.83
-  },
-  {
-    id: "cad",
-    name: "Canadian Dollar",
-    symbol: "CAD",
-    flag: "🇨🇦",
-    currentPrice: 1.38
-  },
-  {
-    id: "aud",
-    name: "Australian Dollar",
-    symbol: "AUD",
-    flag: "🇦🇺",
-    currentPrice: 1.52
-  },
+  // {
+  //   id: "eur",
+  //   name: "Euro",
+  //   symbol: "EUR",
+  //   flag: "🇪🇺",
+  //   currentPrice: 0.92
+  // },
+  // {
+  //   id: "gbp",
+  //   name: "British Pound",
+  //   symbol: "GBP",
+  //   flag: "🇬🇧",
+  //   currentPrice: 0.78
+  // },
+  // {
+  //   id: "jpy",
+  //   name: "Japanese Yen",
+  //   symbol: "JPY",
+  //   flag: "🇯🇵",
+  //   currentPrice: 151.83
+  // },
+  // {
+  //   id: "cad",
+  //   name: "Canadian Dollar",
+  //   symbol: "CAD",
+  //   flag: "🇨🇦",
+  //   currentPrice: 1.38
+  // },
+  // {
+  //   id: "aud",
+  //   name: "Australian Dollar",
+  //   symbol: "AUD",
+  //   flag: "🇦🇺",
+  //   currentPrice: 1.52
+  // },
   {
     id: "inr",
     name: "Indian Rupee",
     symbol: "INR",
     flag: "🇮🇳",
     currentPrice: 83.31
-  },
-  {
-    id: "cny",
-    name: "Chinese Yuan",
-    symbol: "CNY",
-    flag: "🇨🇳",
-    currentPrice: 7.23
   }
+  // {
+  //   id: "cny",
+  //   name: "Chinese Yuan",
+  //   symbol: "CNY",
+  //   flag: "🇨🇳",
+  //   currentPrice: 7.23
+  // }
 ];
 
 const CRYPTO_CURRENCIES: Currency[] = [
@@ -96,25 +98,41 @@ const CRYPTO_CURRENCIES: Currency[] = [
     symbol: "SOL",
     flag: "◎",
     currentPrice: 0.0068 // in terms of USD
+  }
+  // {
+  //   id: "bnb",
+  //   name: "Binance Coin",
+  //   symbol: "BNB",
+  //   flag: "BNB",
+  //   currentPrice: 0.002 // in terms of USD
+  // },
+  // {
+  //   id: "doge",
+  //   name: "Dogecoin",
+  //   symbol: "DOGE",
+  //   flag: "Ð",
+  //   currentPrice: 7.61 // in terms of USD
+  // }
+];
+
+const cryptoList: Currency[] = [
+  {
+    id: 'bitcoin', name: 'Bitcoin', symbol: 'BTC', flag: '₿',
+    currentPrice: 0
   },
   {
-    id: "bnb",
-    name: "Binance Coin",
-    symbol: "BNB",
-    flag: "BNB",
-    currentPrice: 0.002 // in terms of USD
+    id: 'ethereum', name: 'Ethereum', symbol: 'ETH', flag: 'Ξ',
+    currentPrice: 0
   },
   {
-    id: "doge",
-    name: "Dogecoin",
-    symbol: "DOGE",
-    flag: "Ð",
-    currentPrice: 7.61 // in terms of USD
+    id: 'solana', name: 'Solana', symbol: 'SOL', flag: '◎',
+    currentPrice: 0
   }
 ];
 
 const Convert = () => {
   // Changed initial fromCurrency to "btc" as we'll only show crypto options
+  const { user } = useAuth();
   const [fromCurrency, setFromCurrency] = useState<string>("btc");
   const [toCurrency, setToCurrency] = useState<string>("usd");
   const [fromAmount, setFromAmount] = useState<string>("1");
@@ -123,6 +141,27 @@ const Convert = () => {
   const [fee, setFee] = useState<number>(2.5);
   const [isConverting, setIsConverting] = useState<boolean>(false);
   const [showExtraRates, setShowExtraRates] = useState<boolean>(false);
+  const [prices, setPrices] = useState<Record<string, number>>({});
+  const [loading, setLoading] = useState<boolean>(true);
+  
+  const fetchPrices = async () => {
+    try {
+      const ids = cryptoList.map(c => c.id).join(',');
+      const response = await axios.get(
+        `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=inr`
+      );
+      const data = response.data;
+      const formattedPrices: Record<string, number> = {};
+      cryptoList.forEach(currency => {
+        formattedPrices[currency.id] = data[currency.id]?.inr || 0;
+      });
+      setPrices(formattedPrices);
+    } catch (error) {
+      console.error('Error fetching prices:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   
   // Calculate exchange rate between currencies
   useEffect(() => {
@@ -143,27 +182,56 @@ const Convert = () => {
       const amount = parseFloat(fromAmount) || 0;
       const converted = amount * rate;
       setToAmount(converted.toFixed(4));
-    }
+    };
+    fetchPrices();
   }, [fromCurrency, toCurrency, fromAmount]);
 
   // Handle form submission
-  const handleConvert = () => {
+  const handleConvert = async () => {
     if (!fromAmount || parseFloat(fromAmount) <= 0) {
       toast.error("Please enter a valid amount to convert");
       return;
     }
 
     setIsConverting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      const from = CRYPTO_CURRENCIES.find(c => c.id === fromCurrency);
-      const to = FIAT_CURRENCIES.find(c => c.id === toCurrency);
-      
-      toast.success(`Successfully converted ₹{fromAmount} ₹{from?.symbol} to ₹{toAmount} ₹{to?.symbol}`);
+
+    try {
+      const response = await fetch("http://localhost:5000/convert", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sender_email: user.email,
+          password: user.password,
+          crypto_symbol: fromCurrency,
+          target_currency: toCurrency,
+          amount: fromAmount,
+          wallet_addresses: user.wallet_addresses,
+          wallet_secrets: user.wallet_secrets,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Conversion failed");
+      }
+
+      const data = await response.json(); // Assuming server sends JSON response
+
+      toast.success(`Converted ${fromAmount} ${fromCurrency.toUpperCase()} to ${data.converted_amount} ${toCurrency.toUpperCase()}`);
+      setToAmount(data.converted_amount.toFixed(4));
+
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message || "Something went wrong!");
+    } finally {
       setIsConverting(false);
-    }, 1200);
+    }
   };
+
+  if (loading) {
+    return <div>Loading...</div>; // Replace with your loader component
+  }
 
   // Switch currencies is no longer needed since we only allow crypto -> fiat
   // Removed the handleSwitch function and related UI elements
@@ -304,26 +372,37 @@ const Convert = () => {
           </div>
 
           <div className="space-y-4">
-            {CRYPTO_CURRENCIES.map((currency) => (
-              <div key={currency.id} className="flex items-center justify-between p-3  rounded-lg hover:bg-gray-800 transition-colors">
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full  flex items-center justify-center text-xl mr-3">
-                    {currency.flag}
-                  </div>
-                  <div>
-                    <div className="font-medium">{currency.name}</div>
-                    <div className="text-xs text-gray-400">{currency.symbol}</div>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="font-medium">1 {currency.symbol} = {(1/currency.currentPrice).toFixed(2)} USD</div>
-                  <div className={cn("text-xs", Math.random() > 0.5 ? "text-green-500" : "text-red-500")}>
-                    {Math.random() > 0.5 ? "+" : "-"}{(Math.random() * 3).toFixed(2)}%
-                  </div>
-                </div>
-              </div>
-            ))}
+      {cryptoList.map((currency) => (
+        <div
+          key={currency.id}
+          className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-800 transition-colors"
+        >
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl mr-3">
+              {currency.flag}
+            </div>
+            <div>
+              <div className="font-medium">{currency.name}</div>
+              <div className="text-xs text-gray-400">{currency.symbol}</div>
+            </div>
           </div>
+          <div className="text-right">
+            <div className="font-medium">
+              1 {currency.symbol} = ₹{prices[currency.id]?.toLocaleString('en-IN') || 'N/A'}
+            </div>
+            <div
+              className={
+                'text-xs ' +
+                (Math.random() > 0.5 ? 'text-green-500' : 'text-red-500')
+              }
+            >
+              {Math.random() > 0.5 ? '+' : '-'}
+              {(Math.random() * 3).toFixed(2)}%
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
           
           {/* Extra features that appear when "Show Extra Rates" is clicked */}
           {showExtraRates && (

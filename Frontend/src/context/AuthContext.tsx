@@ -6,6 +6,13 @@ interface User {
   public_key: string;
   secret: string;
   balance: number;
+  password: string;
+  wallet_addresses: {
+    btc: string;
+    eth: string;
+    sol: string;
+  };
+  
 }
 
 interface AuthContextType {
