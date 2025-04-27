@@ -2,7 +2,7 @@
   <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-SQEUQQMVO0ZDleK129HZd2kWpTaQ6W.png" alt="TransCrypt Logo" width="250"/>
   
   # TransCrypt
-  ### Decentralized, Offline‑Ready Peer‑to‑Peer Payments
+  ### Decentralized, Offline‑Ready Peer-to-Peer Payments
 
   [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -36,22 +36,150 @@
 
 **TransCrypt** provides an innovative offline payment solution that enables users to securely make peer-to-peer payments without requiring continuous internet connectivity. This addresses a critical gap in financial accessibility, empowering users to make transactions even in remote areas with limited infrastructure.
 
+## 📱 Application Showcase
+
 <div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/home%20page.jpg-E0MLsAxPS2W8CCFx6UmKyxsWNASLum.jpeg" alt="TransCrypt Dashboard" width="400px" style="border-radius: 8px;"/>
-        <br />
-        <em>Sleek, intuitive dashboard interface</em>
-      </td>
-      <td align="center">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-SQEUQQMVO0ZDleK129HZd2kWpTaQ6W.png" alt="TransCrypt Logo" width="200px"/>
-        <br />
-        <em>Our distinctive brand identity</em>
-      </td>
-    </tr>
-  </table>
+  <h3>Seamless User Experience</h3>
+  <p>Our application is designed with a focus on accessibility and ease of use, even in challenging connectivity environments.</p>
 </div>
+
+### 🔐 Secure Authentication System
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214318-qlaQ0dRSwUwZDWqD4Dnh9zlfD7hgB5.png" alt="TransCrypt Login Interface" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Multiple secure login options including traditional email/password, crypto wallets (MetaMask/Coinbase), and biometric authentication</em></p>
+</div>
+
+Our authentication system offers multiple secure login methods:
+- **Traditional Login**: Email and password with strong encryption
+- **Wallet Integration**: Connect directly with MetaMask or Coinbase
+- **Biometric Security**: Face Recognition Login for quick and secure access
+- **Offline Capability**: Authenticate even without internet connection using device-stored credentials
+
+### 📊 Real-Time Financial Dashboard
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214520-lDW2osp5fcLMPX1FBrdRIxykeWgd0h.png" alt="TransCrypt Financial Dashboard" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Comprehensive financial dashboard powered by Fluvio's real-time data streaming technology</em></p>
+</div>
+
+Our Fluvio-powered financial dashboard provides:
+- **Live Market Feed**: Real-time stock and cryptocurrency price updates
+- **Connection Strength Indicator**: Shows your current connectivity status
+- **Market Watch**: Track multiple currency pairs simultaneously
+- **Performance Metrics**: View percentage changes and historical data
+- **Offline Mode**: Dashboard continues to function with cached data when offline
+
+### 📈 Stellar Trading Interface
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214452-9IW5layat4XkOPQuYa0xEIEATiPzQX.png" alt="TransCrypt Trading Interface" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Integrated Stellar trading platform with advanced charting and wallet connectivity</em></p>
+</div>
+
+Our Stellar-powered trading interface features:
+- **Interactive Charts**: Track XLM/USD and other pairs with detailed time frames
+- **Wallet Integration**: Seamlessly connect your Stellar wallet
+- **Trade Executor**: Execute market and limit orders directly from the app
+- **Currency Conversion**: Easily swap between fiat and crypto assets
+- **Offline Queueing**: Create trades offline that execute when connectivity returns
+
+### ✨ Core Platform Features
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214544-028f9xKxvBuXmW49aPuR4PkaRnDAOW.png" alt="TransCrypt Key Features" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Four pillars of our technology: security, offline capability, synchronization, and currency flexibility</em></p>
+</div>
+
+TransCrypt is built on four technological pillars:
+- **Blockchain Security**: Enterprise-grade encryption and verification for every transaction
+- **Offline Transactions**: Complete payment functionality without internet connectivity
+- **Real-time Sync**: Instant notifications and balance updates when back online
+- **Currency Conversion**: Seamless exchange between multiple currencies and crypto assets
+
+### 🌐 Global Connectivity
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214604-jgiiIlOIw00bMXrU8ldZnUIVypvRvX.png" alt="TransCrypt Global Connectivity" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Borderless financial transactions for digital nomads and travelers worldwide</em></p>
+</div>
+
+Our platform enables truly global financial freedom:
+- **Location Independence**: Transact from anywhere in the world
+- **Cross-Border Payments**: Send money internationally without excessive fees
+- **Digital Nomad Friendly**: Perfect for remote workers and frequent travelers
+- **Mesh Networking**: Connect with nearby users even without internet infrastructure
+- **Local Currency Support**: Automatic conversion to relevant local currencies
+
+### 💰 Advanced Portfolio Management
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214656-AiOU7LASNXQ2HLGBRzM8zZYQMR0ROO.png" alt="TransCrypt Portfolio Dashboard" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Comprehensive portfolio dashboard with multi-currency support and real-time asset tracking</em></p>
+</div>
+
+Our portfolio management system provides:
+- **Multi-Currency Support**: Track assets across cryptocurrencies and fiat currencies
+- **Real-Time Valuation**: Up-to-the-minute pricing data with change percentages
+- **Asset Categorization**: Clear visualization of your holdings with customizable categories
+- **Quick Actions**: Easily accessible buttons for common transactions
+- **Offline Tracking**: Continue monitoring your portfolio even when connectivity is limited
+
+### 💱 Seamless Currency Conversion
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214732-R1R1H1btbhzH7QQFvTfwmsYo1cTtbR.png" alt="TransCrypt Currency Converter" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Intuitive cryptocurrency to fiat converter with competitive exchange rates</em></p>
+</div>
+
+Our currency conversion feature offers:
+- **Two-Way Exchange**: Convert between any cryptocurrency and fiat currency
+- **Transparent Fees**: Clearly displayed conversion rates and minimal processing fees
+- **Real-Time Rates**: Up-to-date exchange rates powered by multiple data sources
+- **Offline Price Caching**: Access recent rates even without internet connection
+- **Quick Conversion**: Simple interface for fast and efficient transactions
+
+### 💸 Intelligent Bill Splitting
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214715-n8VIthTLr8O1NF1t5M5nbic1IQZQcX.png" alt="TransCrypt Bill Splitting" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Effortless bill splitting with multiple identification methods for seamless transactions</em></p>
+</div>
+
+Our bill splitting functionality includes:
+- **Multiple Recipient Options**: Split bills using UPI IDs or phone numbers
+- **Customizable Shares**: Easily adjust individual contribution amounts
+- **Instant Notifications**: Automatic alerts to all participants
+- **Payment Tracking**: Monitor settlement status across participants
+- **Offline Creation**: Create splits even without connectivity that execute when back online
+
+### 🎮 Gamified Financial Experience
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214819-qh2eXWYtTOJ5RRQ2btYXakwTBb7Bni.png" alt="TransCrypt StellarVerse Pet" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Virtual pet system that encourages regular app engagement and financial habits</em></p>
+</div>
+
+Our gamification elements include:
+- **StellarVerse Pet**: Virtual companion that grows as you use the app
+- **Daily Engagement Rewards**: Bonuses for consistent financial activities
+- **Pet Care System**: Feed, play, and care for your digital pet
+- **Achievement Tracking**: Unlock rewards based on financial milestones
+- **Offline Interaction**: Continue engaging with your pet even without internet connection
+
+### 🏆 Stellar Arcade & Rewards
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214758-SluunsDOWF2yhEDZjtrfTNwAcHWpey.png" alt="TransCrypt Stellar Arcade" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Built-in games that reward users with Stellar tokens on the Monad blockchain</em></p>
+</div>
+
+Our rewards system features:
+- **Blockchain-Based Rewards**: Earn real Stellar tokens through gameplay
+- **Achievement System**: Complete challenges for additional token rewards
+- **Leaderboards**: Compete with other users for top positions
+- **Integration with Screenplays**: Use Screenpiece technology for gameplay verification
+- **Offline Play**: Games remain playable without internet, with rewards syncing later
 
 ## ✨ Key Features
 
@@ -179,7 +307,7 @@
     <tr>
       <td><b>Akarshan</b></td>
       <td>Blockchain Lead</td>
-      <td><a href="https://github.com/akarshan">@akarshan</a></td>
+      <td><a href="https://github.com/Zxenith">@Zxenith</a></td>
       <td>Smart contract development, blockchain integration</td>
     </tr>
   </table>
@@ -191,12 +319,12 @@
   <table>
     <tr>
       <td align="center">
-        <img src="https://i.imgur.com/0nvo8Wu.png" alt="Kanak Sharma GitHub Profile" width="400px" style="border-radius: 8px;"/>
+        <img src="https://sjc.microlink.io/98jDIlaTpATeTgCRBz1XyrBXtyo71GIMAj1d462R23P0IuiByBTMRq6qWhOMec-KyKBykMUeMdsCzzjv72-2Pw.jpeg" alt="Kanak Sharma GitHub Profile" width="400px" style="border-radius: 8px;"/>
         <br />
         <em>Kanak's GitHub Profile</em>
       </td>
       <td align="center">
-        <img src="https://i.imgur.com/o2zLtgH.png" alt="Akarshan GitHub Profile" width="400px" style="border-radius: 8px;"/>
+        <img src="https://sjc.microlink.io/9ZpDWWe1ceok0Uwf46kXwM7xl55gqwDnaqFjFgiViaBotNwn4-jgI9pN0O2z4XPLmbqWYVG-Po6h8lC9E3DZMg.jpeg" alt="Akarshan GitHub Profile" width="400px" style="border-radius: 8px;"/>
         <br />
         <em>Akarshan's GitHub Profile</em>
       </td>
@@ -264,7 +392,7 @@ We chose this problem to tackle the real-world issue of financial exclusion in l
 
 ## 📂 Project Structure
 
-```bash
+\`\`\`bash
 ├── src/
 │   ├── assets/              # Logos & screenshots
 │   ├── components/          # UI components & hooks
@@ -293,7 +421,7 @@ We chose this problem to tackle the real-world issue of financial exclusion in l
 ├── scripts/                 # Deployment & migration scripts
 ├── tests/                   # Unit and integration tests
 └── README.md
-```
+\`\`\`
 
 ## 🎥 Demo & Deliverables
 
@@ -325,17 +453,17 @@ We chose this problem to tackle the real-world issue of financial exclusion in l
 
 ### Environment Setup:
 Create a `.env` file in the root directory with:
-```
+\`\`\`
 REACT_APP_API_URL=https://transcryptbackend.vercel.app
 REACT_APP_STELLAR_NETWORK=testnet
 REACT_APP_MONGODB_URI=mongodb://localhost:27017/transcrypt
 REACT_APP_STELLAR_PUBLIC_KEY=your_stellar_public_key
 REACT_APP_STELLAR_SECRET_KEY=your_stellar_secret_key
-```
+\`\`\`
 
 ### Local Development:
 
-```bash
+\`\`\`bash
 # Clone the repo
 git clone https://github.com/kanaksharma67/transcrypt
 
@@ -354,7 +482,7 @@ pip install -r requirements.txt
 
 # Start backend server
 python app.py
-```
+\`\`\`
 
 Visit `http://localhost:3000` to see the application running.
 
