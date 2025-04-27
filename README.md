@@ -326,7 +326,7 @@ We chose this problem to tackle the real-world issue of financial exclusion in l
 ### Environment Setup:
 Create a `.env` file in the root directory with:
 ```
-REACT_APP_API_URL=http://localhost:5000
+REACT_APP_API_URL=https://transcryptbackend.vercel.app
 REACT_APP_STELLAR_NETWORK=testnet
 REACT_APP_MONGODB_URI=mongodb://localhost:27017/transcrypt
 REACT_APP_STELLAR_PUBLIC_KEY=your_stellar_public_key

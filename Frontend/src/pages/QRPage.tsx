@@ -14,7 +14,7 @@ const QRPage = () => {
   const generateQR = async (label: string, address: string) => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/generate-qr',
+        'https://transcryptbackend.vercel.app/generate-qr',
         { address },
         { responseType: 'blob' }
       );

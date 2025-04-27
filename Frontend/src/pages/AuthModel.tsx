@@ -169,7 +169,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
         ? { email, password }
         : { name: email.split('@')[0], email, password };
 
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
+      const response = await fetch(`https://transcryptbackend.vercel.app${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

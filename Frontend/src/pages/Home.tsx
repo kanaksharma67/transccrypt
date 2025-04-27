@@ -42,7 +42,7 @@ const Home = () => {
     const fetchBalances = async () => {
       try {
         setLoading(true); // <-- Start loading
-        const res = await axios.post('http://localhost:5000/balance', {
+        const res = await axios.post('https://transcryptbackend.vercel.app/balance', {
           wallet_addresses: user?.wallet_addresses,
         });
         setBalances(res.data.balances);
