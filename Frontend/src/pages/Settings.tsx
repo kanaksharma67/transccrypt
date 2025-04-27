@@ -347,7 +347,9 @@ const Settings = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    navigate('/login');
+    window.location.reload();
+
+    navigate('/');
   };
 
   const handlePasswordChange = (e: React.FormEvent) => {

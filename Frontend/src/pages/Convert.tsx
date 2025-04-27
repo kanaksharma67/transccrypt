@@ -12,7 +12,7 @@ import axios from 'axios';
 
 interface Currency {
   id: string;
-  name: string;
+  name: string
   symbol: string;
   flag: string;
   currentPrice: number;
@@ -432,7 +432,7 @@ const Convert = () => {
         </div>
         
         {/* Recent Transactions - Extra Feature */}
-        <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6  shadow-xl border border-gray-700/30 animate-slide-up" style={{animationDelay: "400ms"}}>
+        {/* <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6  shadow-xl border border-gray-700/30 animate-slide-up" style={{animationDelay: "400ms"}}>
           <h3 className="text-xl font-semibold mb-6">Recent Transactions</h3>
           <div className="space-y-3">
             {[
@@ -463,7 +463,7 @@ const Convert = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
