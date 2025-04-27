@@ -15,7 +15,14 @@
   
   *Empowering financial transactions in low-connectivity environments*
   
-  **[Demo](https://transcrypt.vercel.app) • [Documentation](https://github.com/kanaksharma67/transcrypt/wiki) • [Report Issue](https://github.com/kanaksharma67/transcrypt/issues)**
+## Links
+
+- **Demo Video**: [Watch Demo](https://youtu.be/ScgTXmJHhDw)
+- **Web Deployment**: [Live Demo](https://transcryptfrontend.vercel.app/)
+- **Mobile App**: [Download App](https://tubular-tartufo-89e2d6.netlify.app)
+- **Stellar Game**: [Play Game](https://stellar-game-main.vercel.app/)
+- **Groq Chatbot**: [Try Chatbot](https://groq-ai-chatbox.vercel.app/)
+- **Presentation**: [View PPT](https://docs.google.com/presentation/d/1gbHvrRa_IwBy1Fzi5zivBrMUBUDUzg0O/edit#slide=id.p1)
   
   #hackathon #hackhazards #fintech #blockchain #offlinepayments #p2p #stellar
 </div>
