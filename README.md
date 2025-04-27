@@ -471,7 +471,7 @@ We chose this problem to tackle the real-world issue of financial exclusion in l
 
 ## 📂 Project Structure
 
-```bash
+
 ├── src/
 │   ├── assets/              # Logos & screenshots
 │   ├── components/          # UI components & hooks
