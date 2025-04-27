@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   LayoutGrid,
   Home,
@@ -28,6 +29,7 @@ import { playClickSound } from '@/utils/sounds';
 import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -296,7 +298,11 @@ const Navbar = () => {
                     >
                       <button
                         className="flex items-center w-full gap-2"
-                        onClick={playClickSound}
+                        onClick={() => {
+                          localStorage.removeItem('authToken');
+                          navigate('/');
+                          window.location.reload();
+                        }} 
                       >
                         <span>Sign Out</span>
                       </button>

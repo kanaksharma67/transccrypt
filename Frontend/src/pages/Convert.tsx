@@ -250,7 +250,7 @@ const Convert = () => {
 
           {/* From Currency - Only Crypto Options */}
           <div className="mb-6">
-            <label className="block text-sm text-gray-400 mb-2">From (Cryptocurrency)</label>
+            <label className="block text-sm text-gray-400 mb-2 flex items-center justify-center">From (Cryptocurrency)</label>
             <div className="flex space-x-2">
               <div className="w-2/5">
                 <Select value={fromCurrency} onValueChange={setFromCurrency}>
@@ -291,9 +291,9 @@ const Convert = () => {
 
           {/* To Currency - Only Fiat Options */}
           <div className="mb-8">
-            <label className="block text-sm text-gray-400 mb-2">To (Fiat Currency)</label>
-            <div className="flex space-x-2">
-              <div className="w-2/5">
+            <label className="block text-sm text-gray-400 mb-2 flex items-center justify-center">To (Fiat Currency)</label>
+            <div className="flex space-x-2 flex items-center justify-center">
+              <div className="flex items-center justify-center w-4/5">
                 <Select value={toCurrency} onValueChange={setToCurrency}>
                   <SelectTrigger className="bg-[#222222] border-gray-700 text-white hover:border-purple-500 transition-colors">
                     <SelectValue />
@@ -312,19 +312,19 @@ const Convert = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="w-3/5">
+              {/* <div className="w-3/5">
                 <Input
                   type="text"
                   value={toAmount}
                   readOnly
                   className="bg-[#222222] border-gray-700 text-white transition-colors"
                 />
-              </div>
+              </div> */}
             </div>
           </div>
 
           {/* Exchange info */}
-          <div className="flex justify-between text-sm mb-6">
+          {/* <div className="flex justify-between text-sm mb-6">
             <div className="text-gray-400">Exchange Rate</div>
             <div className="text-white">
               {exchangeRate > 0 ? (
@@ -335,7 +335,7 @@ const Convert = () => {
                 "-"
               )}
             </div>
-          </div>
+          </div> */}
           
           <div className="flex justify-between text-sm mb-8">
             <div className="text-gray-400">Fee</div>
