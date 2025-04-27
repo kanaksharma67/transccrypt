@@ -120,11 +120,11 @@ const Navbar = () => {
                         >
                           <DropdownMenuGroup>
                             <DropdownMenuItem
-                              className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/https://stellar-screenplay-arena-45.vercel.app/' ? 'text-purple-500' : 'text-gray-300'
+                              className={`hover:bg-gray-700 focus:bg-gray-700 ${location.pathname === '/https://stellar-game-main.vercel.app/' ? 'text-purple-500' : 'text-gray-300'
                                 }`}
                             >
                               <a
-                                href='https://stellar-screenplay-arena-45.vercel.app/'
+                                href='https://stellar-game-main.vercel.app/'
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center w-full gap-2"
