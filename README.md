@@ -181,6 +181,85 @@ Our rewards system features:
 - **Integration with Screenplays**: Use Screenpiece technology for gameplay verification
 - **Offline Play**: Games remain playable without internet, with rewards syncing later
 
+### 🔐 Stellar Wallet Account Management
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214926-PxEfoHfMsWTVqdujIJJTrjEgkW4s0i.png" alt="TransCrypt Stellar Wallet Account" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Secure Stellar wallet integration with account management capabilities</em></p>
+</div>
+
+Our Stellar wallet account management features:
+- **Account Information**: View detailed Stellar account information and balances
+- **Connectivity Status**: Real-time indicator showing online/offline status
+- **Last Checked Timestamp**: Know exactly when your account was last synchronized
+- **Tab Navigation**: Easily switch between Account, Scan QR, and Transactions views
+- **Account Selection**: Support for multiple Stellar accounts with dropdown selection
+- **Offline-First Design**: Clean interface that works seamlessly with or without connectivity
+
+### 📱 Wallet QR Code Generation
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214946-swc4rnA8DydvNUe4LOCqbymVfvrgt7.png" alt="TransCrypt Wallet QR Codes" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Multi-cryptocurrency QR code generation for seamless peer-to-peer transfers</em></p>
+</div>
+
+Our wallet QR code generation system provides:
+- **Multi-Cryptocurrency Support**: Generate QR codes for BTC, ETH, SOL and more
+- **Clean Visual Design**: Dark-themed interface with high-contrast QR codes for easy scanning
+- **Instant Access**: Quick navigation through the top menu bar
+- **Payment Dropdown**: Contextual payment options including UPI, Stellar, and offline payments
+- **Send Payment Button**: Initiate outgoing payments with a single tap
+- **Responsive Layout**: Properly formatted for both mobile and desktop viewing
+
+### 💳 Streamlined Payment Form
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20214844-mvr2TofUsSHtoQWsGZVbTB9OhpRNIT.png" alt="TransCrypt Payment Form" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Intuitive payment form with multiple recipient identification methods</em></p>
+</div>
+
+Our payment form includes:
+- **User-Friendly Fields**: Clear input fields for sender and recipient information
+- **Multiple Identification Methods**: Support for names, UPI IDs, and wallet addresses
+- **Currency Selection**: Choose from multiple currencies including INR and cryptocurrencies
+- **Amount Input**: Simple numerical input with decimal support
+- **Optional Memo Field**: Add notes or references to your transactions
+- **Contextual Payment Options**: Access different payment methods through the dropdown menu
+- **Back Navigation**: Easy return to previous screens with the back button
+
+### 📷 QR Code Scanner
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20215728-Zo0QjAqCOM5ef2GUJGs7nuFv6gGUYJ.png" alt="TransCrypt QR Scanner" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Advanced QR code scanner with online/offline transaction processing</em></p>
+</div>
+
+Our QR code scanner features:
+- **Connectivity Awareness**: Displays current online status with real-time updates
+- **Scanning Modes**: Toggle between single scan and continuous scanning modes
+- **Visual Guidance**: Clear QR code target area with visual indicators
+- **Status Messages**: Informative messages about connectivity and transaction processing
+- **Transaction Logs**: View recent scan history and transaction status
+- **Camera Access**: One-tap camera activation with the prominent scan button
+- **Clean Interface**: Minimalist design that works well in various lighting conditions
+
+### 📊 Transaction History & Filtering
+
+<div align="center">
+  <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-27%20215750-o4Z6w0zXAfcO2I03NIpgGSnZzp7yYX.png" alt="TransCrypt Transaction History" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+  <p><em>Comprehensive transaction history with advanced filtering and search capabilities</em></p>
+</div>
+
+Our transaction history system provides:
+- **Local Storage Integration**: Transactions are stored locally for offline access
+- **Real-Time Updates**: Automatic refresh when new transactions are detected
+- **Advanced Filtering**: Filter by status, amount, date range, and more
+- **Date Range Selection**: Calendar-based date range picker for precise filtering
+- **Reset Option**: Quickly clear all filters with a single button
+- **Empty State Handling**: Clear messaging when no transactions are available
+- **Sync Status**: Information about when transactions were last refreshed
+- **Responsive Design**: Adapts to different screen sizes while maintaining usability
+
 ## ✨ Key Features
 
 <div align="center">
@@ -392,7 +471,7 @@ We chose this problem to tackle the real-world issue of financial exclusion in l
 
 ## 📂 Project Structure
 
-\`\`\`bash
+```bash
 ├── src/
 │   ├── assets/              # Logos & screenshots
 │   ├── components/          # UI components & hooks
