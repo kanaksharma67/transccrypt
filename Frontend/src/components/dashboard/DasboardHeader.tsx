@@ -27,6 +27,7 @@ export function DashboardHeader() {
               <Button
                 variant="outline"
                 className="rounded-lg border border-slate-700 px-8 py-6 text-lg font-medium text-white hover:bg-slate-800 hover:text-white"
+                onClick={() => window.open('https://groq-ai-chatbox.vercel.app/', '_blank')}
               >
                 Learn More
               </Button>
