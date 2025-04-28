@@ -386,7 +386,7 @@ Our transaction history system provides:
     </tr>
     <tr>
       <td><b>Swarajit Dey</b></td>
-      <td>AI-ML Lead</td>
+      <td>Team Lead,AI-ML Lead, Blockchain</td>
       <td><a href="https://github.com/Sd2k3">@Sd2k3</a></td>
       <td>Fraud detection algorithms, predictive analytics</td>
     </tr>
